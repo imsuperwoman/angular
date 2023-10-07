@@ -1,0 +1,74 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'get-info',
+        pathMatch: 'full'
+      },
+      {
+        path: 'leave-details',
+        loadChildren: () =>
+          import('../leave-details/leave-details.module').then((mod) => mod.LeaveDetailsModule),
+      },
+      {
+        path: 'fail',
+        loadChildren: () => import('../fail/fail.module').then((mod) => mod.FailModule),
+      },
+      {
+        path: 'success',
+        loadChildren: () => import('../success/success.module').then((mod) => mod.SuccessModule),
+      },
+      {
+        path: 'success-without-payment',
+        loadChildren: () => import('../success-without-payment/success-without-payment.module').then((mod) => mod.SuccessWithoutPaymentModule),
+      },
+      {
+        path: 'checkout',
+        loadChildren: () => import('../checkout/checkout.module').then((mod) => mod.CheckoutModule),
+      },
+      {
+        path: 'quotation',
+        loadChildren: () => import('../quotation/quotation.module').then((mod) => mod.QuotationModule),
+      },
+
+      {
+        path: 'get-info',
+        loadChildren: () => import('../get-info/get-info.module').then((mod) => mod.GetInfoModule),
+      },
+      {
+        path: 'customer-details',
+        loadChildren: () => import('../customer-details/customer-details.module').then((mod) => mod.CustomerDetailsModule),
+      },
+    ],
+  },
+  {
+    path: 'not-found',
+    loadChildren: () =>
+      import('../../../../../../pages/not-found/not-found.module').then((mod) => mod.NotFoundModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+  },
+];
+
+
+@NgModule({
+  declarations: [HomeComponent],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ReactiveFormsModule
+  ],
+  exports: [HomeComponent],
+})
+export class HomeModule { }

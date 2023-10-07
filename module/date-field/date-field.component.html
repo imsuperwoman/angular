@@ -1,0 +1,10 @@
+<nx-formfield [label]="label">
+  <input #dateField nxDatefield nxInput (click)="myDatepicker.open()" [parseFormat]="['DD/MM/YYYY']"
+    displayFormat="DD/MM/YYYY" [datepicker]="myDatepicker" [formControl]="control" [min]="minDate" [max]="maxDate"
+    autocomplete="off" (dateChange)="dateChange" blockInput (keyup)="keyup" />
+  <span nxFormfieldHint>DD/MM/YYYY</span>
+
+  <nx-datepicker-toggle [for]="myDatepicker" nxFormfieldSuffix></nx-datepicker-toggle>
+  <nx-datepicker (closed)="datePickerClosed($event)" (opened)="datePickerOpened($event)" #myDatepicker></nx-datepicker>
+  <nx-error nxFormfieldError> Please enter {{label.toLowerCase()}}. </nx-error>
+</nx-formfield>

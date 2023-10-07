@@ -1,0 +1,101 @@
+<div class="site-header" id="siteheader">
+  <header nx-header>
+    <nx-header-row>
+      <div class="site-header__main wrapper">
+        <a class="site-header__main-link" [href]="currentURL">
+          <img class="site-header__main-logo" [src]="imageFolder + 'allianz-logo.svg'"
+            alt="Textual description of allianz-logo.svg" />
+        </a>
+
+        <div class="site-header__navigation mobile" *ngIf="(menuData$ | async)?.length !==0">
+          <button nxPlainButton (click)="showClose(); showHamburger()" aria-label="open menu">
+            <nx-icon name="bars" *ngIf="hamburger" class="site-header__burger-logo"></nx-icon>
+            <nx-icon name="close" size="s" *ngIf="close" class="site-header__burger-logo close"></nx-icon>
+          </button>
+
+          <div class="site-header__burger-menu" [ngClass]="{ 'open--': !hamburger, 'close--': hamburger }">
+            <ng-container *ngFor="let item of menuData$| async">
+              <a nxMenuButton class="site-header__burger-button" (click)="openLeaveDialog(item.label)">{{
+                item.label
+                }}</a>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Desktop Partners -->
+        <div class="site-header__cobranding" *ngIf="activePartner$">
+          <nx-header-actions *ngIf="(sourceSystemCat$|async) != 'RFOL'"
+            class="cobranding site-header__cobranding-actions" [innerHTML]="
+              (activePartner$ | async)?.Header?.name ||
+              (activePartner$ | async)?.Header?.workingTime
+            ">
+          </nx-header-actions>
+          <nx-header-actions *ngIf="(sourceSystemCat$|async) == 'RFOL'"
+            class="cobranding site-header__cobranding-actions" [innerHTML]="
+             (activePartner$ | async)?.Header?.workingTime ||workingTime
+            ">
+          </nx-header-actions>
+
+          <nx-header-brand class="nx-margin-right-0" *ngIf="(activePartner$|async)?.Header?.tel">
+            <nx-link>
+              <a [href]="'tel:' + (activePartner$ | async)?.Header?.tel">
+                <figure nxFigure class="site-header__cobranding-figure">
+                  <nx-icon name="phone-o" size="s"></nx-icon>
+                </figure>
+                <span class="logo-text">{{ (activePartner$ | async)?.Header?.tel }}</span>
+              </a>
+            </nx-link>
+          </nx-header-brand>
+
+          <a class="site-header__main-link" [href]="(activePartner$ | async).PartnerWebsite" target="_blank"
+            *ngIf="partnerLogo!=''">
+            <img class="site-header__main-logo" [src]="partnerLogo" (error)="setDefaultPic()"
+              alt="Textual description of partnerLogo" />
+          </a>
+        </div>
+      </div>
+    </nx-header-row>
+
+    <!-- Mobile Partners -->
+    <div class="site-header__cobranding mobile-cobranding" *ngIf="activePartner$">
+      <div class="site-header__cobranding-info">
+        <p class="cobranding site-header__cobranding-actions" *ngIf="(sourceSystemCat$|async) != 'RFOL'" [innerHTML]="
+            (activePartner$ | async)?.Header?.name || (activePartner$ | async)?.Header?.workingTime
+          "></p>
+        <p class="cobranding site-header__cobranding-actions" *ngIf="(sourceSystemCat$|async) == 'RFOL'"
+          class="cobranding site-header__cobranding-actions" [innerHTML]="
+           (activePartner$ | async)?.Header?.workingTime ||workingTime
+           "></p>
+
+        <nx-header-brand class="nx-margin-right-0" *ngIf="(activePartner$|async)?.Header?.tel">
+          <nx-link>
+            <a [href]="'tel:' + (activePartner$ | async)?.Header?.tel">
+              <figure nxFigure class="site-header__cobranding-figure">
+                <nx-icon name="phone-o" size="s"></nx-icon>
+              </figure>
+              <span class="logo-text">{{ (activePartner$ | async)?.Header?.tel }}</span>
+            </a>
+          </nx-link>
+        </nx-header-brand>
+      </div>
+      <a [href]="(activePartner$ | async).PartnerWebsite" target="_blank" *ngIf="partnerLogo!=''">
+        <img class="site-header__cobranding-logo" [src]="partnerLogo" (error)="setDefaultPic()" [ngStyle]="{
+            width: partnerLogo + 'px'
+          }" alt="Textual description of partnerLogo" />
+      </a>
+    </div>
+
+    <nx-header-navigation class="site-header__navigation wrapper" *ngIf="(menuData$ | async)?.length !==0">
+      <nx-header-navigation-item *ngFor="let item of menuData$ |async">
+        <a :href="{{item.queryParams}}" target="{{item.target}}">
+          <a nxHeaderLink>{{ item.label }}</a>
+        </a>
+      </nx-header-navigation-item>
+    </nx-header-navigation>
+  </header>
+</div>
+
+<ng-template #leavePageDialog>
+  <leave-page-dialog (closeEvent)="closeDialog()" (leaveEvent)="leavePage()">
+  </leave-page-dialog>
+</ng-template>

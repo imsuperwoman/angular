@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <script>
+    const pathname = window.location.pathname.split("/")[1];
+    var titleName;
+    if (pathname === 'get-info') {
+      titleName = 'Travel Easy'
+    } else {
+      titleName = (pathname === 'travel-care') ? 'Travel Easy' : 'Travel Care';
+    }
+    document.title = titleName;
+  </script>
+  <title>document.title</title>
+  <base href=".">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.png" />
+  <!-- Allianz API key -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBciEMApH-X6dF8vay6lZNRarji3ktYrjQ&amp;libraries=places,geometry"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NHBWFH');</script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body>
+  <app-root></app-root>
+  <div class="padai-widget" hidden="hidden"></div>
+  <script src="https://chatdev.allianz.pand.ai/static/js/2.chunk.js"></script>
+  <script src="https://chatdev.allianz.pand.ai/static/js/main.chunk.js"></script>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src=https://www.googletagmanager.com/ns.html?id=GTM-NHBWFH height="0" width="0"
+      style="display:none;visibility:hidden" title="Main content" name="contents"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <style>
+    textarea::placeholder {
+      font-style: normal !important;
+    }
+  </style>
+</body>
+
+</html>

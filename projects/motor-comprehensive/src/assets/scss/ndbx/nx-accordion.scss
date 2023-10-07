@@ -1,0 +1,53 @@
+.azol-accordion {
+  user-select: none;
+  display: block;
+
+  &__title {
+    display: flex;
+    align-items: center;
+
+    &-icons {
+      margin-right: 13px;
+      display: inherit;
+      align-items: inherit;
+    }
+
+    &-icon {
+      &.checked--,
+      &.warning-- {
+        font-size: 22px !important;
+      }
+
+      &.checked-- {
+        color: $green;
+      }
+
+      &.warning-- {
+        color: $red;
+      }
+
+      &.unchecked-- {
+        width: 22px;
+        height: 22px;
+        padding: 2px;
+        border-radius: 10px;
+        background-color: $dark-white2;
+      }
+    }
+  }
+
+  &-checkbox {
+    margin-top: 24px;
+  }
+
+  @media ($bp-mds) {
+    .nx-expansion-panel__content {
+      overflow: visible !important;
+      contain: paint;
+    }
+
+    &-checkbox {
+      margin-top: 35px;
+    }
+  }
+}

@@ -1,0 +1,102 @@
+<nx-progress-stepper class="checkout__stepper" currentStepLabel="Step" #stepper>
+  <nx-step label="Get a Quote"></nx-step>
+  <nx-step label="Coverage Details"></nx-step>
+  <nx-step label="Policyholder Details"></nx-step>
+  <nx-step label="Policy Summary & Payment">
+    <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}></product-stage>
+
+    <div nxLayout="grid" class="align-center nx-margin-y-2m wrapper">
+      <div nxRow>
+        <div nxCol="12" class="nx-margin-bottom-m">
+          <h3 nxHeadline="subsection-large" class="font-color nx-margin-bottom-2m">
+            Review and pay
+          </h3>
+          <p nxCopytext="large">
+            Please review your coverage details and ensure they're correct before proceeding to payment.
+          </p>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="agreedPolicyForm">
+      <div nxLayout="grid" class="nx-margin-y-2m wrapper">
+        <div nxRow>
+          <div nxCol="12,12,7" class="nx-margin-bottom-m">
+            <h3 class="nx-font-weight-semibold">Coverage details</h3>
+            <hr>
+            <div nxLayout="grid nogutters" class="nx-margin-y-m">
+              <div nxRow class="nx-margin-bottom-2xs" *ngFor="let section of coverageDetails">
+                <div nxCol="6">
+                  <p nxCopytext="large" class="grey-listing">{{ section.label }}</p>
+                </div>
+                <div nxCol="6">
+                  <p nxCopytext="large">{{ section.value }}</p>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="nx-font-weight-semibold nx-margin-top-l">Policyholder details</h3>
+            <hr>
+            <div nxLayout="grid nogutters" class="nx-margin-top-m">
+              <div nxRow class="nx-margin-bottom-2xs break-email" *ngFor="let section of policyHolderDetails">
+                <div nxCol="6">
+                  <p nxCopytext="large" class="grey-listing">{{ section.label }}</p>
+                </div>
+                <div nxCol="6" class="cust_linebreak">
+                  <p nxCopytext="large">{{ section.value }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div nxCol="12,12,5" class="nx-margin-bottom-m card_center">
+            <quotation-summary-card class="quotation__summary with-border-- box-shadow_none"
+              [data]="summaries"></quotation-summary-card>
+          </div>
+
+          <nx-checkbox class="nx-margin-y-l" formControlName="policyAgreed">
+            <p nxCopytext="large" class="nx-font-weight-normal">I have read your Privacy Statement and agree to
+              provide
+              my personal data for issuance of the relevant coverage, and to receive future marketing/
+              promotions from Allianz. I understand that I can choose to unsubscribe at any time if I no longer wish to
+              receive any marketing or promotions from
+              Allianz by writing to <nx-link class="nx-link--normal"><a
+                  href="mailto:customerservice@allianz.com.my">customerservice@allianz.com.my</a></nx-link>.<br>
+              <br>
+              Click <nx-link class="nx-link--normal"><a
+                  href="https://www.allianz.com.my/personal/privacy-statement.html" target="_blank">Privacy
+                  Notice</a></nx-link> to read the terms and
+              conditions.
+            </p>
+          </nx-checkbox>
+
+          <!-- reCAPTCHA v2 -->
+          <div class="nx-margin-bottom-s button_center" *ngIf="recaptchaEnabled$ != 'N'">
+            <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div nxLayout="grid nopadding" class="nx-margin-bottom-xl nx-margin-top-2xl wrapper">
+        <div nxRow>
+          <div nxCol="12,12,2,3" class="nx-hidden-xs nx-hidden-s "></div>
+          <div nxCol="12,12,4,3">
+            <button nxButton="block secondary" type="button" class="nx-margin-bottom-m"
+              (click)="proceedBack()">Back</button>
+          </div>
+          <div nxCol="12,12,4,3">
+            <button nxButton="block primary" type="button" class="nx-margin-bottom-m"
+              [disabled]="!agreedPolicyForm.valid" (click)="openPaymentDialog()">purchase
+              now</button>
+          </div>
+          <div nxCol="12,12,2,3" class="nx-hidden-xs nx-hidden-s "></div>
+        </div>
+      </div>
+    </form>
+  </nx-step>
+</nx-progress-stepper>
+
+<payment-dialog #paymentDialogModal returnUrl="{{editUrl}}" alignType="2" (closeEmitter)="paymentDialogModalClose()">
+</payment-dialog>
+
+<hr style="border: 0; border-bottom: 1px solid #d9d9d9; margin: 0;">

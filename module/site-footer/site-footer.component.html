@@ -1,0 +1,119 @@
+<!-- Helpline -->
+<div class="site-footer__helpline" *ngIf="(flowType$|async) == 'DIRECT'">
+  <div class="site-footer__helpline-mobile">
+    <p class="site-footer__helpline-mobile-text">Need help?</p>
+    <h2 class="site-footer__helpline-mobile-header">Services & contact</h2>
+    <button class="site-footer__helpline-mobile-button" nxButton="primary" type="button"
+      (click)="showHelpline = !showHelpline" *ngIf="!showHelpline">
+      VIEW MORE
+    </button>
+  </div>
+
+  <div class="site-footer__helpline-services wrapper" *ngIf="showHelpline || !mobileMode">
+    <div class="site-footer__helpline-service" *ngFor="let helpline of contentData.helplineInfos">
+      <h4 class="site-footer__helpline-service-header">{{ helpline.header }}</h4>
+      <p class="site-footer__helpline-service-description">{{ helpline.description }}</p>
+      <button ejs-button cssClass='e-link' class="site-footer__helpline-service-button" nxButton="primary"
+        type="button">
+        <a href="{{ helpline.button.url }}" target='_blank'>
+          {{ helpline.button.text }}
+        </a>
+      </button>
+      <p class="site-footer__helpline-service-note">{{ helpline.note }}</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="site-footer" *ngIf="(flowType$|async) == 'DIRECT'">
+  <div class="site-footer__navigations wrapper">
+    <div class="site-footer__navigation-holder">
+      <div class="site-footer__navigation" *ngFor="let item of FOOTER_MENU">
+        <div class="site-footer__navigation-header">
+          <p>{{ item.label }}</p>
+        </div>
+
+        <div class="site-footer__navigation-links">
+          <nx-link nxStyle='black' *ngFor="let child of item.children">
+            <a href='{{ child.link }}' class="site-footer__navigation-link" target='_blank'>{{ child.label }}</a>
+          </nx-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__image-holder">
+      <picture class="site-footer__image-wrapper">
+        <img class="site-footer__image" [src]="imageFolder + 'footer/image-footer.png'"
+          alt="Textual description of image-footer.png">
+      </picture>
+    </div>
+  </div>
+
+  <div class="site-footer__navigations wrapper mobile">
+    <ng-container *ngFor="let item of FOOTER_MENU">
+      <button nxMenuButton (click)="onClick(item)" menuButtonTypemenuButtonType="root" [expandable]="!!item.children"
+        [expanded]="item.expanded" type="button" class="mobile-button">
+        {{item.label}}
+      </button>
+
+      <div nxMenuItem *ngIf="item.children && item.expanded">
+        <a *ngFor="let child of item.children" href="{{ child.link }}" target='_blank'>{{child.label}}</a>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div class="site-footer__social" *ngIf="(flowType$|async) == 'DIRECT'">
+  <h1 class="site-footer__social-header">
+    We are Allianz. We are here to make insurance easy and fitting for you.
+  </h1>
+
+  <div class="site-footer__social-logo">
+    <a href="https://www.facebook.com/AllianzMalaysia">
+      <nx-icon name="facebook-circle" size="s" class="site-footer__social-logo-fb"></nx-icon>
+    </a>
+
+    <a href="https://www.instagram.com/allianzmalaysia">
+      <nx-icon name="instagram-circle" size="s" class="site-footer__social-logo-ins"></nx-icon>
+    </a>
+
+    <a href="https://www.linkedin.com/company/allianzmalaysia">
+      <nx-icon name="linkedin-circle" size="s" class="site-footer__social-logo-li"></nx-icon>
+    </a>
+
+    <a href="https://www.youtube.com/user/allianzmalaysia">
+      <nx-icon name="youtube-circle-play" size="s" class="site-footer__social-logo-yt"></nx-icon>
+    </a>
+  </div>
+
+  <div class="site-footer__social-partner">
+    <a href="https://piam.org.my/" target="__blank">
+      <img [src]="imageFolder + 'footer/PIAM.png'" alt="Textual description of PIAM.png">
+    </a>
+
+    <a href="https://www.liam.org.my/" target="__blank">
+      <img [src]="imageFolder + 'footer/LIAM.png'" alt="Textual description of LIAM.png">
+    </a>
+
+    <a href="http://insuranceinfo.com.my/" target="__blank">
+      <img [src]="imageFolder + 'footer/infoInsurance.png'" alt="Textual description of infoInsurance.png">
+    </a>
+
+    <a href="https://www.bnm.gov.my/" target="__blank">
+      <img [src]="imageFolder + 'footer/BNM.png'" alt="Textual description of BNM.png">
+    </a>
+  </div>
+</div>
+
+<div class="site-footer__copyright">
+  <footer nx-footer class="wrapper site-footer__copyright-holder">
+    <nx-footer-copyright>
+      &copy; Allianz Malaysia Berhad (197201000819) 2022. All rights reserved.
+    </nx-footer-copyright>
+    <nx-footer-navigation>
+      <nx-footer-link *ngFor="let item of (footerMenuData$ |async )">
+        <a [href]="item.queryParams">{{item.label}}</a>
+      </nx-footer-link>
+    </nx-footer-navigation>
+  </footer>
+</div>

@@ -1,0 +1,318 @@
+<form [formGroup]="motorComprehensiveForm" class="motor-comprehensive__form">
+    <nx-progress-stepper currentStepLabel="Step" #stepper [class.wide--]="activePartner">
+        <nx-step label="Get a Quote"></nx-step>
+        <nx-step label="Vehicle & Owner Details">
+            <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+            </product-stage>
+
+            <div class="vehicle-owner-details" formGroupName="vehicleOwnerDetailsForm">
+                <div class="vehicle-owner-details__wrapper">
+                    <p class="vehicle-owner-details__title">Please fill in all mandatory fields.</p>
+
+                    <div class="vehicle-owner-details__insurance-period">
+                        <p class="vehicle-owner-details__insurance-period-label">Period of coverage</p>
+                        <p class="vehicle-owner-details__insurance-period-value">{{insurancePeriod}}</p>
+                    </div>
+
+                    <div class="vehicle-owner-details__accordion">
+                        <nx-accordion variant="light" [multi]="true">
+                            <nx-expansion-panel [expanded]="true">
+                                <nx-expansion-panel-header>
+                                    <nx-expansion-panel-title class="nx-accordion__expansion-panel-title">
+                                        <accordion-indicator class="vehicle-owner-details__accordion-indicator"
+                                            [control]="vehicleDetails">
+                                        </accordion-indicator>
+                                        Vehicle details
+                                    </nx-expansion-panel-title>
+                                </nx-expansion-panel-header>
+
+                                <nx-natural-language-form class="vehicle-owner-details__natural-language-form"
+                                    size="small" formGroupName="vehicleDetails">
+                                    My car is a
+
+                                    <nx-word class="nx-formfield__input-dropdown size-medium"
+                                        label="Provide this required field">
+                                        <nx-dropdown [showFilter]="true" required formControlName="brand"
+                                            (valueChange)="brandChange($event)">
+                                            <nx-dropdown-item *ngFor="let AVMakeList of (AVMakeList$|async)"
+                                                [value]="AVMakeList">
+                                                {{AVMakeList.Description}}</nx-dropdown-item>
+                                        </nx-dropdown>
+                                    </nx-word>
+
+                                    <nx-word class="nx-formfield__input-dropdown" label="Provide this required field">
+                                        <nx-dropdown [showFilter]="true" required formControlName="model"
+                                            (valueChange)="modelChange($event)">
+                                            <nx-dropdown-item *ngFor="let model of models" [value]="model.AvModelCode">
+                                                {{model.AvModelCode}}</nx-dropdown-item>
+                                        </nx-dropdown>
+                                    </nx-word>
+
+                                    <br /> made in
+
+                                    <nx-word class="nx-formfield__input-dropdown" label="Provide this required field">
+                                        <nx-dropdown required formControlName="year" (valueChange)="yearChange($event)">
+                                            <nx-dropdown-item *ngFor="let year of years"
+                                                [value]="year.MakeYear">{{year.MakeYear}}
+                                            </nx-dropdown-item>
+                                        </nx-dropdown>
+                                    </nx-word>
+                                    <br />
+                                    <div class="vehicle-owner-details__variant-row">
+                                        The variant is
+                                        <nx-word class="nx-formfield__input-dropdown"
+                                            label="Provide this required field">
+                                            <nx-dropdown [showFilter]="true" required
+                                                (valueChange)="variantChange($event)" formControlName="carType">
+                                                <nx-dropdown-item *ngFor="let variant of variants"
+                                                    [value]="variant.Variant">
+                                                </nx-dropdown-item>
+                                            </nx-dropdown>
+                                        </nx-word>
+                                        .
+                                    </div>
+                                    My car
+
+                                    <nx-word class="nx-formfield__input-dropdown" label="Provide this required field">
+                                        <nx-dropdown required formControlName="reconditionedCar">
+                                            <nx-dropdown-item *ngFor="let condition of conditions"
+                                                [value]="condition.value">
+                                                {{ condition.label}}
+                                            </nx-dropdown-item>
+                                        </nx-dropdown>
+                                    </nx-word>
+
+                                    a reconditioned car
+
+                                    <div class="vehicle-owner-details__natural-language-form-tooltip">
+                                        <nx-icon class="icon-circle" name="info-circle-o" size="s"
+                                            (click)="openInfoDialog('mobile-full'); observe()"></nx-icon>
+                                    </div>
+
+                                    <hr class="vehicle-owner-details__natural-language-form-divider" />
+
+                                    <div class="vehicle-owner-details__natural-language-form-confirmations">
+                                        <p class="vehicle-owner-details__natural-language-form-confirmation-copy">
+                                            Please confirm your car details.
+                                        </p>
+                                        <div class="vehicle-owner-details__natural-language-form-confirmation"
+                                            [class.fullWidth--]="i === 3"
+                                            *ngFor="let confirmation of confirmations; index as i">
+                                            <ng-container *ngIf="!confirmation.editing">
+                                                <div
+                                                    class="vehicle-owner-details__natural-language-form-confirmation-info">
+                                                    <p
+                                                        class="vehicle-owner-details__natural-language-form-confirmation-info-label">
+                                                        {{ confirmation.label }}
+                                                    </p>
+
+                                                    <p
+                                                        class="vehicle-owner-details__natural-language-form-confirmation-info-value">
+                                                        {{ confirmation.value ? confirmation.value : '-' }}
+                                                    </p>
+                                                </div>
+
+                                                <button type="button"
+                                                    class="vehicle-owner-details__natural-language-form-confirmation-button"
+                                                    [disabled]="vehicleDetailsDataFilledIn"
+                                                    (click)="confirmation.editing = true" nxPlainButton>
+                                                    <nx-icon name="pen" size="s" class="icon-pen"></nx-icon>
+                                                </button>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="confirmation.editing" formGroupName="comDetails">
+                                                <div class="vehicle-owner-details__natural-language-form-confirmation-info"
+                                                    *ngIf="confirmation.type === 'dropdown'">
+                                                    <nx-formfield [label]="confirmation.label">
+                                                        <nx-dropdown required
+                                                            [formControlName]="confirmation.controlName"
+                                                            (ngModelChange)="confirmationChange($event, confirmation.controlName)"
+                                                            [showFilter]="confirmation.showFilter">
+                                                            <div *ngIf="confirmation.controlName !== 'comCarType'">
+                                                                <nx-dropdown-item
+                                                                    *ngFor="let item of confirmation.dropdown"
+                                                                    [value]="item.Code">
+                                                                    {{item.Description}}
+                                                                </nx-dropdown-item>
+                                                            </div>
+                                                            <div *ngIf="confirmation.controlName === 'comCarType'">
+                                                                <nx-dropdown-item
+                                                                    *ngFor="let item of confirmation.dropdown"
+                                                                    [value]="item.AvCode">
+                                                                    {{item.Variant}}
+                                                                </nx-dropdown-item>
+                                                            </div>
+                                                        </nx-dropdown>
+                                                    </nx-formfield>
+                                                </div>
+
+                                                <div class="vehicle-owner-details__natural-language-form-confirmation-info"
+                                                    *ngIf="confirmation.type === 'input'">
+                                                    <nx-formfield [label]="confirmation.label">
+                                                        <input nxInput [formControlName]="confirmation.controlName"
+                                                            required autocomplete="off" type="text" numberOnly
+                                                            (focusout)="confirmationChange($event, confirmation.controlName)" />
+                                                    </nx-formfield>
+                                                </div>
+                                                <button type="button"
+                                                    class="vehicle-owner-details__natural-language-form-confirmation-button"
+                                                    (click)="confirmation.editing = false" nxPlainButton>
+                                                    <nx-icon name="close" size="s" class="icon-pen"></nx-icon>
+                                                </button>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </nx-natural-language-form>
+                            </nx-expansion-panel>
+
+                            <nx-expansion-panel>
+                                <nx-expansion-panel-header>
+                                    <nx-expansion-panel-title class="nx-accordion__expansion-panel-title">
+                                        <accordion-indicator class="vehicle-owner-details__accordion-indicator"
+                                            [control]="ownerDetails">
+                                        </accordion-indicator>
+                                        Vehicle owner details
+                                    </nx-expansion-panel-title>
+                                </nx-expansion-panel-header>
+
+                                <nx-natural-language-form class="vehicle-owner-details__natural-language-form"
+                                    size="small" formGroupName="ownerDetails">
+                                    I am
+
+                                    <nx-word class="nx-formfield__input-dropdown" label="Provide this required field">
+                                        <nx-dropdown required formControlName="gender">
+                                            <nx-dropdown-item *ngFor="let gender of genders" [value]="gender.value">
+                                                {{ gender.label}}
+                                            </nx-dropdown-item>
+
+                                        </nx-dropdown>
+                                    </nx-word>
+
+                                    and my birthday is
+
+                                    <div class="vehicle-owner-details__natural-language-form-date">
+                                        <date-field [control]="ownerDetails.get('dob')" [minDate]="minDateDOB"
+                                            [maxDate]="maxDateDOB"></date-field>
+                                    </div>
+                                    .
+
+                                    <br /> I am currently
+
+                                    <nx-word class="nx-formfield__input-dropdown size-medium"
+                                        label="Provide this required field">
+                                        <nx-dropdown required formControlName="status">
+                                            <nx-dropdown-item *ngFor="let maritalStatus of (maritalStatus$|async)"
+                                                [value]="maritalStatus.Code">{{maritalStatus.Description}}
+                                            </nx-dropdown-item>
+                                        </nx-dropdown>
+                                    </nx-word>
+                                </nx-natural-language-form>
+                            </nx-expansion-panel>
+                        </nx-accordion>
+
+                    </div>
+                </div>
+
+                <div class="vehicle-owner-details__recaptcha" *ngIf="recaptchaEnabled$ === 'Y'">
+                    <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+                </div>
+
+                <div class="vehicle-owner-details__buttons step-two--">
+                    <button class="vehicle-owner-details__button step-two--" nxButton="secondary" type="button"
+                        queryParamsHandling="preserve" routerLink="/get-info" (click)="proceedBack()">
+                        Back
+                    </button>
+                    <button class="vehicle-owner-details__button step-two--"
+                        *ngIf="flowSelectedType =='direct'||(flowType$|async)!=='DIRECT'" nxButton="primary"
+                        type="button" queryParamsHandling="preserve" (click)="proceedNext()"
+                        [disabled]="vehicleOwnerDetailsForm.invalid">
+                        Next
+                    </button>
+                    <div *ngIf="flowSelectedType =='agent'" class="horizontal-checkboxes">
+                        <button class="vehicle-owner-details__button button_seven" nxButton="primary" type="button"
+                            queryParamsHandling="preserve" (click)="getAgentLocator()"
+                            [disabled]="vehicleOwnerDetailsForm.invalid">
+                            FIND AN AGENT
+                        </button>
+                        <icon-popover class="nx-margin-top-s nx-margin-left-s"
+                            popoverMessage="By clicking ‘Find An Agent’, you may select an agent of your choice to contact you for further explanation and assistance on this product.">
+                        </icon-popover>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="vehicle-owner-details__divider" />
+        </nx-step>
+        <nx-step label="Quotation"></nx-step>
+        <nx-step *ngIf="!activePartner" label="Find An Agent"></nx-step>
+        <nx-step *ngIf="activePartner" label="Policyholder Details"></nx-step>
+        <nx-step *ngIf="activePartner" label="Policy Summary & Payment"></nx-step>
+    </nx-progress-stepper>
+</form>
+
+<!-- Popover Info Dialog -->
+<ng-template #popoverInfoDialog>
+    <div class="modal-dialog__shared-content" nxModalContent>
+        <h3 class="modal-dialog__shared-header">Info</h3>
+        <hr class="modal-dialog__shared-break" />
+
+        <div class="modal-dialog__shared">
+            <p class="modal-dialog__shared-description">What is considered a reconditioned car?</p>
+
+            <div class="modal-dialog__shared-table">
+                <nx-swipebar label="Swipe to view more" #swipeBar>
+                    <nx-comparison-table #comparisonTable class="modal-dialog__comparison-table">
+                        <ng-container nxComparisonTableRow type="header">
+                            <nx-comparison-table-cell type="header">
+                                <div class="header-container">
+                                    <p class="product-title">Point of purchase</p>
+                                </div>
+                            </nx-comparison-table-cell>
+
+                            <nx-comparison-table-cell type="header">
+                                <div class="header-container">
+                                    <p class="product-title">Status</p>
+                                </div>
+                            </nx-comparison-table-cell>
+                        </ng-container>
+
+                        <ng-container nxComparisonTableRow>
+                            <nx-comparison-table-cell>New import (import baru)</nx-comparison-table-cell>
+                            <nx-comparison-table-cell>Not reconditioned</nx-comparison-table-cell>
+                        </ng-container>
+
+                        <ng-container nxComparisonTableRow>
+                            <nx-comparison-table-cell>Used import (import terpakai)</nx-comparison-table-cell>
+                            <nx-comparison-table-cell>Reconditioned</nx-comparison-table-cell>
+                        </ng-container>
+
+                        <ng-container nxComparisonTableRow>
+                            <nx-comparison-table-cell>Locally assembled (pemasangan tempatan)</nx-comparison-table-cell>
+                            <nx-comparison-table-cell>Not reconditioned</nx-comparison-table-cell>
+                        </ng-container>
+                    </nx-comparison-table>
+                </nx-swipebar>
+            </div>
+
+            <div class="modal-dialog__terms">
+                <p class="modal-dialog__term">
+                    Click
+                    <nx-link>
+                        <a href="assets/allianz/forms/Where_to_find_the_status_of_your_car.pdf" target="_blank">here</a>
+                    </nx-link>
+                    to check whether your car is reconditioned.
+                </p>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<shared-dialog #leaveMyDetailsDialog [header]="leaveMyDetailsDialogHeader"
+    [description]="leaveMyDetailsDialogDescription" [routingPath]="'/leave-details'" [buttonText]="'LEAVE MY DETAILS'">
+</shared-dialog>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+    [buttonText]="'CLOSE'"></shared-dialog>
+
+<shared-dialog #serverTimeoutDialog [header]="serverTimeoutDialogHeader" [description]="serverTimeoutDialogDescription"
+    [buttonText]="'CLOSE'"></shared-dialog>

@@ -1,0 +1,18 @@
+/*--------------------
+    Nx Card
+--------------------*/
+
+.content{
+  display: flex !important;
+  flex-wrap: wrap;
+  row-gap: 32px;
+  column-gap: 50px;
+}
+
+.checkbox.hide-- {
+  display: none !important;
+}
+
+.renewal-get-info__details-card.hide-- .checkbox {
+  display: none;
+}

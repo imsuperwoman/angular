@@ -1,0 +1,71 @@
+/*--------------------
+    Nx Modal Dialog
+--------------------*/
+
+nx-modal-container {
+  height: unset !important;
+  margin: 0px 8px !important;
+}
+
+.mobile-modal-full-screen-- nx-modal-container {
+  margin: 0px !important;
+  min-height: inherit;
+}
+
+.close-button .nx-modal__close {
+  top: 13px !important;
+  right: 14px !important;
+}
+
+.close-button .nx-modal__close nx-icon {
+  font-size: 25px !important;
+}
+
+.modal-dialog__insured-form-one-radio label,
+.modal-dialog__insured-form-two-radio label {
+  justify-content: center;
+}
+
+.cdk-global-overlay-wrapper{
+  z-index: 1001 !important;
+}
+
+@media only screen and (max-width: 704px) {
+  nx-modal-container {
+    padding: 40px 16px 60px !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-modal-full-screen-- nx-modal-container {
+    padding: 0 !important;
+    margin: 0px !important;
+    min-height: 100vh !important;
+  }
+
+  .mobile-modal-full-screen-- .nx-modal__close {
+    top: 22px !important;
+  }
+
+  .nx-modal__close {
+    z-index: 2;
+  }
+
+  .close-button .nx-modal__close nx-icon {
+    font-size: 20px !important;
+  }
+}
+
+@media only screen and (min-width: 704px) {
+  .cdk-overlay-pane {
+    max-width: unset !important;
+    min-height: unset !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nx-modal-container {
+    max-width: 736px !important;
+    margin-right: 8px !important;
+    margin-left: 8px !important;
+  }
+}

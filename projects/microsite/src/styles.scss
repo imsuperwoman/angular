@@ -1,0 +1,639 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/cdk/overlay-prebuilt.css';
+@import '@angular/cdk/a11y-prebuilt.css';
+
+/*---- Globals ----*/
+
+@import 'globals/functions';
+@import 'globals/vars';
+
+/*---- Low Priority Components ----*/
+// @import 'components/starters';
+
+/*---- Components ----*/
+@import 'components/spinner';
+@import 'components/wrappers';
+
+@import '@aposin/ng-aquila/css/utilities.css';
+
+.cust_linebreak {
+  white-space: pre-wrap;
+}
+
+.mobile {
+  display: block;
+
+  &-cobranding {
+    width: 100%;
+    padding: 8px 16px;
+    border-bottom: 1px solid $dark-white2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__sunway {
+      height: 90px !important;
+      width: 100%;
+      display: flex;
+      padding-left: 32px;
+      padding-right: 32px;
+      align-items: center;
+      justify-content: space-between;
+
+      &-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+}
+
+.close {
+  color: #999;
+}
+
+.open-- {
+  max-height: 100vh;
+  transition: 1.75s;
+}
+
+.close-- {
+  max-height: 0;
+  transition: 1s;
+}
+
+.break-email:nth-child(5)>div>p {
+  word-break: break-all;
+  -ms-word-break: break-all;
+}
+
+
+//  ........................................................
+// Customer detail
+//  ........................................................
+
+.footer_border {
+  border-top: 1px solid #767676;
+}
+
+.expansion-title-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+nx-accordion ::ng-deep .nx-error__icon {
+  color: var(--danger, #ED6F7C);
+  margin-right: 16px;
+}
+
+
+.customer-details__wrapper {
+  padding: 0 16px;
+  width: 100%;
+  max-width: 928px;
+  margin: 0 auto;
+}
+
+//  ........................................................
+// Quotation
+//  ........................................................
+
+@media (min-width: 704px) {
+  .nx-grid_69 {
+    flex: 0 0 62% !important;
+    max-width: 62% !important;
+  }
+
+  .nx-grid_31 {
+    flex: 0 0 38% !important;
+    max-width: 38% !important;
+  }
+}
+
+@media (min-width: 800px) {
+  .nx-grid_69 {
+    flex: 0 0 69% !important;
+    max-width: 69% !important;
+  }
+
+  .nx-grid_31 {
+    flex: 0 0 31% !important;
+    max-width: 31% !important;
+  }
+
+
+}
+
+@media (min-width: 1025px) {
+
+  ::ng-deep .nx-comparison-table__description-cell,
+  ::ng-deep .nx-comparison-table__placeholder-cell {
+    width: 100px !important;
+  }
+
+  ::ng-deep .nx-comparison-table__row.ng-star-inserted {
+    width: 915px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+
+  ::ng-deep .nx-comparison-table__description-cell,
+  ::ng-deep .nx-comparison-table__placeholder-cell {
+    width: 0 !important;
+  }
+
+  ::ng-deep .nx-comparison-table__row.ng-star-inserted {
+    width: unset !important;
+  }
+}
+
+.button_width {
+  max-width: 256px;
+}
+
+.box-shadow_none {
+  box-shadow: none;
+  border: none;
+  padding: 0;
+}
+
+
+//  ........................................................
+// Width
+//  ........................................................
+
+.full_width {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .container_for_content {
+    max-width: 1110px;
+    padding: 55px 16px;
+  }
+}
+
+@media (min-width: 800px) {
+  .container_for_content {
+    max-width: 1080px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 55px 32px;
+  }
+}
+
+@media (max-width: 991px) {
+  .container_for_content {
+    padding: 55px 16px;
+  }
+}
+
+.nxlink_small_size {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: #006192;
+  font-weight: 600 !important;
+}
+
+//  ........................................................
+// Padding / Margin
+//  ........................................................
+
+.nopadding {
+  padding: 0 !important;
+}
+
+.padding_quotation {
+  padding: 32px 0;
+}
+
+
+//  ........................................................
+// Forms
+//  ........................................................
+
+.width_mobile_dropdown {
+  width: 130px;
+}
+
+//  ........................................................
+// Stage
+//  ........................................................
+
+.stage-bg {
+  background-color: #F5F3ED;
+}
+
+::ng-deep nx-small-stage .content {
+  display: block !important;
+  margin-bottom: 0 !important;
+}
+
+::ng-deep nx-small-stage .container {
+  display: block !important;
+}
+
+::ng-deep nx-small-stage .header {
+  display: none !important;
+}
+
+.nx-heading--subsection-xsmall {
+  font-size: 18px !important;
+  line-height: 25px !important;
+}
+
+figure {
+  display: grid !important;
+}
+
+.banner-img {
+  width: 50%;
+  place-self: center;
+}
+
+.column-bottom {
+  align-self: self-end;
+}
+
+
+//  ........................................................
+// Text alignment
+//  ........................................................
+
+.align-center {
+  text-align: center;
+  text-align: -webkit-center;
+}
+
+.align-right {
+  text-align: right;
+  text-align: -webkit-right;
+}
+
+.align-left {
+  text-align: left;
+  text-align: -webkit-left;
+}
+
+.overflow_text {
+  overflow-wrap: break-word;
+}
+
+//  ........................................................
+// Button & Links
+//  ........................................................
+
+.nxlink_small_size {
+  font-size: var(--paragraph-04-font-size);
+  line-height: var(--paragraph-04-line-height);
+  font-weight: 700;
+  color: var(--button-primary-background-color);
+  letter-spacing: var(--paragraph-04-letter-spacing);
+}
+
+.button_center {
+  display: block;
+  margin: 0 auto;
+}
+
+.nx-link--normal {
+  font-size: var(--paragraph-02-font-size);
+  line-height: var(--paragraph-02-line-height);
+  letter-spacing: var(--paragraph-02-letter-spacing);
+  color: var(--button-primary-background-color);
+}
+
+.button_padding_small {
+  padding: calc(12px - var(--button-border-width)) calc(10px - var(--button-border-width)) !important;
+}
+
+.nxlink_spcaing_normal {
+  letter-spacing: var(--paragraph-03-letter-spacing);
+}
+
+.nx-button--secondary:hover:not([disabled]):not(:active) {
+  background-color: var(--button-secondary-hover-background-color) !important;
+  color: var(--button-secondary-hover-text-color) !important;
+  border-color: var(--button-secondary-hover-border-color) !important;
+}
+
+
+//  ........................................................
+// Color
+//  ........................................................
+
+.light_blue_color {
+  background-color: #E6F4F6;
+}
+
+.font-color {
+  color: #414141;
+  font-size: 20px;
+  margin-top: 24px;
+}
+
+.fail {
+  &__header {
+    padding-right: 4px;
+    padding-left: 4px;
+    font-size: 35px;
+    font-weight: $fw-light;
+    letter-spacing: 0.3px;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  &__subheader {
+    padding-right: 4px;
+    padding-left: 4px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+  }
+}
+
+.grey-listing {
+  color: var(--ui-05);
+}
+
+
+//  ........................................................
+// Table
+//  ........................................................
+
+.border_bold {
+  border-top: 2px solid var(--table-border-bottom-color);
+}
+
+.border_last_normal {
+  border-bottom: 1px solid var(--table-cell-border-top-color);
+}
+
+.card_center {
+  text-align: -webkit-center;
+}
+
+// ........................................................
+// Customer Details
+// ........................................................
+
+@media (min-width: 481px) {
+  ::ng-deep .large_no_accordion {
+    .nx-expansion-panel__content {
+      height: auto !important;
+      visibility: visible !important;
+    }
+  }
+
+  .click_disable_accordion {
+    // pointer-events: none !important;
+  }
+
+  ::ng-deep .hide_accordion_arrow {
+    .nx-expansion-panel__chevron {
+      display: none;
+    }
+  }
+}
+
+::ng-deep .nx-tooltip {
+  opacity: 0 !important
+}
+
+::ng-deep .ellipsis {
+  max-width: inherit !important;
+}
+
+.hide_icon {
+  .nx-icon--check-circle:before {
+    content: "";
+    background: #E2E2E2;
+    border-radius: 50%;
+  }
+}
+
+.nopadding-right {
+  padding-right: 0 !important;
+}
+
+.nopadding-left {
+  padding-left: 0 !important;
+}
+
+.nx-expansion-panel--light:not(.nx-expansion-panel--negative):last-child,
+.nx-expansion-panel--light:not(.nx-expansion-panel--negative):only-child {
+  box-shadow: 0 0 0 0 var(--accordion-light-border-color) !important;
+}
+
+::ng-deep .checked_green {
+  color: var(--success) !important;
+
+  nx-icon:hover {
+    color: var(--success) !important;
+  }
+}
+
+::ng-deep .checked_warning {
+  color: $red !important;
+
+  nx-icon:hover {
+    color: $red !important;
+  }
+}
+
+@media (min-width: 704px) {
+  .noclickable {
+    cursor: text;
+    pointer-events: none;
+  }
+}
+
+
+//  ........................................................
+// Comparison Table
+//  ........................................................  
+
+.container {
+  padding: 12px;
+}
+
+.product-title {
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.product-price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.2px;
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.product-text {
+  margin-top: -20px;
+  padding-bottom: 20px;
+}
+
+.product-underline {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+  margin: 0;
+}
+
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header-container button {
+  margin: 0 auto;
+  margin-bottom: 5px;
+}
+
+.has-popover {
+  display: flex;
+  flex-direction: row;
+  word-break: break-word;
+}
+
+.info-icon {
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 703px) {
+  .has-popover {
+    text-align: left;
+  }
+}
+
+.popular-cell__content-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popular-cell__title {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+.info-icon,
+.popular-info-icon {
+  align-self: flex-start;
+}
+
+@media only screen and (min-width: 704px) and (max-width: 991px) {
+  .info-icon {
+    margin-left: 8px;
+  }
+
+  .has-popover {
+    align-items: center;
+  }
+}
+
+.minus-icon {
+  color: var(--documentation-comparison-table-example-minus-color);
+}
+
+.check-icon {
+  color: var(--success);
+}
+
+::ng-deep .is-selected .check-icon {
+  color: var(--success-02, --success);
+}
+
+
+//  ........................................................
+// Popup
+//  ........................................................
+
+nx-icon {
+  color: var(--interactive-primary, #27abd6);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+nx-icon:hover {
+  color: var(--hover-primary, #3bb4db);
+}
+
+nx-icon.cdk-mouse-focused {
+  outline: none;
+}
+
+.padding_checkout_quotation {
+  padding: 32px 16px;
+}
+
+.font-20 {
+  font-size: 20px
+}
+
+@media (min-width: 1024px) {
+  .container_for_checkout {
+    max-width: 991px;
+
+  }
+}
+
+@media (min-width: 704px) {
+  .container_for_checkout {
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+  .alignment {
+    text-align: center !important;
+    text-align: -webkit-center !important;
+  }
+}
+
+//  ........................................................
+// Payment
+//  ........................................................
+
+.tng-img {
+  width: 27%;
+  place-self: center;
+}
+
+
+//  ........................................................
+// Successful
+//  ........................................................
+
+.successful {
+  padding: 53px 16px 60px;
+  border-bottom: 1px solid $dark-white2;
+
+  &__image {
+    width: 120px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  @media ($bp-mds) {
+
+    &__image {
+      width: 150px;
+    }
+  }
+}

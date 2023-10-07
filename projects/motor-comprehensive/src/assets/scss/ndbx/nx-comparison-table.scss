@@ -1,0 +1,144 @@
+.azol__comparison-table {
+  user-select: none;
+  margin-top: 24px;
+
+  &-recommended {
+    padding: 6px 8px;
+
+    &-title {
+      font-size: 14px;
+      font-weight: $fw-semibold;
+      letter-spacing: 0.2px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+
+  &-header {
+    padding: 0 2px 8px;
+
+    &-title,
+    &-premium {
+      font-weight: $fw-semibold;
+    }
+
+    &-title {
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.2px;
+    }
+
+    &-premium {
+      margin-top: 10px;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+      line-height: 28px;
+    }
+
+    &-button {
+      margin-top: 10px;
+    }
+  }
+
+  &-row {
+    display: flex;
+    column-gap: 9px;
+    justify-content: space-between;
+
+    &-header {
+      font-weight: $fw-semibold;
+      line-height: 24px;
+      word-break: keep-all;
+      text-align: left;
+    }
+
+    &-detail {
+      padding: 8px 2px;
+    }
+  }
+
+  @media ($bp-mds-dn) {
+    table {
+      tr {
+        th:nth-of-type(n + 3),
+        td:nth-of-type(n + 3) {
+          min-width: 158px;
+        }
+      }
+    }
+  }
+
+  @media ($bp-mds) {
+    // width: calc(100% + 64px);
+    // margin-left: -32px;
+
+    table {
+      tr {
+        th:nth-of-type(n + 3),
+        td:nth-of-type(n + 3) {
+          min-width: 150px;
+        }
+      }
+    }
+
+    &-recommended {
+      padding: 2px 0;
+
+      &-title {
+        font-weight: $fw-bold;
+      }
+    }
+
+    &-header {
+      padding: 0 6px;
+
+      &-title {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      &-premium {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      &-button {
+        margin-top: 14px;
+      }
+    }
+
+    &-row {
+      &-detail {
+        padding: 0;
+      }
+    }
+
+    &-footer {
+      padding: 0 6px;
+
+      &-plan {
+        margin-top: 16px;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.2px;
+      }
+    }
+  }
+
+  @media ($bp-lg) {
+    nx-comparison-table-flex-row .nx-comparison-table__row > div:not(:first-of-type) {
+      flex: 0 1 193px !important;
+    }
+  }
+}
+
+.nx-comparison-table__intersection-cell p {
+  font-size: 14px !important;
+  font-weight: $fw-regular;
+  line-height: 28px;
+
+  @media ($bp-mds) {
+    font-size: 20px !important;
+    font-weight: $fw-light;
+  }
+}

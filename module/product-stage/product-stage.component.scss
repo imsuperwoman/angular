@@ -1,0 +1,59 @@
+@import 'globals';
+
+.stage {
+  padding-right: 16px;
+  padding-left: 16px;
+  background-color: $beige;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+
+  &__header {
+    margin-top: 32px;
+    font-weight: $fw-light;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.3px;
+
+    &.travel-- {
+      padding: 0 15px;
+    }
+  }
+
+  &__subheader {
+    max-width: 700px;
+    margin-top: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+
+    &.travel-- {
+      padding: 0 15px;
+    }
+  }
+
+  &__product-image {
+    width: 253px;
+    margin: 24px auto 0;
+    position: relative;
+    top: 7px;
+  }
+
+
+  @media ($bp-mds) {
+    &__header {
+      margin-top: 64px;
+      font-size: 54px;
+      line-height: 60px;
+    }
+
+    &__subheader {
+      margin-top: 26px;
+    }
+
+  }
+}

@@ -1,0 +1,46 @@
+/*--------------------
+    Nx Popover
+--------------------*/
+
+.nx-popover {
+  max-width: 400px;
+  margin-right: 8px;
+  margin-left: 8px;
+
+  &--right {
+    .nx-popover__arrow {
+      left: 1px !important;
+    }
+  }
+
+  &--left {
+    .nx-popover__arrow {
+      right: 1px !important;
+    }
+  }
+
+  ul {
+    list-style-position: inside;
+  }
+
+  .data-table {
+    margin-top: 5px;
+    border-collapse: collapse;
+    text-align: center;
+
+    td {
+      padding: 5px;
+      border: 1px solid;
+    }
+  }
+}
+
+.nx-popover__close-icon {
+  top: 8px !important;
+  right: 15px !important;
+}
+
+.azol__dynamic-table-row-popover-link {
+  color: #006192;
+  font-weight: 600;
+}

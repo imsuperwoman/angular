@@ -1,0 +1,167 @@
+@import 'globals';
+
+.azol-abs-lite {
+  background-color: $white;
+
+  /*-- Start of usp --*/
+  &__usp {
+    padding: 46px 16px 60px;
+    text-align: center;
+
+    &-header {
+      font-size: 35px;
+      font-weight: $fw-light;
+      line-height: 40px;
+      letter-spacing: 0.3px;
+    }
+
+    &-container {
+      padding-right: 0;
+      padding-left: 0;
+      margin-top: 53px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 46px;
+    }
+
+    &-info {
+      &-header {
+        margin-top: 25px;
+        font-size: 24px;
+        font-weight: $fw-regular;
+        line-height: 32px;
+        letter-spacing: 0.3px;
+      }
+
+      &-description {
+        margin-top: 19px;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    @media ($bp-mds) {
+      &-header {
+        font-size: 40px;
+        line-height: 48px;
+      }
+
+      &-container {
+        margin: 60px auto 0;
+        flex-direction: row;
+        row-gap: 0;
+        column-gap: 32px;
+      }
+
+      &-info {
+        width: calc(33.33% - 21px);
+
+        &-header {
+          margin-top: 15px;
+        }
+
+        &-description {
+          margin-top: 16px;
+        }
+      }
+    }
+  } /*-- End of Usp --*/
+
+  /*-- Start of Helpline --*/
+  &__helpline {
+    padding: 36px 16px 46px;
+    border-top: 1px solid $dark-white1;
+    text-align: center;
+
+    &-mobile {
+      &-text {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      &-header {
+        margin-top: 30px;
+        font-size: 35px;
+        font-weight: $fw-light;
+        line-height: 40px;
+        letter-spacing: 0.3px;
+      }
+
+      &-button {
+        width: 288px;
+        margin-top: 39px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
+    &-services {
+      padding-right: 0;
+      padding-left: 0;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 40px;
+    }
+
+    &-service {
+      display: inherit;
+      flex-direction: column;
+
+      &-header {
+        font-size: 20px;
+        font-weight: $fw-semibold;
+        line-height: 28px;
+        letter-spacing: 0.2px;
+      }
+
+      &-description {
+        margin-top: 8px;
+        font-size: 16px;
+        line-height: 24px;
+        color: $light-black2;
+      }
+
+      &-button {
+        width: 100%;
+        max-width: 288px;
+        margin-top: 24px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      &-note {
+        display: none;
+      }
+    }
+
+    @media ($bp-md) {
+      padding-top: 56px;
+      padding-bottom: 40px;
+
+      &-mobile {
+        display: none;
+      }
+
+      &-services {
+        margin-top: 0;
+        padding-right: unset;
+        padding-left: unset;
+        flex-direction: row;
+        row-gap: 0;
+        column-gap: 32px;
+      }
+
+      &-service {
+        width: calc(33.33% - 21px);
+
+        &-note {
+          margin-top: 16px;
+          display: unset;
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}

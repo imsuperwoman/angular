@@ -1,0 +1,6 @@
+<div class="stage">
+  <h1 class="stage__header" [class.travel--]="travel">{{ header }}</h1>
+  <p class="stage__subheader" [class.travel--]="travel">{{ description }}</p>
+  <img *ngIf='productImage' [src]="imageFolders + productImage" class="stage__product-image"
+    alt="Textual description of productImage" />
+</div>

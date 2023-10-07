@@ -1,0 +1,308 @@
+/*----- Start of NxProgressStepper -----*/
+.nx-progress-stepper__mobile-label {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  display: block !important;
+  text-align: center !important;
+}
+
+@media only screen and (min-width: 800px) {
+  .nx-progress-stepper__mobile-label {
+    display: none !important;
+  }
+}
+
+.nx-subprogress__items {
+  max-width: 940px;
+  padding: 40px 32px;
+  display: none !important;
+}
+
+@media only screen and (min-width: 800px) {
+  .nx-subprogress__items {
+    display: flex !important;
+  }
+}
+
+/*----- End of NxProgressStepper -----*/
+
+/*----- Start of Natural Language -----*/
+.azol-nx-word__dropdown,
+.azol-nx-word__field {
+  line-height: 36px;
+}
+
+.azol-nx-word__dropdown {
+  width: fit-content !important;
+}
+
+.azol-nx-word__dropdown .nx-dropdown__rendered {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.azol-nx-word__dropdown .nx-dropdown {
+  margin-bottom: -16px;
+  top: -8px;
+}
+
+.azol-nx-word__dropdown .nx-dropdown.is-filled {
+  margin-bottom: -8px;
+  top: 0;
+}
+
+nx-natural-language-form .nx-natural-language-form__wrapper {
+  display: inline-block !important;
+  text-align: center;
+  line-height: 48px;
+}
+
+/*----- End of Natural Language -----*/
+
+/*----- Start of Button -----*/
+/* Plain Buttons */
+.azol-nx-plain__button .nx-plain-button__content-wrapper {
+  column-gap: 10px;
+  align-items: unset !important;
+  text-align: left !important;
+}
+
+/* All Buttons */
+button {
+  display: block;
+}
+
+/*----- End of Button -----*/
+
+/*----- Start of Stepper Button -----*/
+.azol-nx__stepper-button.disabled-- {
+  cursor: not-allowed;
+}
+
+.azol-nx__stepper-button.disabled-- button {
+  background-color: #99cae1;
+  pointer-events: none;
+}
+
+.azol-nx__stepper-button.hide-- {
+  cursor: pointer;
+}
+
+.azol-nx__stepper-button.hide-- button {
+  pointer-events: none;
+}
+
+/*----- End of Stepper Button -----*/
+
+/*----- Start of Nx Message -----*/
+.azol-nx-error .nx-message__content {
+  display: flex;
+}
+
+/*----- End of Nx Message -----*/
+
+/*----- Start of Nx Modal -----*/
+nx-modal-container {
+  height: unset !important;
+  margin: 0px 8px !important;
+}
+
+.mobile-modal-full-screen-- nx-modal-container {
+  margin: 0px !important;
+  min-height: inherit;
+}
+
+@media only screen and (max-width: 704px) {
+  nx-modal-container {
+    padding: 40px 16px 60px !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-modal-full-screen-- nx-modal-container {
+    min-height: 100vh !important;
+  }
+
+  .nx-modal__close {
+    z-index: 2;
+  }
+}
+
+@media only screen and (min-width: 704px) {
+  .cdk-overlay-pane {
+    max-width: unset !important;
+    min-height: unset !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nx-modal-container {
+    max-width: 736px !important;
+    /* max-height: 546px !important; */
+    margin-right: 8px !important;
+    margin-left: 8px !important;
+  }
+}
+
+/*----- End of Nx Modal -----*/
+
+/*---- Start of Nx Radio Button ----*/
+/* Insured Calculator Dialog */
+.modal-dialog__insured-form-one-radio label,
+.modal-dialog__insured-form-two-radio label {
+  justify-content: center;
+}
+
+/*---- End of Nx Radio Button ----*/
+
+/*---- Start of Nx Popover ----*/
+.nx-popover {
+  max-width: 500px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/*---- Start of Nx Popover ----*/
+
+/*---- Start of Nx Header ----*/
+.nx-header {
+  width: 100%;
+}
+
+.nx-header__row {
+  /* height: 68px !important; */
+  padding: 1px 0 !important;
+}
+
+.nx-header__link {
+  text-align: center;
+}
+
+.nx-header__navigation-items {
+  flex-wrap: wrap;
+}
+
+.is-expanded {
+  background: #f5f5f5 !important;
+  color: #414141 !important;
+  border-color: #ececec !important;
+  font-weight: 500 !important;
+}
+
+/*---- End of Nx Header ----*/
+
+/*---- Start of Nx Menu - Header ----*/
+.nx-menu__wrapper {
+  top: 68px !important;
+}
+
+.nx-menu__item {
+  border: 0 !important;
+}
+
+.nx-menu__item--small {
+  padding: 10px 24px 10px !important;
+}
+
+.nx-menu-button__expand-icon {
+  transition: all 0.5s ease !important;
+}
+
+/*---- End of Nx Menu ----*/
+
+/*---- Start of Nx Link ----*/
+.nx-header__link-title:hover {
+  font-weight: 700;
+  transition: font-weight 0.2s ease, color 0.2s ease;
+}
+
+/*---- End of Nx Link ----*/
+/*---- Start of Nx Menu - Footer ----*/
+.is-expanded {
+  color: #5b5b5b !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #d9d9d9 !important;
+}
+
+.nx-menu-button__expand-icon {
+  color: #006192;
+  font-weight: 600 !important;
+}
+
+.nx-menu__item {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 16px;
+  border-bottom: 1px solid #d9d9d9;
+  background-color: #ffffff;
+}
+
+.nx-menu__link {
+  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+/*---- End of Nx Menu ----*/
+
+/**---- Start of Nx Footer ----*/
+.nx-footer__link {
+  padding-bottom: 24px !important;
+}
+
+@media only screen and (min-width: 703px) {
+  .nx-footer__link {
+    padding-bottom: 0 !important;
+  }
+}
+
+@media (min-width: 703px) and (max-width: 945px) {
+  .nx-footer__link:nth-child(1) {
+    padding-left: 0 !important;
+  }
+
+  .nx-footer__copyright,
+  .nx-footer__navigation {
+    align-self: flex-start !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .nx-footer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/**---- End of Nx Footer ----*/
+
+/*---- Start of Policy Hoder Step 3 ----*/
+
+.customer-details__content-input .nx-formfield__input {
+  flex-wrap: wrap;
+  row-gap: 20px;
+}
+
+/*---- End of Policy Hoder step 3 ----*/
+
+.nx-calendar-change-view-button {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/*---- Start of Nx Cards----*/
+.content {
+  display: flex !important;
+  flex-wrap: wrap;
+  row-gap: 32px;
+  column-gap: 50px;
+}
+
+/*---- End of Nx Cards----*/
+
+/*---- Start of Nx Selectable Cards----*/
+.checkbox.hide-- {
+  display: none !important;
+}
+
+/*---- End of Nx Selectable Cards----*/

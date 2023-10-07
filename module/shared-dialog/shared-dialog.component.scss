@@ -1,0 +1,79 @@
+@import 'globals';
+
+.agent-dialog {
+  &__image {
+    width: 120px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
+
+  &__header {
+    margin-top: 24px;
+    font-size: 26px;
+    font-weight: $fw-light;
+    line-height: 32px;
+    letter-spacing: 0.3px;
+    text-align: center;
+  }
+
+  &__description {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__link {
+    color: #3815e9 !important;
+    font-weight: $fw-regular;
+  }
+
+  &__routing-button {
+    max-width: 343px;
+    margin: 24px auto 0;
+  }
+
+  &__buttons {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 24px;
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 240px;
+  }
+
+
+  @media ($bp-mds) {
+    &__image {
+      width: 150px;
+      margin-top: 0;
+    }
+
+    &__header {
+      margin-top: 32px;
+    }
+
+    &__description {
+      max-width: 600px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__buttons {
+      column-gap: 16px;
+      justify-content: center;
+      flex-direction: row;
+    }
+
+    &__button {
+      max-width: 320px;
+      margin: 0;
+    }
+  }
+}

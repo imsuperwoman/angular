@@ -1,0 +1,90 @@
+<div class="azol__dynamic-table">
+  <div class="azol__dynamic-table-scrollbar">
+    <p class="azol__dynamic-table-scrollbar-header">Swipe to view more</p>
+
+    <div class="azol__dynamic-table-scrollbar-container">
+      <div class="azol__dynamic-table-scrollbar-inner" #scrollbarInner></div>
+    </div>
+  </div>
+
+  <div class="azol__dynamic-table-upper-container">
+    <table class="azol__dynamic-table-header" #dynamicTable>
+      <colgroup>
+        <col id="left-column" />
+        <col id="right-column" />
+      </colgroup>
+
+      <tr>
+        <th>Additional coverage</th>
+        <th>Premium (RM)</th>
+      </tr>
+    </table>
+
+    <table class="azol__dynamic-table-rows" [formGroup]="control">
+      <colgroup>
+        <col id="left-column" />
+        <col id="middle-column" />
+        <col id="right-column" />
+      </colgroup>
+
+      <tr class="azol__dynamic-table-row" *ngFor="let data of accordionData.additionalCover; let i = index">
+        <td>
+          <nx-checkbox class="azol__dynamic-table-row-checkbox" [formControlName]="data.coverCode"
+            (click)="updateSelectedCheckbox(data.coverCode)"></nx-checkbox>
+        </td>
+
+        <td class="azol__dynamic-table-row-labelHolder">
+          <div class="azol__dynamic-table-row-labelHolder-container">
+            <div class="azol__dynamic-table-row-label-container">
+              <p class="azol__dynamic-table-row-label">{{data.coverDescription}}
+              </p>
+            </div>
+          </div>
+          <div class="azol__dynamic-table-row-popover">
+            <icon-popover [popoverMessage]="data.coverNarration"></icon-popover>
+          </div>
+        </td>
+
+        <td class="azol__dynamic-table-row-premium">
+          {{ data.displayPremium | number: '1.2-2' }}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="azol__dynamic-table-lower-container">
+    <table class="azol__dynamic-table-footer">
+      <colgroup>
+        <col id="middle-column" />
+        <col id="right-column" />
+      </colgroup>
+
+      <tr>
+        <td>Additional coverage charges</td>
+        <td>{{ addCoverageCost | number: '1.2-2' }}</td>
+      </tr>
+
+      <tr>
+        <td>Total</td>
+        <td>{{ premiumCost | number: '1.2-2' }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <button class="azol__dynamic-table-footer-button" nxButton="primary small" type="button"
+            (click)="applyCoverage()" [disabled]="!newFormValue">
+            APPLY COVERAGE
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="newFormValue">
+        <td colspan="2">
+          <nx-error class="azol-nx-error azol__dynamic-table-footer-error">
+            Click “APPLY COVERAGE” to refresh quote.
+          </nx-error>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

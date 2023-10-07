@@ -1,0 +1,28 @@
+/*--------------------
+    Nx Swipe Bar
+--------------------*/
+
+.indicator {
+  height: 2px !important;
+}
+
+.scrollable {
+  padding: 0 !important;
+  padding-top: 24px !important;
+}
+
+nx-swipebar .label {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  margin-bottom: 8px !important;
+}
+
+@media (min-width: 704px) {
+  nx-swipebar + div {
+    display: none;
+  }
+
+  .scrollable {
+    padding-top: 0 !important;
+  }
+}

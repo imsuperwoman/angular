@@ -1,0 +1,949 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "smart-home-cover": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/smart-home-cover",
+      "sourceRoot": "projects/smart-home-cover/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "iban",
+              "moment"
+            ],
+            "outputPath": "dist/smart-home-cover",
+            "index": "projects/smart-home-cover/src/index.html",
+            "main": "projects/smart-home-cover/src/main.ts",
+            "polyfills": "projects/smart-home-cover/src/polyfills.ts",
+            "tsConfig": "projects/smart-home-cover/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/smart-home-cover/src/favicon.png",
+              "projects/smart-home-cover/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "projects/smart-home-cover/src/assets/scss/styles.scss",
+              "projects/smart-home-cover/src/assets/scss/ndbx/styles.common-fixes.css",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/smart-home-cover/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "index": {
+                "input": "projects/smart-home-cover/src/index.prod.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "dr": {
+              "index": {
+                "input": "projects/smart-home-cover/src/index.prod.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.dr.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.uat.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "sit": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "25kb",
+                  "maximumError": "30kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "smart-home-cover:build:production"
+            },
+            "development": {
+              "browserTarget": "smart-home-cover:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "smart-home-cover:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/smart-home-cover/src/test.ts",
+            "polyfills": "projects/smart-home-cover/src/polyfills.ts",
+            "tsConfig": "projects/smart-home-cover/tsconfig.spec.json",
+            "karmaConfig": "projects/smart-home-cover/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/smart-home-cover/src/favicon.png",
+              "projects/smart-home-cover/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "projects/smart-home-cover/src/assets/scss/styles.scss",
+              "projects/smart-home-cover/src/assets/scss/ndbx/styles.common-fixes.css",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/smart-home-cover/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          }
+        }
+      }
+    },
+    "ndbx-partner-logo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/ndbx-partner-logo",
+      "sourceRoot": "projects/ndbx-partner-logo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ndbx-partner-logo",
+            "index": "projects/ndbx-partner-logo/src/index.html",
+            "main": "projects/ndbx-partner-logo/src/main.ts",
+            "polyfills": "projects/ndbx-partner-logo/src/polyfills.ts",
+            "tsConfig": "projects/ndbx-partner-logo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ndbx-partner-logo/src/favicon.ico",
+              "projects/ndbx-partner-logo/src/assets"
+            ],
+            "styles": [
+              "projects/ndbx-partner-logo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ndbx-partner-logo:build:production"
+            },
+            "development": {
+              "browserTarget": "ndbx-partner-logo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ndbx-partner-logo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ndbx-partner-logo/src/test.ts",
+            "polyfills": "projects/ndbx-partner-logo/src/polyfills.ts",
+            "tsConfig": "projects/ndbx-partner-logo/tsconfig.spec.json",
+            "karmaConfig": "projects/ndbx-partner-logo/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ndbx-partner-logo/src/favicon.ico",
+              "projects/ndbx-partner-logo/src/assets"
+            ],
+            "styles": [
+              "projects/ndbx-partner-logo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "microsite": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/microsite",
+      "sourceRoot": "projects/microsite/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "iban",
+              "moment"
+            ],
+            "outputPath": "dist/microsite",
+            "index": "projects/microsite/src/index.html",
+            "main": "projects/microsite/src/main.ts",
+            "polyfills": "projects/microsite/src/polyfills.ts",
+            "tsConfig": "projects/microsite/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/microsite/src/favicon.png",
+              "projects/microsite/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "projects/microsite/src/assets/scss/styles.scss",
+              "projects/microsite/src/assets/scss/ndbx/styles.common-fixes.css",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/microsite/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "index": {
+                "input": "projects/microsite/src/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "dr": {
+              "index": {
+                "input": "projects/microsite/src/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.dr.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.uat.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "sit": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "25kb",
+                  "maximumError": "30kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "index": {
+                "input": "projects/microsite/src/index-dev.html",
+                "output": "index.html"
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "microsite:build:production"
+            },
+            "development": {
+              "browserTarget": "microsite:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "microsite:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/microsite/src/test.ts",
+            "polyfills": "projects/microsite/src/polyfills.ts",
+            "tsConfig": "projects/microsite/tsconfig.spec.json",
+            "karmaConfig": "projects/microsite/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/microsite/src/favicon.png",
+              "projects/microsite/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "projects/microsite/src/assets/scss/styles.scss",
+              "projects/microsite/src/assets/scss/ndbx/styles.common-fixes.css",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/microsite/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          }
+        }
+      }
+    },
+    "motor-comprehensive": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/motor-comprehensive",
+      "sourceRoot": "projects/motor-comprehensive/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "iban",
+              "moment"
+            ],
+            "outputPath": "dist/motor-comprehensive",
+            "index": "projects/motor-comprehensive/src/index.html",
+            "main": "projects/motor-comprehensive/src/main.ts",
+            "polyfills": "projects/motor-comprehensive/src/polyfills.ts",
+            "tsConfig": "projects/motor-comprehensive/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/motor-comprehensive/src/favicon.png",
+              "projects/motor-comprehensive/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "assets/scss/globals.scss",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/motor-comprehensive/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "index": {
+                "input": "projects/motor-comprehensive/src/index.prod.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.uat.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "dr": {
+              "index": {
+                "input": "projects/motor-comprehensive/src/index.prod.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.dr.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "sit": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "25kb",
+                  "maximumError": "30kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "motor-comprehensive:build:production"
+            },
+            "development": {
+              "browserTarget": "motor-comprehensive:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "motor-comprehensive:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/motor-comprehensive/src/test.ts",
+            "polyfills": "projects/motor-comprehensive/src/polyfills.ts",
+            "tsConfig": "projects/motor-comprehensive/tsconfig.spec.json",
+            "karmaConfig": "projects/motor-comprehensive/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/motor-comprehensive/src/favicon.png",
+              "projects/motor-comprehensive/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "assets/scss/globals.scss",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/motor-comprehensive/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          }
+        }
+      }
+    },
+    "travel-care": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/travel-care",
+      "sourceRoot": "projects/travel-care/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "iban",
+              "moment"
+            ],
+            "outputPath": "dist/travel-care",
+            "index": "projects/travel-care/src/index.html",
+            "main": "projects/travel-care/src/main.ts",
+            "polyfills": "projects/travel-care/src/polyfills.ts",
+            "tsConfig": "projects/travel-care/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/travel-care/src/favicon.png",
+              "projects/travel-care/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "assets/scss/globals.scss",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/travel-care/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "index": {
+                "input": "projects/travel-care/src/index.prod.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.uat.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "dr": {
+              "index": {
+                "input": "projects/travel-care/src/index.prod.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.dr.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "sit": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "25kb",
+                  "maximumError": "30kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "travel-care:build:production"
+            },
+            "development": {
+              "browserTarget": "travel-care:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "travel-care:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/travel-care/src/test.ts",
+            "polyfills": "projects/travel-care/src/polyfills.ts",
+            "tsConfig": "projects/travel-care/tsconfig.spec.json",
+            "karmaConfig": "projects/travel-care/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/travel-care/src/favicon.png",
+              "projects/travel-care/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "assets/scss/globals.scss",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/travel-care/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          }
+        }
+      }
+    },
+    "partner-site": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/partner-site",
+      "sourceRoot": "projects/partner-site/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "iban",
+              "moment"
+            ],
+            "outputPath": "dist/partner-site",
+            "index": "projects/partner-site/src/index.html",
+            "main": "projects/partner-site/src/main.ts",
+            "polyfills": "projects/partner-site/src/polyfills.ts",
+            "tsConfig": "projects/partner-site/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/partner-site/src/favicon.png",
+              "projects/partner-site/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "projects/partner-site/src/assets/scss/styles.scss",
+              "projects/partner-site/src/assets/scss/ndbx/styles.common-fixes.css",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/partner-site/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "index": {
+                "input": "projects/partner-site/src/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "dr": {
+              "index": {
+                "input": "projects/partner-site/src/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.dr.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.uat.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "sit": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "25kb",
+                  "maximumError": "30kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "index": {
+                "input": "projects/partner-site/src/index.html",
+                "output": "index.html"
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "partner-site:build:production"
+            },
+            "development": {
+              "browserTarget": "partner-site:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "partner-site:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/partner-site/src/test.ts",
+            "polyfills": "projects/partner-site/src/polyfills.ts",
+            "tsConfig": "projects/partner-site/tsconfig.spec.json",
+            "karmaConfig": "projects/partner-site/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/partner-site/src/favicon.png",
+              "projects/partner-site/src/assets",
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "projects/partner-site/src/assets/scss/styles.scss",
+              "projects/partner-site/src/assets/scss/ndbx/styles.common-fixes.css",
+              "node_modules/@aposin/ng-aquila/css/utilities.css",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/partner-site/src/assets/scss"
+              ]
+            },
+            "scripts": []
+          }
+        }
+      }
+    }
+  }
+}

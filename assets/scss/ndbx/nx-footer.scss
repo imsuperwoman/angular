@@ -1,0 +1,60 @@
+/*--------------------
+    Nx Footer
+--------------------*/
+
+.nx-footer {
+  .is-expanded {
+    color: #5b5b5b !important;
+    font-weight: 600 !important;
+    border-bottom: 1px solid #d9d9d9 !important;
+  }
+
+  .nx-menu-button__expand-icon {
+    color: #006192;
+    font-weight: 600 !important;
+  }
+
+  .nx-menu__item {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px 16px;
+    border-bottom: 1px solid #d9d9d9;
+    background-color: #ffffff;
+  }
+
+  .nx-menu__link {
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+}
+
+.nx-footer__link {
+  padding-bottom: 24px !important;
+}
+
+
+@media only screen and (min-width: 703px) {
+  .nx-footer__link {
+    padding-bottom: 0 !important;
+  }
+}
+
+@media (min-width: 703px) and (max-width: 945px) {
+  .nx-footer__link {
+    padding-left: 0 !important;
+  }
+
+  .nx-footer__copyright,
+  .nx-footer__navigation {
+    align-self: flex-start !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .nx-footer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

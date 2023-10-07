@@ -1,0 +1,80 @@
+<ng-template #proceedWithPaymentDialog>
+  <form ngNoForm id="ePayment" name="ePayment" method="POST" type="application/x-www-form-urlencoded" [action]="url">
+    <input type="hidden" name="merchant_id" value="SB_Alzazo" />
+    <input type="hidden" name="amount" value="1" />
+    <input type="hidden" name="orderid" value="ABCC0002" />
+    <input type="hidden" name="country" value="MY" />
+    <input type="hidden" name="bill_desc" value="{{paymentData.productName}}" />
+    <input type="hidden" name="bill_name" value="{{ paymentData.fullName }}" />
+    <input type="hidden" name="bill_email" value="{{ paymentData.email }}" />
+    <input type="hidden" name="bill_mobile" value="{{ paymentData.mobileNo }}" />
+    <input type="hidden" name="returnurl" value="{{ payload.responseURL }}" />
+    <input type="hidden" name="callbackurl" value="{{ payload.backendURL }}" />
+    <input type="hidden" name="currency" value="MYR" />
+    <input type="hidden" name="vcode" value="dc9df9807b1459d9f865b9798f6ba38b" />
+    <div class="modal-dialog">
+      <h3 class="modal-dialog__header">Proceed with payment?</h3>
+
+      <p class="modal-dialog__description" [class.type-2--]="alignType == '2'">
+        Please ensure all details are correct as these information will be used for benefit payout.
+      </p>
+
+      <div class="modal-dialog__payment-readPrivacy-holder" *ngIf="customViewObj.utm_source === 'SCOL'">
+        <br>
+        <br>
+        <nx-checkbox class="modal-dialog__payment-readPrivacy" [checked]="euCheckbox" (change)="onClickeU($event)"
+          required>
+          <p class="modal-dialog__payment-readPrivacy-description">
+            I am not a resident of the European Union (EU) / European Economic Area (EEA)
+          </p>
+        </nx-checkbox>
+      </div>
+
+      <p class="modal-dialog__amount" [class.type-2--]="alignType == '2'">Premium payable: RM {{
+        paymentData.premiumDueRounded }}</p>
+
+      <button nxButton="tertiary" type="button" class="modal-dialog__button" (click)="closePaymentDialog(returnUrl)"
+        [class.margin--]="!paymentOptionsTNG && !paymentOptionsCard"
+        [ngClass]="{ 'margin--': !paymentOptionsTNG && !paymentOptionsCard, 'type-2--': alignType == '2' }">
+        <nx-icon name="arrow-right" size="s"></nx-icon>
+        <p class="modal-dialog__button-text">EDIT DETAILS</p>
+      </button>
+
+      <div class="modal-dialog__options" [class.gap--]="!paymentOptionsTNG && !paymentOptionsCard">
+        <div class="modal-dialog__options-section" *ngIf="paymentOptionsTNG">
+          <div class="modal-dialog__options-section-images">
+            <img class="modal-dialog__options-section-images-tng" [src]="imageFolder + 'touchngo.svg'"
+              alt="Textual description of touchngo.svg" />
+          </div>
+
+          <button *ngIf="paymentOptionsTNG" nxButton="primary" type="button"
+            class="modal-dialog__options-section-button" [disabled]="paymentButton"
+            (click)="submitPayment('TNG-EWALLET');showLoading()">
+            PAY WITH TNG EWALLET
+          </button>
+
+          <button *ngIf="!paymentOptionsTNG && !paymentOptionsCard" nxButton="secondary" type="button"
+            class="modal-dialog__options-section-button min-width" routerLink="/checkout">
+            BACK
+          </button>
+        </div>
+
+        <div class="modal-dialog__options-section" *ngIf="paymentOptionsCard">
+          <div class="modal-dialog__options-section-images">
+            <img class="modal-dialog__options-section-images-visa" [src]="imageFolder + 'visa.png'"
+              alt="Textual description of visa.png" />
+
+            <img class="modal-dialog__options-section-images-mastercard" [src]="imageFolder + 'mastercard.png'"
+              alt="Textual description of mastercard.png" />
+          </div>
+
+          <button *ngIf="paymentOptionsCard" nxButton="primary" type="button"
+            class="modal-dialog__options-section-button" [disabled]="paymentButton" queryParamsHandling="preserve"
+            (click)="submitPayment('credit');showLoading()">
+            PAY WITH CREDIT / DEBIT CARD
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

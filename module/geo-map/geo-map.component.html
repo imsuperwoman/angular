@@ -1,0 +1,47 @@
+<div>
+  <div class="nx-margin-top-m" *ngIf="geoLabel != ''">
+    <div nxRow>
+      <div nxCol="6">
+        <p nxCopytext="normal">{{geoLabel}}</p>
+      </div>
+      <div nxCol="6">
+        <nx-switcher [(ngModel)]="showMap" labelSize="small" class="float_right" [disabled]="switcher">Show
+          Map</nx-switcher>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="geoLabel == ''">
+    <div nxRow>
+      <div nxCol="10" *ngIf="geoLabel == ''">
+        <nx-switcher [(ngModel)]="showMap" labelSize="small" class="float_left" [disabled]="switcher">Show
+          Map</nx-switcher>
+      </div>
+    </div>
+  </div>
+
+  <div class="nx-margin-top-m" [hidden]="!showMap" [formGroup]="geoControl">
+    <div nxRow>
+      <div class="card_position" #card>
+        <div class="pac-card">
+          <div id="title">Autocomplete search</div>
+          <div id="card_container">
+            <input type="text" formControlName="searchControl" #search placeholder="search box" style="width: 100%"
+              placeholder="Enter a location" autocomplete="off" (keypress)="onKeyPress($event)" />
+          </div>
+        </div>
+      </div>
+      <div nxCol="12">
+        <div class="google-map nx-margin-bottom-m" [formGroup]="geoControl">
+          <google-map [center]="markerPosition" [options]="mapOptions" (mapClick)="newMarker($event)">
+            <map-marker #marker="mapMarker" [position]="markerPosition" [options]="markerOptions">
+            </map-marker>
+            <map-info-window>{{marker.getPosition()?.lat()}},{{ marker.getPosition()?.lng()}}</map-info-window>
+          </google-map>
+        </div>
+        <div *ngIf="isGeoError">
+          <nx-error nxFormfieldError>
+            {{ geoErrorMessage }}
+          </nx-error>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,42 @@
+<div class="customer-details__content">
+  <div *ngIf="cardNoConfig != undefined" class="customer-details__content-input customField--">
+    <nx-formfield label="{{cardNoConfig.name || ''}}">
+      <input nxInput required type="text" autocomplete="off" (focusout)="cardNoValue($event, 'cardNo')"
+        value="{{cardNo1}}" [attr.maxlength]="cardNoConfig.maxlength ? cardNoConfig.maxlength : 0"
+        [attr.placeholder]="cardNoConfig.placeHolder ? cardNoConfig.placeHolder : ''" />
+    </nx-formfield>
+    <icon-popover popoverMessage={{additionalInfo}}>
+    </icon-popover>
+  </div>
+
+  <div *ngIf="cardNoConfigSecond != undefined" class="customer-details__content-input customField--">
+    <nx-formfield label="{{cardNoConfigSecond.name || ''}}">
+      <input nxInput required type="text" autocomplete="off" value="{{cardNo2}}"
+        (focusout)="cardNoValue($event, 'cardNoSecond')"
+        [attr.maxlength]="cardNoConfigSecond.maxlength ? cardNoConfigSecond.maxlength : 0"
+        [attr.placeholder]="cardNoConfigSecond.placeHolder ? cardNoConfigSecond.placeHolder : ''" />
+    </nx-formfield>
+    <icon-popover popoverMessage={{additionalInfoSecond}}>
+    </icon-popover>
+  </div>
+
+  <div *ngIf="cardNoConfigThird != undefined" class="customer-details__content-input customField--">
+    <nx-formfield label="{{cardNoConfigThird.name || ''}}">
+      <input nxInput required type="text" autocomplete="off" value="{{cardNo3}}"
+        (focusout)="cardNoValue($event, 'cardNoThird')"
+        [attr.maxlength]="cardNoConfigThird.maxlength ? cardNoConfigThird.maxlength : 0"
+        [attr.placeholder]="cardNoConfigThird.placeHolder ? cardNoConfigThird.placeHolder : ''" />
+    </nx-formfield>
+    <icon-popover popoverMessage={{additionalInfoThird}}>
+    </icon-popover>
+  </div>
+
+  <div *ngIf="referralStaffIdConfig != undefined" class="customer-details__content-input customField--">
+    <nx-formfield label="{{referralStaffIdConfig.name || ''}}">
+      <input nxInput required type="text" autocomplete="off" value="{{staffId}}"
+        (focusout)="cardNoValue($event, 'staffId')"
+        [attr.maxlength]="referralStaffIdConfig.maxlength ? referralStaffIdConfig.maxlength : 0"
+        [attr.placeholder]="referralStaffIdConfig.placeHolder ? referralStaffIdConfig.placeHolder : ''" />
+    </nx-formfield>
+  </div>
+</div>

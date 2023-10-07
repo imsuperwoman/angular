@@ -1,0 +1,241 @@
+@import 'globals';
+
+.get-info {
+    &__info {
+        padding: 43px 16px 40px;
+        display: flex;
+        justify-content: center;
+        background-color: $dark-blue3;
+
+        &-text {
+            max-width: 575px;
+            font-size: 16px;
+            line-height: 24px;
+            text-align: center;
+            font-weight: $fw-regular;
+            color: $white;
+        }
+
+        span {
+            color: $dark-blue2;
+            font-weight: $fw-semibold;
+        }
+    }
+
+    &__natural-language-form {
+        padding: 46px 16px !important;
+
+        &-input {
+            text-transform: uppercase;
+        }
+
+        &-date {
+            width: 188px;
+            display: inline-block;
+            margin-bottom: 0 !important;
+
+            ::ng-deep {
+                .nx-formfield__wrapper {
+                    margin: 0 !important;
+                    padding-top: 1px;
+                    padding-bottom: 1px;
+                }
+
+                .nx-formfield__input {
+                    text-align: center;
+                    font-size: 26px;
+                    line-height: 32px;
+                    font-weight: $fw-regular;
+                }
+            }
+        }
+
+        @media ($bp-md) {
+            max-width: 1080px;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 55px 32px;
+        }
+
+        @media ($bp-lg) {
+            max-width: 1110px;
+            padding: 55px 16px;
+        }
+    }
+
+    &__acknowledgement {
+        padding: 0 16px;
+        max-width: 780px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        margin-top: 0px;
+
+        @media ($bp-mds) {
+            margin-top: 0px;
+            flex-direction: row;
+            justify-content: center;
+            row-gap: 0;
+            column-gap: 32px;
+        }
+    }
+
+    &__button {
+        width: 100%;
+        max-width: 288px;
+        margin-right: auto;
+        margin-left: auto;
+
+        @media ($bp-mds) {
+            max-width: 160px;
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+
+    /*-- Start of banner --*/
+    &__banner {
+        padding: 46px 16px 60px;
+        background-color: $dark-blue3;
+        text-align: center;
+
+        &-header {
+            font-size: 30px;
+            font-weight: $fw-light;
+            line-height: 30px;
+            letter-spacing: 0.3px;
+            color: $white;
+
+            @media ($bp-mds) {
+                font-size: 30px;
+                line-height: 30px;
+            }
+        }
+
+        &-description {
+            font-size: 16px;
+            line-height: 24px;
+            max-width: 730px;
+            margin: 40px auto 0;
+            color: $white;
+        }
+
+        @media ($bp-mds) {
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            &-description {
+                max-width: 730px;
+                margin: 40px auto 0;
+            }
+        }
+    }
+
+    /*-- End of banner --*/
+    /*-- Start of Documents --*/
+    &__documents {
+        padding: 46px 16px 60px;
+        background-color: $blue;
+        text-align: center;
+
+        &-header {
+            font-size: 35px;
+            font-weight: $fw-light;
+            line-height: 40px;
+            letter-spacing: 0.3px;
+
+            @media ($bp-mds) {
+                font-size: 40px;
+                line-height: 48px;
+            }
+        }
+
+        &-description {
+            margin-top: 32px;
+            font-size: 16px;
+            line-height: 24px;
+            padding: 0 15px;
+        }
+
+        &-download-cta {
+            width: 77%;
+            margin-top: 32px;
+
+            &.second-- {
+                margin-top: 24px;
+            }
+        }
+
+        @media ($bp-mds) {
+            padding-top: 60px;
+            padding-bottom: 80px;
+
+            &-description {
+                max-width: 730px;
+                margin: 40px auto 0;
+            }
+
+            &-download-cta {
+                margin-top: 40px;
+            }
+        }
+    }
+
+    /*-- End of Documents --*/
+}
+
+.modal-dialog {
+    color: $light-black1;
+
+    &__image {
+        width: 120px;
+        margin-top: 40px;
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        row-gap: 20px;
+        margin-top: 46px;
+    }
+
+    &__button {
+        width: 40%;
+        margin-right: auto;
+        margin-left: auto;
+
+        button {
+            width: 40%;
+        }
+    }
+
+    &__Info {
+        &-content {
+            padding-right: 56px;
+            padding-left: 56px;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        @media ($bp-mds) {
+            &-content {
+                padding-right: -1px;
+                padding-left: -1px;
+            }
+        }
+    }
+}
+ .azol-nx-word__dropdown{
+      width: auto !important;
+    }
+    .d-inline{
+        display: inline-flex
+    }

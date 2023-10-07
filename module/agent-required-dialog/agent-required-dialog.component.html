@@ -1,0 +1,11 @@
+<ng-template #agentRequiredDialog>
+  <div class="agent-dialog">
+    <img class="agent-dialog__image" [src]="imageFolder + 'people/agent-required.png'" alt="Textual description of agent-required.png"/>
+    <h3 class="agent-dialog__header">Agent required to proceed</h3>
+    <p class="agent-dialog__description">
+      We're unable to process your request due to our online risk acceptance controls. Please use
+      our Agent Finder to find an agent nearest to you that can assist you further.
+    </p>
+    <button class="agent-dialog__button" nxButton (click)="goToAgentPage()">FIND AN AGENT</button>
+  </div>
+</ng-template>

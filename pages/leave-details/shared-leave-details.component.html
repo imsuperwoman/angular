@@ -1,0 +1,130 @@
+<product-stage productImage={{logo}} header={{header}} description={{subheader}} *ngIf="!success">
+</product-stage>
+
+<div class="leave-details" *ngIf="!success">
+  <div class="leave-details__heading">
+    <h1 class="leave-details__header">Need assistance?</h1>
+    <p class="leave-details__subheader">Please fill in the fields below. Our friendly Allianz representative will reach out to you as soon as possible.
+    </p>
+  </div>
+
+
+  <form class="leave-details__form" [formGroup]="leaveDetailsForm">
+    <nx-formfield label="Full name as per ID">
+      <input nxInput type="text" formControlName="name" autocomplete="off" inputCapitalization />
+      <nx-error nxFormfieldError> Please enter your full name. </nx-error>
+    </nx-formfield>
+
+    <div class="leave-details__form-field  phone--">
+      <nx-formfield label="Mobile No." class="country">
+        <nx-dropdown formControlName="phoneCountryCode">
+          <nx-dropdown-item *ngFor="let mobilePrefix of (mobilePrefix$|async)" [value]="mobilePrefix.Description">
+          </nx-dropdown-item>
+        </nx-dropdown>
+      </nx-formfield>
+
+      <nx-formfield label="" class="number">
+        <input nxInput inputmode="numeric" required numberOnly formControlName="mobileNo" minlength="7" maxlength="8" autocomplete="off"
+        />
+        <nx-error nxFormfieldError> Please enter your phone no. </nx-error>
+      </nx-formfield>
+    </div>
+
+    <nx-formfield label="Email address">
+      <input nxInput type="email" autocomplete="off" formControlName="email" />
+      <nx-error nxFormfieldError> {{leaveDetailsForm.get('email')?.errors?.message}} </nx-error>
+    </nx-formfield>
+
+    <nx-formfield label="Email confirmation">
+      <input nxInput type="email" formControlName="emailConfirm" autocomplete="off" />
+      <nx-error nxFormfieldError>{{leaveDetailsForm.get('emailConfirm')?.errors?.message}} </nx-error>
+    </nx-formfield>
+
+    <nx-formfield label="Preferred Language" *ngIf="sourceSystem$ == 'SCOL' || sourceSystem$ == 'HSBCBN'">
+      <nx-dropdown formControlName="preflanguage">
+        <nx-dropdown-item *ngFor="let preflanguage of (preflanguage$|async)" [value]="preflanguage.Description">
+        </nx-dropdown-item>
+      </nx-dropdown>
+      <nx-error nxFormfieldError> Please enter your preferred language. </nx-error>
+    </nx-formfield>
+
+    <nx-formfield label="State" *ngIf="sourceSystem$ == 'SCOL' || sourceSystem$ == 'HSBCBN'">
+      <nx-dropdown formControlName="state">
+        <nx-dropdown-item *ngFor="let state of (state$|async)" [value]="state.Description">
+        </nx-dropdown-item>
+      </nx-dropdown>
+      <nx-error nxFormfieldError> Please enter your state. </nx-error>
+    </nx-formfield>
+
+    <nx-formfield label="District" *ngIf="sourceSystem$ == 'SCOL' || sourceSystem$ == 'HSBCBN'">
+      <nx-dropdown formControlName="city">
+        <nx-dropdown-item *ngFor="let city of (city$|async)" [value]="city.Description">
+        </nx-dropdown-item>
+      </nx-dropdown>
+      <nx-error nxFormfieldError> Please enter your district. </nx-error>
+    </nx-formfield>
+
+    <nx-checkbox class="nx-margin-bottom-s leave-details__form-checkbox" formControlName="check">
+      I have read
+
+      <nx-link class="leave-details__form-link">
+        <a target="_blank" class="leave-details__form-link" href="https://www.allianz.com.my/personal/privacy-statement.html">Allianz
+          Malaysia's Privacy
+          Statement</a>
+      </nx-link>
+
+      and agree to provide my personal contact details to enable you to contact me for the purposes of this Quotation and to receive
+      future marketing/promotions from Allianz. I understand that I can choose to unsubscribe at any time if I no longer
+      wish to receive any marketing/promotions from Allianz by writing to
+      <nx-link class="leave-details__form-link">
+        <a class="leave-details__form-link" href="mailto:customer.service@allianz.com.my">
+          customer.service@allianz.com.my
+        </a>
+      </nx-link>.
+    </nx-checkbox>
+
+    <div class="leave-details__form-recaptcha" *ngIf="recaptchaEnabled$ != 'N' ">
+      <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+    </div>
+
+    <div class="leave-details__form-buttons">
+      <button class="leave-details__form-button" nxButton="secondary" type="button" (click)="navigation.goBack()">
+        Back
+      </button>
+
+      <button class="leave-details__form-button" nxButton="primary" type="button" [disabled]="leaveDetailsForm.invalid" (click)="onSubmit()">
+        SUBMIT
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Agent Locator Form Success Page -->
+<div class="leave-details__success" *ngIf="success">
+  <div class="leave-details__success-heading">
+    <h1 class="leave-details__success-heading-text">Thank you for reaching out to us</h1>
+  </div>
+
+  <div class="leave-details__success-main">
+    <img class="leave-details__success-gfx" [src]="imageFolder + 'agent-locator/success-image.png'" alt="Textual description of success-image.svg"
+    />
+
+    <h2 class="leave-details__success-main-heading">
+      Our agent will get in touch with you as soon as possible
+    </h2>
+
+    <p class="leave-details__success-main-paragraph">
+      If you have any further enquiries, you may call us during office hours at
+      <nx-link>
+        <a href="tel:1300225542">1 300 22 5542</a>
+      </nx-link>
+      or chat with us via
+
+      <nx-link>
+        <a href="https://www.facebook.com/AllianzMalaysia">Facebook</a>
+      </nx-link>
+
+      .
+    </p>
+  </div>
+</div>

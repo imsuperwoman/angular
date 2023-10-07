@@ -1,0 +1,18 @@
+<div class="motor-comprehensive">
+  <router-outlet></router-outlet>
+
+  <!-- Unique Selling Points -->
+  <div class="motor-comprehensive__usp">
+    <h2 class="motor-comprehensive__usp-header">Protect your vehicle</h2>
+    <div class="motor-comprehensive__usp-container wrapper">
+      <div class="motor-comprehensive__usp-info" *ngFor="let usp of contentData.uspInfos">
+        <img [src]="imageFolder + usp.image" class="motor-comprehensive__usp-info-image"
+          alt="Textual description of info-image" />
+        <h3 class="motor-comprehensive__usp-info-header">{{ usp.header }}</h3>
+        <p class="motor-comprehensive__usp-info-description">
+          {{ usp.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

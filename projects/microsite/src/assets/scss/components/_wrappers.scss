@@ -1,0 +1,18 @@
+/*-----------------------------------------------------------------------------
+    $ Wrappers
+-----------------------------------------------------------------------------*/
+
+.wrapper {
+  width: 100%;
+  max-width: $wrapper-width + $wrapper-gutter * 2;
+  padding-right: $wrapper-gutter !important;
+  padding-left: $wrapper-gutter !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 364px;
+  margin: 0 auto;
+}

@@ -1,0 +1,18 @@
+<div class="server-timeout">
+  <img class="server-timeout__image" [src]="imageFolder + 'people/agent-required.png'"
+    alt="Textual description of agent-required.png" />
+  <h3 class="server-timeout__header">Oops! ......</h3>
+  <p class="server-timeout__description">
+    Oops! Looks like you’re unable to proceed to the next page.
+    You can close this message, or press the refresh tab button to try again.
+    Thank You!
+  </p>
+
+  <div class="server-timeout__buttons">
+    <button nxButton="secondary" type="button" class="server-timeout__button" (click)="close()">Close</button>
+    <button nxButton="primary" *ngIf="refreshPage" type="button" class="server-timeout__button"
+      (click)="goRefreshPage()">
+      Refresh Page
+    </button>
+  </div>
+</div>

@@ -1,0 +1,416 @@
+@import 'globals';
+
+.customer-details {
+  &__wrapper {
+    padding: 0 16px;
+    width: 100%;
+    max-width: 928px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    padding: 55px 0;
+    font-size: 16px;
+    color: #414141;
+    text-align: center;
+  }
+
+  &__tick {
+    margin-right: 14px;
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    vertical-align: middle;
+    transform: translateY(-2px);
+
+    &.active-- {
+      background-color: transparent;
+    }
+
+    .checked-- {
+      color: #1e8927;
+    }
+
+    .warning-- {
+      color: #dc3149;
+    }
+  }
+
+  &__content {
+    &-section {
+      border-top: 1px solid #d9d9d9;
+      padding-top: 28px;
+
+      &:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    &-col {
+      display: flex;
+      flex-wrap: wrap;
+
+      &.email-- {
+        display: flex;
+        column-gap: 0;
+        align-items: center;
+      }
+    }
+
+    &-card {
+      display: block;
+      flex-wrap: wrap;
+      padding-left: 15px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    &-input {
+      width: 100%;
+
+      &.email-- {
+        width: 50%;
+      }
+
+      &.nationality-- {
+        padding-top: 24px;
+      }
+
+      &.phone-- {
+        display: flex;
+
+        .country {
+          width: 100px;
+        }
+
+        .number {
+          width: calc(100% - 100px);
+
+          input {
+            padding-left: 15px;
+          }
+        }
+      }
+
+      &.banks-email-- {
+        display: flex;
+        align-items: center;
+
+        .nx-formfield {
+          width: 100%;
+        }
+
+        span {
+          padding-left: 15px;
+        }
+
+        .ndbx-icon {
+          color: #006192;
+        }
+      }
+    }
+
+    &-checkbox {
+      width: fit-content;
+      margin-bottom: 24px;
+
+      &.correspondence-- {
+        margin-bottom: 8px;
+      }
+    }
+
+    &-error {
+      margin-bottom: 24px;
+    }
+
+    &-copytext {
+      display: flex;
+      flex-wrap: wrap;
+
+      &-block {
+        width: 50%;
+        padding-bottom: 23px;
+
+        &:nth-child(3),
+        &:nth-child(4) {
+          padding-bottom: 0;
+        }
+      }
+
+      &-key,
+      &-value {
+        font-size: 16px;
+        color: #414141;
+      }
+
+      &-key {
+        font-weight: $fw-semibold;
+      }
+    }
+
+    &-text {
+      padding-top: 24px;
+      font-size: 12px;
+      font-weight: $fw-semibold;
+    }
+
+    &-box {
+      padding: 28px 23px;
+      border: 1px solid #999999;
+      border-radius: 5px;
+
+      &-title {
+        display: flex;
+        font-size: 20px;
+        padding-bottom: 16px;
+
+        &-button {
+          color: #006192;
+          margin-left: auto;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-button {
+      color: #006192;
+      font-weight: $fw-semibold;
+      cursor: pointer;
+      padding: 0 !important;
+    }
+
+    &-label {
+      font-weight: $fw-semibold;
+    }
+
+    &-value {
+      font-weight: $fw-regular;
+      text-transform: uppercase;
+    }
+  }
+
+  &__buttons {
+    padding: 46px 16px 60px;
+    border-bottom: 1px solid #d9d9d9;
+    row-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media ($bp-mds) {
+    &__content-section {
+      .customer-details__content-col {
+        .customer-details__content-input {
+          padding-left: 0;
+
+          &:nth-child(odd) {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+      }
+
+      .customer-details__content-input {
+        padding-left: 0;
+      }
+    }
+
+    &__content-col {
+      display: flex;
+      align-items: flex-start;
+      column-gap: 32px;
+
+      .customer-details__content-input {
+        width: calc(50% - 16px);
+        padding-left: 0;
+
+        &:nth-child(odd) {
+          padding-left: 42px;
+        }
+      }
+    }
+
+    &__content-col-3 {
+      display: flex;
+      column-gap: 32px;
+      padding-left: 42px;
+
+      .postCode--,
+      .city--,
+      .state-- {
+        width: 100%;
+        padding-left: 0;
+      }
+
+      .postCode-- {
+        max-width: 160px;
+      }
+
+      .city-- {
+        max-width: calc(50% - 80px);
+      }
+
+      .state-- {
+        max-width: calc(50% - 80px);
+      }
+    }
+
+    &__content-section {
+      padding-top: 28px;
+      padding-bottom: 14px;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    &__horizontal-buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+    }
+
+    &__content-box {
+      margin-left: 42px;
+      margin-right: 42px;
+
+      &-desc {
+        padding-left: 42px;
+        font-size: 18px;
+
+        &.email-- {
+          padding-left: 0;
+        }
+      }
+
+      &-title {
+        padding-bottom: 32px;
+        font-size: 24px;
+      }
+    }
+
+    &__content-input {
+      padding-left: 42px;
+
+      .toggle {
+        width: 50%;
+      }
+    }
+
+    &__content-copytext {
+      padding-left: 42px;
+    }
+
+    &__content-text {
+      padding-top: 0;
+
+      &.disabled-- {
+        color: #c2c2c2;
+      }
+    }
+
+    &__buttons {
+      justify-content: center;
+      column-gap: 32px;
+
+      button {
+        width: 100%;
+        max-width: 256px;
+      }
+    }
+  }
+}
+
+.renewal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 23px;
+  margin-left: 0;
+
+  &-block {
+    font-size: 16px;
+    line-height: 24px;
+    width: 48%;
+
+    @media ($bp-sm) {
+      width: 33%;
+    }
+
+    @media ($bp-md) {
+      width: 25%;
+    }
+  }
+
+  @media ($bp-xs) {
+    margin-left: 42px;
+  }
+}
+
+.edit {
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: 24px;
+  width: auto;
+
+  &-icon {
+    margin-right: 8px;
+  }
+
+  @media screen and (min-width: 704px) {
+    margin-right: 40px;
+  }
+}
+
+.financial {
+  padding: 28px 23px;
+  margin: 0;
+  border: 1px solid #999999;
+  border-radius: 5px;
+
+  &-block {
+    width: 100%;
+
+    @media ($bp-sm) {
+      width: 50%;
+    }
+
+    @media ($bp-md) {
+      width: 33%;
+    }
+  }
+
+  &-section {
+    padding-bottom: 23px;
+  }
+
+  &-input {
+    padding-right: 0;
+  }
+
+  &-info {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 23px;
+    margin-left: 0 !important;
+  }
+
+  @media ($bp-xs) {
+    margin: 0 40px;
+  }
+}
+
+#messages {
+  word-wrap: break-word;
+}
+
+.float_right {
+  float: right;
+}

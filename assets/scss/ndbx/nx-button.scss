@@ -1,0 +1,17 @@
+/*--------------------
+    Nx Button
+--------------------*/
+
+.nx-button {
+  display: block;
+  font-weight: $fw-semibold;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1px;
+
+  .nx-plain-button__content-wrapper {
+    column-gap: 10px;
+    align-items: unset !important;
+    text-align: left !important;
+  }
+}

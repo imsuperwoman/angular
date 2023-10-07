@@ -1,0 +1,12 @@
+<div class="site-footer__copyright">
+  <footer nx-footer class="wrapper site-footer__copyright-holder">
+    <nx-footer-copyright>
+      &copy; Allianz Malaysia Berhad (197201000819) 2022. All rights reserved.
+    </nx-footer-copyright>
+    <nx-footer-navigation>
+      <nx-footer-link *ngFor="let item of (footerMenuData$ |async )">
+        <a [href]="item.queryParams">{{item.label}}</a>
+      </nx-footer-link>
+    </nx-footer-navigation>
+  </footer>
+</div>

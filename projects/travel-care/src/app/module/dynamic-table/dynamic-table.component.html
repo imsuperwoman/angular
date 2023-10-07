@@ -1,0 +1,33 @@
+
+<div class="table-container">
+  <nx-swipebar label="Swipe to see more">
+    <table nxTable [sticky]="'first'" class="comparison_first_column">
+      <thead>
+        <tr nxTableRow>
+          <th nxHeaderCell></th>
+          <th nxHeaderCell *ngIf="uniqueAgeRanges.includes('C')" class="text-center"> Child / <br>Student (RM) </th>
+          <th nxHeaderCell *ngIf="uniqueAgeRanges.includes('A')" class="text-center"> Adult (RM)</th>
+          <th nxHeaderCell *ngIf="uniqueAgeRanges.includes('S')" class="text-center">Senior Citizen (RM)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr nxTableRow *ngFor="let benefit of benefitObjAll">
+          <td nxTableCell>
+            <div class="has-popover  width_popover">
+              <span [innerHTML]="benefit.Description"></span>
+              <button nxPlainButton class="info-icon" aria-label="More information" nxPopoverTrigger="click" type="button">
+              <icon-popover [popoverMessage]="benefit.Narration"></icon-popover>
+              </button>
+            </div>
+          </td>
+          <td nxTableCell *ngIf="uniqueAgeRanges.includes('C')" class="text-center">
+            {{benefit.ChildCover}}
+          </td>
+          <td nxTableCell *ngIf="uniqueAgeRanges.includes('A')" class="text-center">{{benefit.AdultCover}}</td>
+          <td nxTableCell *ngIf="uniqueAgeRanges.includes('S')" class="text-center">{{benefit.SeniorCover}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nx-swipebar>
+</div>

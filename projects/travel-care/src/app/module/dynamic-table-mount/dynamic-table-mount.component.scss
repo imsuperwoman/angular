@@ -1,0 +1,19 @@
+@import 'globals';
+
+
+.center-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+  white-space: nowrap;
+  background-color: white;
+
+}
+.horizontal-checkboxes {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,564 @@
+@import 'globals';
+
+.quotation {
+  padding: 53px 16px 23px;
+  background-color: $blue;
+  color: $light-black1;
+
+  &__container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  &__description {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__policies {
+    margin-top: 46px;
+  }
+
+  &__selection {
+    &-summary {
+      margin-top: 24px;
+      margin-left: 35px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 24px;
+
+      &-label-container {
+        display: flex;
+        align-items: flex-end;
+        column-gap: 5px;
+        color: $light-black1;
+      }
+
+      &-labels {
+        display: inherit;
+        flex-direction: column;
+      }
+
+      &-label {
+        font-size: 16px;
+        font-weight: $fw-semibold;
+        line-height: 24px;
+
+        &.second-- {
+          margin-left: 0;
+        }
+      }
+    }
+
+    &-card {
+      width: 100%;
+      margin-top: 24px;
+
+      &-title {
+        color: $light-black1;
+        font-size: 20px;
+        font-weight: $fw-light;
+        line-height: 28px;
+        letter-spacing: 0.2px;
+
+        &-popover {
+          margin-left: 5px;
+          position: relative;
+        }
+      }
+
+      &-description {
+        margin-top: 28px;
+        color: $light-black1;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      &-dateField {
+        margin-top: 24px;
+      }
+
+      &-policyHolder,
+      &-jointPolicyHolder {
+        &-title {
+          color: $light-black1;
+          font-weight: $fw-semibold;
+        }
+
+        &-fields {
+          margin-top: 8px;
+        }
+      }
+
+      &-jointPolicyHolder {
+        &-fields {
+          nx-message {
+            margin-bottom: 24px;
+          }
+        }
+
+        &-field {
+          &.with-delete-- {
+            display: flex;
+            align-items: center;
+            column-gap: 5px;
+
+            nx-formfield {
+              width: 100%;
+            }
+          }
+        }
+
+        &-delete {
+          font-size: 22px !important;
+          position: relative;
+          bottom: 5px;
+
+          &.bottom-- {
+            bottom: 50px;
+          }
+
+          &::before {
+            color: $dark-blue2;
+          }
+        }
+      }
+
+      &-note {
+        margin-top: 24px;
+        color: $light-black1;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.2px;
+      }
+
+      &-buttons {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 18px;
+      }
+    }
+  }
+
+  &__summary {
+    padding: 36px 16px;
+    border-radius: 5px;
+    border: 1px solid $light-black3;
+    margin-top: 46px;
+    margin-bottom: 8px;
+    color: $light-black1;
+    background-color: $white;
+
+    nx-card {
+      width: 100%;
+    }
+
+    &-title {
+      font-size: 24px;
+      font-weight: $fw-light;
+      line-height: 32px;
+      letter-spacing: 0.2px;
+      text-align: center;
+    }
+
+    &-upper,
+    &-plan,
+    &-amount {
+      &-holder {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        display: flex;
+        column-gap: 10px;
+        justify-content: space-between;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      &-label {
+        width: calc(50% - 5px);
+        text-align: left;
+      }
+
+      &-value {
+        text-align: right;
+      }
+    }
+
+    &-upper {
+      margin-top: 10px;
+      border-bottom: 1px solid $light-black1;
+    }
+
+    &-upper,
+    &-amount {
+      &-holder {
+        border-bottom: 1px solid $dark-white2;
+      }
+    }
+
+    &-amount {
+      border-top: 1px solid $dark-white2;
+    }
+
+    &-total {
+      padding-top: 28px;
+      font-size: 18px;
+      font-weight: $fw-bold;
+      line-height: 28px;
+      letter-spacing: 0.2px;
+      text-align: center;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    margin-top: 46px;
+    margin-bottom: 37px;
+
+    @media ($bp-mds) {
+      margin-top: 60px;
+      margin-bottom: 52px;
+    }
+  }
+
+  &__button {
+    width: calc(100% - 32px);
+    max-width: 288px;
+    margin-right: auto;
+    margin-left: auto;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  &__note {
+    margin: 36px 16px 60px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+
+    a {
+      color: $dark-blue2;
+      font-weight: $fw-semibold;
+    }
+  }
+
+  /*-- Start of Agent --*/
+  &__agent {
+    padding: 45px 16px 60px;
+    color: $light-black1;
+    text-align: center;
+    background-color: $dark-white3;
+
+    &-header {
+      font-size: 35px;
+      font-weight: $fw-light;
+      line-height: 40px;
+    }
+
+    &-description {
+      margin-top: 29px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    &-button {
+      max-width: 288px;
+      margin: 32px auto 0;
+    }
+
+    @media ($bp-mds) {
+      padding-top: 60px;
+      padding-bottom: 80px;
+
+      &-header {
+        font-size: 40px;
+        line-height: 48px;
+      }
+
+      &-description {
+        margin-top: 40px;
+      }
+
+      &-button {
+        max-width: 194px;
+        margin-top: 40px;
+      }
+    }
+  }
+
+  /*-- End of Agent --*/
+
+  @media ($bp-xs-dn) {
+    &__description {
+      br {
+        display: none;
+      }
+    }
+  }
+
+  @media ($bp-xs) {
+    &__selection {
+      &-card {
+        &-policyHolder {
+          &-fields {
+            display: flex;
+            column-gap: 32px;
+          }
+
+          &-field {
+            &:first-of-type {
+              width: calc(40% - 16px);
+            }
+
+            &:last-of-type {
+              width: calc(60% - 16px);
+            }
+
+            &.idType_width {
+              width: calc(40% - 16px) !important;
+            }
+          }
+        }
+
+        &-jointPolicyHolder {
+          &-fields {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 32px;
+          }
+
+          &-field {
+            width: calc(40% - 16px);
+
+            &.with-delete-- {
+              width: calc(60% - 16px);
+            }
+          }
+        }
+
+        &-buttons {
+          margin-top: 24px;
+          flex-direction: row;
+          column-gap: 32px;
+          row-gap: unset;
+        }
+      }
+    }
+  }
+
+  @media ($bp-mds) {
+    padding-top: 48px;
+    padding-bottom: 30px;
+
+    &__description {
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    &__policies {
+      display: flex;
+      column-gap: 32px;
+    }
+
+    &__selection {
+      flex: 1 1 calc(69% - 16px);
+
+      &-card {
+        width: calc(100% - 72px);
+        margin-left: 36px;
+
+        &-title {
+          font-size: 24px;
+          font-weight: $fw-semibold;
+          line-height: 32px;
+          letter-spacing: 0.2px;
+        }
+
+        &-description {
+          margin-top: 8px;
+        }
+
+        &-policyHolder {
+          &-fields {
+            flex-direction: column;
+          }
+
+          &-field {
+
+            &:first-of-type,
+            &:last-of-type {
+              width: 100%;
+            }
+          }
+        }
+
+        &-jointPolicyHolder {
+          &-fields {
+            display: unset;
+          }
+
+          &-field {
+            width: 100%;
+
+            &.with-delete-- {
+              width: 100%;
+            }
+          }
+        }
+
+        &-buttons {
+          flex-direction: column;
+          row-gap: 18px;
+          column-gap: 0;
+        }
+      }
+    }
+
+    &__summary {
+      height: fit-content;
+      padding-left: 23px;
+      padding-right: 23px;
+      border: none;
+      margin-top: unset;
+      margin-bottom: 0;
+      flex: 1 1 calc(31% - 16px);
+      position: sticky;
+      top: 25px;
+      user-select: none;
+      box-shadow: 0 3px 3px $light-black3;
+
+      &-title {
+        font-size: 26px;
+      }
+
+      &-upper,
+      &-plan,
+      &-amount {
+        &-label {
+          max-width: 140px;
+        }
+      }
+
+      &-total {
+        font-size: 20px;
+      }
+    }
+
+    &__buttons {
+      flex-direction: row;
+      justify-content: center;
+      row-gap: 0;
+      column-gap: 32px;
+    }
+
+    &__button {
+      margin-right: 0;
+      margin-left: 0;
+
+      &.step-one-- {
+        max-width: 160px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      &.step-two-- {
+        max-width: 256px;
+      }
+    }
+
+    &__note {
+      max-width: 500px;
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: 80px;
+    }
+  }
+
+  @media ($bp-md) {
+    &__selection {
+      &-card {
+        &-policyHolder {
+          &-fields {
+            flex-direction: row;
+          }
+
+          &-field {
+            &:first-of-type {
+              width: calc(40% - 16px);
+            }
+
+            &:last-of-type {
+              width: calc(60% - 16px);
+            }
+          }
+        }
+
+        &-jointPolicyHolder {
+          &-fields {
+            display: flex;
+            column-gap: 32px;
+          }
+
+          &-field {
+            width: calc(40% - 16px);
+
+            &.with-delete-- {
+              width: calc(60% - 16px);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media ($bp-lg) {
+    &__selection {
+      &-summary {
+        margin-left: 36px;
+        flex-direction: row;
+        row-gap: unset;
+        column-gap: 41px;
+
+        &-labels {
+          flex-direction: row;
+          row-gap: 5px;
+        }
+
+        &-label.second-- {
+          margin-left: 5px;
+        }
+      }
+
+      &-card {
+        &-buttons {
+          flex-direction: row;
+          column-gap: 32px;
+          row-gap: unset;
+        }
+
+        &-button {
+          flex: 1;
+        }
+      }
+    }
+  }
+}
+
+.details {
+  max-width: 220px;
+}
+
+.button_seven {
+  width: 700px;
+}
+
+.horizontal-checkboxes {
+  display: flex;
+  flex-direction: row;
+}

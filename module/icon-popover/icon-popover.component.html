@@ -1,0 +1,15 @@
+<div
+  class="icon-popover"
+  [nxPopoverTriggerFor]="popoverMessage"
+  nxPopoverTrigger="click"
+  [nxPopoverShow]="highlightIcon"
+  (nxPopoverShowChange)="toggleHighlightIcon($event)"
+>
+  <nx-icon (click)="highlightIcon = true" *ngIf="highlightIcon" class="icon-popover__icon" name="info-circle"></nx-icon>
+
+  <nx-icon (click)="highlightIcon = false" *ngIf="!highlightIcon" class="icon-popover__icon" name="info-circle-o"></nx-icon>
+</div>
+
+<nx-popover class="icon-popover__message" #popoverMessage >
+  <p [innerHTML]="message" style="text-align: {{ textAlign }}"></p>
+</nx-popover>

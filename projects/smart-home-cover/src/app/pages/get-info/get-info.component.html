@@ -1,0 +1,479 @@
+<form [formGroup]="quoteForm" class="get-info__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get A Quote">
+      <product-stage productImage="smart-home-cover-logo.png" header="Smart Home Cover"
+        description="A new kind of home insurance">
+      </product-stage>
+      <div class="get-info" *ngIf="!geoCode" #main>
+        <nx-natural-language-form class="get-info__natural-language-form" size="small">
+          I am the
+          <span *ngIf="bundleOwnerType.length!=1">
+            <nx-word class="azol-nx-word__dropdown" label="Provide this required field">
+              <nx-dropdown formControlName="CustomerType" required>
+                <nx-dropdown-item (click)="valueCheckChange(false);checkCoverageType()" [value]="ownership.Code"
+                  *ngFor="let ownership of (ownerType$|async)">{{
+                  ownership.Description | lowercase }}</nx-dropdown-item>
+              </nx-dropdown>
+            </nx-word>
+          </span>
+          <span *ngIf="bundleOwnerType.length==1">{{bundleOwnerType[0].Description |
+            lowercase}}</span>
+          of the
+          <nx-word class="azol-nx-word__dropdown" *ngIf="bundlePropType.length!=1">
+            <!-- NORMAL -->
+            <nx-dropdown formControlName="PropertyType" required>
+              <nx-dropdown-item [value]="lease.value" *ngFor="let lease of LEASE_TYPES"
+                (click)="clearAgreedValue();valueCheckChange(false);checkPropertyType();checkCoverageType();">
+                {{ lease.label }}</nx-dropdown-item>
+            </nx-dropdown>
+          </nx-word>
+          <span *ngIf="bundlePropType.length==1">
+            {{bundlePropType[0].label}}
+          </span>
+          home
+          <span *ngIf="this.quoteForm.get('PropertyType')?.value === 'LD'">
+            that is
+            <nx-word class="azol-nx-word__dropdown">
+              <nx-dropdown formControlName="BuildingStorey" required>
+                <nx-dropdown-item [value]="BUILDSTOREYCODE.Code"
+                  *ngFor="let BUILDSTOREYCODE of BUILDSTOREYCODE$|async">{{
+                  BUILDSTOREYCODE.Description
+                  }}</nx-dropdown-item>
+              </nx-dropdown>
+            </nx-word>
+          </span>
+          . I
+          <nx-word class="azol-nx-word__dropdown">
+            <nx-dropdown formControlName="yearOfConsUnsure" required>
+              <nx-dropdown-item [value]="know.value" *ngFor="let know of KNOW"
+                (click)="yearOfConstructionValue(true)">{{
+                know.label
+                }}</nx-dropdown-item>
+            </nx-dropdown>
+          </nx-word>
+          {{yearOfLabel}}
+          <nx-word class=" azol-nx-word__field" nxLabel="Provide this required field"
+            *ngIf="yearOfConsUnsure ==='know'">
+            <input inputmode="numeric" nxInput formControlName="yearOfConstruction" required autocomplete="off"
+              maxlength="4" minlength="4" numberOnly />
+            <div nxError
+              *ngIf="(quoteForm.get('yearOfConstruction')?.invalid) && ((quoteForm.get('yearOfConstruction')?.errors) )">
+              {{quoteForm.get('yearOfConstruction')?.errors?.message}}
+            </div>
+          </nx-word>
+
+          <nx-word class="azol-nx-word__dropdown" nxLabel="Provide this required field"
+            *ngIf="yearOfConsUnsure ==='donotknow'">
+            <nx-dropdown required formControlName="ageOfBuilding">
+              <nx-dropdown-item [value]="age.value" *ngFor="let age of BUILDING_AGE">{{
+                age.label
+                }} </nx-dropdown-item>
+            </nx-dropdown>
+          </nx-word>
+          {{yearOfLabel2}}
+          <nx-word class="azol-nx-word__dropdown" label="Provide this required field">
+            <nx-dropdown formControlName="BuiltUsingBrick" required>
+              <nx-dropdown-item [value]="state.value" *ngFor="let state of BUILT_USING_BRICK"
+                (click)="!state.value ? openAgentDialog() : null">{{
+                state.label
+                }}
+              </nx-dropdown-item>
+            </nx-dropdown>
+          </nx-word>
+
+          <nx-error class="get-info__natural-language-form-error azol-nx-error mobile--"
+            *ngIf="BuiltUsingBrickControlValue == 'false'">
+            Please contact an Agent in order to proceed with your quotation for this particular
+            property type.
+          </nx-error>
+          built with brick wall with tile / metal or concrete roof.
+          <nx-error class="get-info__natural-language-form-error azol-nx-error desktop--"
+            *ngIf="BuiltUsingBrickControlValue == 'false'">
+            Please contact an Agent in order to proceed with your quotation for this particular
+            property type.
+          </nx-error>
+
+          <div class="form-group">
+            <ng-container>
+              <br>
+              {{coverageTypeLabel}}
+              <nx-word *ngIf="bundleCoverageType.length!=1" class="get-info__nx-word-size-long"
+                label="Provide this required field">
+                <nx-dropdown formControlName="CoverageType" required>
+                  <nx-dropdown-item [value]="state.Code" (click)="checkCoverageLabel();valueCheckChange(false);"
+                    *ngFor="let state of coverageType$|async">{{
+                    state.Description }}
+                  </nx-dropdown-item>
+                </nx-dropdown>
+              </nx-word>
+              <span *ngIf="bundleCoverageType.length==1">{{bundleCoverageType[0].Description}}</span>
+              policy for my home.
+              <nx-icon *ngIf="bundleCoverageType.length!=1" class="get-info__natural-language-form-info-icon"
+                name="info-circle-o" (click)="openDialog(multiYearDialog)"></nx-icon>
+            </ng-container>
+          </div>
+
+          <ng-container class="form-group" *ngIf="CustomerType === 'HO' && this.quoteForm.get('SumInsured')">
+            <br>
+            I would like to insure my home for RM
+            <div class="get-info__natural-language-form-field-holder" #sumInsuredHolder>
+              <nx-word class="azol-nx-word__field" label="Provide this required field" #sumInsured>
+                <input #sumInsuredValue [ngClass]="sumInsuredReadonly?'disabled':''" [readonly]="sumInsuredReadonly"
+                  [value]="(quoteForm.get('SumInsured')?.value?.toString()).length<20?quoteForm.get('SumInsured')?.value:0"
+                  nxInput inputmode="numeric" formControlName="SumInsured" required type="text" autocomplete="off"
+                  numberOnly decimalConverter decimalPoint="2"
+                  (focusout)="validateSumInsured(quoteForm.get('SumInsured'));" />
+                <div nxError
+                  *ngIf="(quoteForm.get('SumInsured')?.invalid) && ((quoteForm.get('SumInsured')?.value != null) || (quoteForm.get('SumInsured')?.value != ''))">
+                  The maximum sum insured value is RM 1,000,000
+                </div>
+              </nx-word>
+              <nx-icon class="get-info__natural-language-form-calculator-icon" name="product-calculator"
+                *ngIf="(productConfig$ | async)?.SiCalculatorInd == 'Y' && PropertyType === 'LD'"
+                (click)="openDialog(insuredCalculatorDialog, 'full')"></nx-icon>
+              <nx-icon class="get-info__natural-language-form-info-icon" name="info-circle-o"
+                *ngIf="(productConfig$ | async)?.SiCalculatorInd == 'Y'" (click)="openDialog(calculatorInfoDialog)">
+              </nx-icon>
+            </div>
+          </ng-container>
+
+          <span *ngIf="this.quoteForm.get('ExistingLoan')">
+            and I
+            <nx-word class="azol-nx-word__dropdown" label="Provide this required field">
+              <nx-dropdown formControlName="ExistingLoan">
+                <nx-dropdown-item [value]="state.value" *ngFor="let state of DO_STATE_TYPES">{{
+                  state.label
+                  }}</nx-dropdown-item>
+              </nx-dropdown>
+            </nx-word>
+            have an existing bank loan on the home.
+          </span>
+          <span *ngIf="this.quoteForm.get('HasTenant')">
+            Also, there
+            <nx-word class="azol-nx-word__dropdown" label="Provide this required field">
+              <nx-dropdown formControlName="HasTenant">
+                <nx-dropdown-item [value]="state.value" *ngFor="let state of BUILT_USING_BRICK">{{
+                  state.label
+                  }}</nx-dropdown-item>
+              </nx-dropdown>
+            </nx-word>
+            a tenant staying in the home.
+          </span>
+        </nx-natural-language-form>
+        <nx-card class="get-info__card">
+          <div nxLayout="grid" class="wrapper">
+            <div nxRow>
+              <div nxCol="12,12,10">
+                <nx-card-header>
+                  <h3 nxHeadline="subsection-small" class="get-info__card-header">
+                    {{(underWritingConfig$ | async)?.description}}
+                  </h3>
+                </nx-card-header>
+                <p nxCopytext="normal" class="get-info__card-description">
+                  {{(underWritingConfig$ | async)?.subQuestions[0].description}}
+                </p>
+              </div>
+              <div nxCol="12,12,2">
+                <nx-switcher formControlName="sufferedDamage" labelSize="small" class="nx-margin-top-m">
+                  {{ quoteForm.get('sufferedDamage')?.value ? 'Yes' : 'No' }}
+                </nx-switcher>
+              </div>
+            </div>
+          </div>
+        </nx-card>
+      </div>
+
+      <!-- Start geoCode -->
+      <div *ngIf="geoCode">
+        <div nxLayout="grid" class="wrapper nx-margin-top-2m nx-margin-bottom-3m" nxLayout="grid">
+          <geo-map [geoLabel]="geoLabel" [geoControl]="addressForm"></geo-map>
+        </div>
+        <ng-container formGroupName="address" *ngIf="showAddress">
+          <geo-code [address]="addressForm"></geo-code>
+        </ng-container>
+        <div class="get-info__form-buttons step-one--" *ngIf="geoCode">
+          <button nxButton="primary" type="button" [disabled]="addressForm.invalid" (click)="addressComplete()">NEXT
+          </button>
+        </div>
+      </div>
+      <!-- End geoCode -->
+
+      <div class="get-info__form-buttons step-two--" *ngIf="!geoCode">
+        <button nxButton="secondary" type="button" (click)="geoCode=true;">Back
+        </button>
+        <button nxButton="primary" type="button" [disabled]="quoteForm.invalid" (click)="
+            quoteForm.get('sufferedDamage')?.value ? openAgentDialog() : nextQuestion()">NEXT
+        </button>
+      </div>
+
+      <div class="get-info__disclosure-description">
+        <disclosure-message *ngIf="geoCode" [control]="addressForm"></disclosure-message>
+      </div>
+      <div class="get-info__documents">
+        <h2 class="get-info__documents-header">Documents</h2>
+        <p class="get-info__documents-description">
+          To learn more about our product, please read our Product Disclosure Sheet here.
+        </p>
+        <ng-container *ngFor="let item of (documentData$| async)">
+          <button class="azol-nx-plain__button get-info__documents-download-cta" nxPlainButton type="button">
+            <nx-icon name="pdf"></nx-icon> <a [href]="item.queryParams" target='_blank'>{{ item.label }}</a>
+          </button>
+        </ng-container>
+      </div>
+    </nx-step>
+    <nx-step label="Coverage Details"></nx-step>
+
+    <nx-step *ngIf="(flowType$ |async) =='DIRECT'" label="Find An Agent"></nx-step>
+    <nx-step *ngIf="(flowType$ |async) !='DIRECT'" label="Policyholder Details"></nx-step>
+    <nx-step *ngIf="(flowType$ |async) !='DIRECT'" label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>
+<ng-template #insuredCalculatorDialog>
+  <h3 class="modal-dialog__insured-header">
+    Allow us to help you determine the amount needed to insure your home
+  </h3>
+
+  <p class="modal-dialog__insured-question">
+    <span class="modal-dialog__insured-question-step">Question {{ insuredDialogQuestionNo }} of 3</span>:
+    <br />
+    <span class="modal-dialog__insured-question-regular"
+      [innerHTML]="INSURED_QUESTIONS_CHOICES[insuredDialogQuestionNo] ">
+    </span>
+    <hr class="modal-dialog__insured-divider" />
+
+  <form class="modal-dialog__insured-form" [formGroup]="insuredDialogForm" nxModalContent>
+    <!-- Question One - House Type -->
+    <div class="modal-dialog__insured-form-one" *ngIf="insuredDialogQuestionNo === 1">
+      <nx-radio-group name="buildingType" formControlName="buildingType" (nxGroupValueChange)="valueChangeAgreed()">
+        <div class="modal-dialog__insured-form-one-radio">
+          <div class="modal-dialog__insured-form-one-radio-choice"
+            *ngFor="let questionChoice of INSURED_QUESTIONS_CHOICES.buildingType">
+            <img class="modal-dialog__insured-form-one-radio-image"
+              [src]="imageFolder + 'house/' + questionChoice.image" alt="Textual description of questionChoice.image" />
+            <nx-radio class="modal-dialog__insured-form-one-radio-label" [value]="questionChoice.radio.value"
+              labelSize="small">{{ questionChoice.radio.label }}</nx-radio>
+          </div>
+        </div>
+      </nx-radio-group>
+
+      <div class="modal-dialog__insured-form-buttons">
+        <button class="modal-dialog__insured-form-button" nxButton="primary" type="button"
+          (click)="insuredDialogQuestionNo = insuredDialogQuestionNo + 1"
+          [disabled]="insuredDialogForm.get('buildingType')?.invalid">
+          NEXT
+        </button>
+      </div>
+    </div>
+
+    <!-- Question Two - Material Type -->
+    <div class="modal-dialog__insured-form-two" *ngIf="insuredDialogQuestionNo === 2">
+      <nx-radio-group name="finishedCost" formControlName="finishedCost" (nxGroupValueChange)="valueChangeAgreed()">
+        <div class="modal-dialog__insured-form-two-radio">
+          <div class="modal-dialog__insured-form-two-radio-choice"
+            *ngFor="let questionChoice of INSURED_QUESTIONS_CHOICES.finishedCost; let i = index">
+            <div>
+              <img class="modal-dialog__insured-form-two-radio-image"
+                [src]="imageFolder + 'house/' + questionChoice.image"
+                alt="Textual description of questionChoice.image" />
+              <div class="modal-dialog__insured-form-two-radio-image-label-holder">
+                <p class="modal-dialog__insured-form-two-radio-image-label"
+                  *ngFor="let label of questionChoice.imageLabel">
+                  {{ label }}
+                </p>
+              </div>
+            </div>
+            <div class="modal-dialog__insured-form-two-radio-container">
+              <nx-radio class="modal-dialog__insured-form-two-radio-label" [value]="questionChoice.radio.value"
+                labelSize="small">{{ questionChoice.radio.label }}
+              </nx-radio>
+              <icon-popover [popoverMessage]="questionChoice.popover"></icon-popover>
+            </div>
+          </div>
+        </div>
+      </nx-radio-group>
+
+      <div class="modal-dialog__insured-form-buttons">
+        <button class="modal-dialog__insured-form-button" nxButton="secondary" type="button"
+          (click)="insuredDialogQuestionNo = insuredDialogQuestionNo - 1">
+          BACK
+        </button>
+        <button class="modal-dialog__insured-form-button" nxButton="primary" type="button"
+          (click)="insuredDialogQuestionNo = insuredDialogQuestionNo + 1"
+          [disabled]="insuredDialogForm.get('finishedCost')?.invalid">
+          NEXT
+        </button>
+      </div>
+    </div>
+
+    <!-- Question Three - House Information -->
+    <div class="modal-dialog__insured-form-three" *ngIf="insuredDialogQuestionNo === 3" formGroupName="houseInfo">
+      <div class="modal-dialog__insured-form-three-questions">
+        <div class="modal-dialog__insured-form-three-holder">
+          <div class="modal-dialog__insured-form-three-upper-container">
+            <img class="modal-dialog__insured-form-three-visual" [src]="imageFolder + 'external-improvements.png'"
+              alt="External Improvements" alt="Textual description of external-improvements.png" />
+            <div class="modal-dialog__insured-form-three-field-holder">
+              <p class="modal-dialog__insured-form-three-question">
+                <span class="modal-dialog__insured-form-three-question-highlight">External improvement / internal
+                  fitting / improved finishes</span>
+                Any additional features or improvements to external area, which were not originally
+                provided by the developer (pool, auto gates and retaining walls)
+              </p>
+              <nx-formfield class="modal-dialog__insured-form-three-field" label="Amount (RM, optional)">
+                <input nxInput inputmode="numeric" formControlName="improvedFinishes" type="text" autocomplete="off"
+                  numberOnly decimalConverter decimalPoint="2"
+                  (keyup)="insuredDialogForm.get('agreedValue')?.setValue('')" />
+              </nx-formfield>
+            </div>
+          </div>
+        </div>
+        <div class="modal-dialog__insured-form-three-holder">
+          <div class="modal-dialog__insured-form-three-upper-container">
+            <img class="modal-dialog__insured-form-three-visual" [src]="imageFolder + 'gross-built.png'"
+              alt="External Improvements" alt="Textual description of gross-built.png" />
+            <div class="modal-dialog__insured-form-three-field-holder">
+              <p class="modal-dialog__insured-form-three-question">
+                <span class="modal-dialog__insured-form-three-question-highlight">Gross built-up area of all
+                  floors</span>
+                Total area inside the building including car parking space such as covered car
+                porch, basement and podium; and covered balcony
+              </p>
+              <nx-formfield class="modal-dialog__insured-form-three-field" [label]="MEASUREMENT">
+                <input nxInput required onkeypress="return !(event.charCode == 46);" inputmode="numeric"
+                  formControlName="area" autocomplete="off" numberOnly
+                  (keyup)="insuredDialogForm.get('agreedValue')?.setValue('')" />
+              </nx-formfield>
+            </div>
+          </div>
+          <nx-radio-group formControlName="unitOfMeasure"
+            (nxGroupValueChange)="insuredDialogForm.get('agreedValue')?.setValue('')">
+            <div class="modal-dialog__insured-form-three-radio">
+              <nx-radio *ngFor="let questionChoice of INSURED_QUESTIONS_CHOICES.questionThree"
+                class="modal-dialog__insured-form-three-radio-label" [value]="questionChoice.value" labelSize="small">
+                {{ questionChoice.label }}</nx-radio>
+            </div>
+          </nx-radio-group>
+        </div>
+      </div>
+
+      <button class="modal-dialog__insured-form-three-button" nxButton="primary" type="button"
+        [disabled]="insuredDialogForm.get('houseInfo')?.invalid" (click)="calculateInsuredCoverage()">
+        CALCULATE
+      </button>
+
+      <div class="modal-dialog__insured-form-three-summary" id="summary">
+        <p class="modal-dialog__insured-form-three-summary-text">
+          We'll insure your home for
+          <span class="modal-dialog__insured-form-three-summary-highlight">{{
+            insuredDialogForm.get('agreedValue')?.value | currency: 'RM '
+            }}</span>
+        </p>
+      </div>
+
+      <p class="modal-dialog__insured-form-three-summary-note">
+        This is your home's agreed value as calculated by Allianz based on the information you've
+        provided earlier.
+      </p>
+
+      <div class="modal-dialog__insured-form-buttons">
+        <button class="modal-dialog__insured-form-button" nxButton="secondary" type="button"
+          (click)="insuredDialogQuestionNo = insuredDialogQuestionNo - 1">
+          BACK
+        </button>
+
+        <button class="modal-dialog__insured-form-button" nxButton="primary" type="button"
+          [disabled]="insuredDialogForm.get('agreedValue')?.value==''" (click)="submitHouseEvaluationForm()">
+          I AGREE
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-dialog__insured-form-note-holder">
+      <p class="modal-dialog__insured-form-note-text">
+        By using this calculator, your home will be covered using it's agreed value.
+      </p>
+
+      <icon-popover class="modal-dialog__insured-form-popover"
+        popoverMessage="By using our sum insured calculator, your house will be insured on an agreed value basis
+          (amount agreed between you and Allianz).<br /><br />
+          If you choose not to use our sum insured calculator, your house will be insured on a market
+          value basis (current market cost to rebuild your house). Market value basis is not available for landed properties to be insured on a multi year (3 years) basis.">
+      </icon-popover>
+    </div>
+    <div class="modal-dialog__insured-form-note-holder" *ngIf="insuredDialogForm.get('agreedValue')?.value !== SumInsuredValue
+    && insuranceCoverageAmount">
+      <nx-error class="modal-dialog__insured-form-text">
+        {{INSURED_QUESTIONS_ERROR[insuredDialogQuestionNo]}}
+      </nx-error>
+    </div>
+  </form>
+</ng-template>
+
+<!-- Calculator Info Dialog -->
+<ng-template #calculatorInfoDialog>
+  <div class="modal-dialog__calculatorInfo-content" nxModalContent>
+    The amount you choose to insure your house is inclusive of the below:
+    <ul class="modal-dialog__calculatorInfo-listed-items">
+      <li class="modal-dialog__calculatorInfo-listed-item">
+        Reconstruction cost of your property (excluding the foundation)
+      </li>
+      <li class="modal-dialog__calculatorInfo-listed-item">Removal of debris</li>
+      <li class="modal-dialog__calculatorInfo-listed-item">
+        Professional fees – architect, surveyor, engineer, consultant
+      </li>
+    </ul>
+    <br />
+    By using our sum insured calculator, your house will be insured on an
+    <strong>agreed value</strong> basis which is the amount that is agreed between you and Allianz.
+    Agreed value basis is not available for non-landed properties.
+    <br /><br />
+    If you choose not to use our sum insured calculator, your house will be insured on a
+    <strong>market value</strong> basis which is the current market cost to rebuild your house.
+    Market value basis is not available for landed properties to be insured on a multi year (3 years) basis.
+    <br /><br />
+    Note: If the reconstruction cost of the property insured at the time of any loss is collectively
+    of higher value than the Sum Insured stated in the schedule, then you will be responsible for
+    the difference and bear a proportional share of the loss.
+  </div>
+</ng-template>
+
+<ng-template #multiYearDialog>
+  <div class="modal-dialog__calculatorInfo-content" nxModalContent>
+    You may choose to insure your property on an annual basis (1 year) or a multi year basis (3 years).
+    <br /><br />
+    Should you choose to insure your property on a multi year basis, you can enjoy:
+    <br />
+    <ul class="modal-dialog__calculatorInfo-listed-items">
+      <li class="modal-dialog__calculatorInfo-listed-item">
+        Discounts of up to 30%
+      </li>
+      <li class="modal-dialog__calculatorInfo-listed-item">
+        Free additional benefits such as Loss of Money
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<shared-dialog #leaveMyDetailsDialog [header]="leaveMyDetailsDialogHeader"
+  [description]="leaveMyDetailsDialogDescription" [routingPath]="'/leave-details'" [buttonText]="'LEAVE MY DETAILS'">
+</shared-dialog>
+
+<shared-dialog #agentRequiredDialog [header]="agentRequiredDialogHeader" [description]="agentRequiredDialogDescription"
+  [routingPath]="'/agent-locator'" [buttonText]="'FIND AN AGENT'" [isFail]=true></shared-dialog>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+  [buttonText]="'CLOSE'" (closeEmitter)="insuredCalculatorDialogOpen()"></shared-dialog>
+
+<ng-template #addressDialog>
+  <div class="agent-dialog">
+    <img class="agent-dialog__image" [src]="imageFolder + 'people/successful.png'"
+      alt="Textual description of successful.png" />
+    <h3 class="agent-dialog__header">{{ commonErrorDialogHeader }}</h3>
+    <p class="agent-dialog__description" [innerHTML]="commonErrorDescription"></p>
+
+    <div class="agent-dialog__buttons">
+      <button class="agent-dialog__button" nxButton="secondary" (click)="closeEmitter()">No</button>
+      <button class="agent-dialog__button" nxButton="primary" (click)="yesCloseEmitter()">Yes</button>
+    </div>
+  </div>
+</ng-template>

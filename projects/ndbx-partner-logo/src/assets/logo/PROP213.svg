@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="130" height="32" viewBox="0 0 130 32">
+  <defs>
+    <clipPath id="clip-logo">
+      <rect width="130" height="32"/>
+    </clipPath>
+  </defs>
+  <g id="logo" clip-path="url(#clip-logo)">
+    <rect id="image0" width="140" height="140" transform="translate(-5 -53)" fill="none"/>
+    <g id="PROP213" transform="translate(-6.5 -100.1)">
+      <rect id="Rectangle_14" data-name="Rectangle 14" width="1.043" height="11.079" transform="translate(39.479 119.021)" fill="#f89c33"/>
+      <path id="Path_161" data-name="Path 161" d="M201.65,163.43v22.93h1.7l-.652-.843V164.975h2.132v14.742h1.043V164.975H208v20.542l-.652.843h1.7V163.43Z" transform="translate(-158.996 -56.26)" fill="#f89c33"/>
+      <path id="Path_162" data-name="Path 162" d="M77.58,191.973H75.449V174.953H71.23v18.565h1.7l-.652-.843V176.5h2.132v17.019h4.219V171.36l-1.044,1.03Z" transform="translate(-41.277 -63.418)" fill="#f89c33"/>
+      <path id="Path_163" data-name="Path 163" d="M53.457,101.1H25.5v29h4.453v-1.043h-3.41V102.143H53.457v26.914h-3.41V130.1H54.5v-29Z" fill="#f89c33"/>
+      <g id="Group" transform="translate(56.784 104.653)">
+        <text id="PROPERTY" transform="translate(2.716 9.447)" fill="#3c639b" font-size="10" font-family="Montserrat-SemiBold, Montserrat" font-weight="600" letter-spacing="0.021em"><tspan x="0" y="0">PROPERTY</tspan></text>
+        <text id="_213" data-name="213" transform="translate(25.716 17.447)" fill="#3c639b" font-size="6.5" font-family="Montserrat-SemiBold, Montserrat" font-weight="600" letter-spacing="0.021em"><tspan x="0" y="0">213</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

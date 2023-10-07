@@ -1,0 +1,135 @@
+@import 'globals';
+
+
+.leave-my-details {
+  &__title {
+    margin-top: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+
+    &-header {
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: $fw-light;
+      color: #414141;
+    }
+
+    &-description {
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: $fw-regular;
+      color: #414141;
+      margin-top: 14px;
+
+      @media ($bp-sm) {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  &__form {
+    max-width: 544px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    &-field {
+      width: 100%;
+      text-align: left;
+
+      &-error {
+        margin-bottom: 24px;
+      }
+
+      &.phone-- {
+        display: flex;
+        margin-top: -16px;
+
+        .country {
+          width: 76px;
+
+          ::ng-deep {
+            span {
+              font-size: 16px;
+              line-height: 24px;
+              font-weight: $fw-semibold;
+            }
+          }
+        }
+
+        .number {
+          width: calc(100% - 76px);
+
+          ::ng-deep {
+            span {
+              margin-left: 12px;
+            }
+          }
+        }
+      }
+    }
+
+    &-link {
+      display: inline;
+      letter-spacing: 0 !important;
+    }
+
+    &-recaptcha {
+      max-width: 303px;
+      width: 100%;
+      margin-left: -5px;
+      margin-right: auto;
+      margin-top: 16px;
+      margin-bottom: 32px;
+      transform: scale(0.95);
+
+      @media (min-width: 335px) {
+        margin-left: auto;
+      }
+
+      @media ($bp-sm) {
+        margin-top: 30px;
+        margin-bottom: 40px;
+        transform: unset;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 532px;
+    margin-bottom: 60px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media ($bp-mds) {
+      gap: 32px;
+      flex-direction: row;
+      margin-bottom: 82px;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    max-width: unset;
+
+    button {
+      width: 100%;
+    }
+
+    @media ($bp-mds) {
+      max-width: 256px;
+    }
+  }
+
+  &__divider {
+    border-width: 0;
+    border-top-width: 1px;
+    border-color: $dark-white2;
+    border-style: solid;
+    margin: 0
+  }
+}

@@ -1,0 +1,18 @@
+.nx-popover {
+  &--right {
+    .nx-popover__arrow {
+      left: 1px !important;
+    }
+  }
+
+  &--left {
+    .nx-popover__arrow {
+      right: 1px !important;
+    }
+  }
+}
+
+.nx-popover__close-icon {
+  top: 8px !important;
+  right: 15px !important;
+}

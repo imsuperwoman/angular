@@ -1,0 +1,56 @@
+/*-----------------------------------------------------------------------------
+    $ Questions Banner Image
+-----------------------------------------------------------------------------*/
+
+.banner {
+  &__image {
+    &-holder {
+      background-color: $beige;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    &-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    &-header {
+      margin-top: 32px;
+      font-weight: $fw-light;
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: 0.3px;
+    }
+
+    &-subheader {
+      margin-top: 16px;
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+    }
+
+    &-gfx {
+      width: 253px;
+      margin: 24px auto 0;
+      position: relative;
+      top: 7px;
+    }
+
+    @media ($bp-mds) {
+      &-header {
+        margin-top: 64px;
+        font-size: 54px;
+        line-height: 60px;
+      }
+
+      &-subheader {
+        margin-top: 26px;
+      }
+    }
+  } /*-- Start of Image Banner --*/
+}

@@ -1,0 +1,111 @@
+//-----------------------------------------------------------------------------
+//  Functions
+//-----------------------------------------------------------------------------
+
+@function strip-unit($num) {
+    @return $num / ($num * 0 + 1);
+}
+
+//---- Unit setters ----//
+
+//
+// Converts the number's unit into `px`.
+//
+//      px(15)      -► 15px
+//      px(30rem)   -► 30px
+//
+@function px($num) {
+    @if $num == 0 {
+        @return $num;
+    }
+
+    @return strip-unit($num) * 1px;
+}
+
+//
+// Converts the number's unit into `%`.
+//
+// Alternatively, pass in a second value to be used as the base
+// for calculating the percentage. Both numbers will be stripped
+// of their units before being calculated into percentages.
+//
+//      perc(15)            -► 15%
+//      perc(30rem)         -► 30%
+//      perc(4, 8)          -► 50%
+//      perc(75%, 100px)    -► 75%
+//
+@function perc($num, $base: false) {
+    @if $base != false {
+        @return strip-unit($num) / strip-unit($base) * 100%;
+    } @else if $num == 0 {
+        @return $num;
+    } @else {
+        @return strip-unit($num) * 1%;
+    }
+}
+
+//
+// Converts the number's unit into `vw`.
+//
+// Alternatively, pass in a second value to be used as the base
+// for calculating the vw. Both numbers will be stripped of
+// their units before being calculated into vw.
+//
+//      vw(15)          -► 15vw
+//      vw(30rem)       -► 30vw
+//      vw(4, 8)        -► 50vw
+//      vw(75%, 100px)  -► 75vw
+//
+@function vw($num, $base: false) {
+    @if $base != false {
+        @return strip-unit($num) / strip-unit($base) * 100vw;
+    } @else if $num == 0 {
+        @return $num;
+    } @else {
+        @return strip-unit($num) * 1vw;
+    }
+}
+
+//
+// Converts the number's unit into `vh`.
+//
+// Alternatively, pass in a second value to be used as the base
+// for calculating the vh.  Both numbers will be stripped of
+// their units before being calculated into vh.
+//
+//      vh(15)          -► 15vh
+//      vh(30rem)       -► 30vh
+//      vh(4, 8)        -► 50vh
+//      vh(75%, 100px)  -► 75vh
+//
+@function vh($num, $base: false) {
+    @if $base != false {
+        @return strip-unit($num) / strip-unit($base) * 100vh;
+    } @else if $num == 0 {
+        @return $num;
+    } @else {
+        @return strip-unit($num) * 1vh;
+    }
+}
+
+//
+// Converts the number's unit into `em`.
+//
+// Alternatively, pass in a second value to be used as the base
+// for calculating the em.  Both numbers will be stripped of
+// their units before being calculated into em.
+//
+//      em(15)          -► 15em
+//      em(30rem)       -► 30em
+//      em(4, 8)        -► 50em
+//      em(75%, 100px)  -► 75em
+//
+@function em($num, $base: false) {
+    @if $base != false {
+        @return strip-unit($num) / strip-unit($base) * 1em;
+    } @else if $num == 0 {
+        @return $num;
+    } @else {
+        @return strip-unit($num) * 1em;
+    }
+}

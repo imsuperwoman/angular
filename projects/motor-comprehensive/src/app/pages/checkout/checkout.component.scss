@@ -1,0 +1,250 @@
+@import 'globals';
+
+.checkout {
+  &__header {
+    padding-top: 57px;
+    padding-bottom: 32px;
+    color: $light-black1;
+    text-align: center;
+
+    &-title {
+      font-weight: $fw-light;
+      font-size: 35px;
+      line-height: 40px;
+      letter-spacing: 0.3px;
+
+      @media ($bp-mds) {
+        font-size: 40px;
+        line-height: 48px;
+      }
+    }
+
+    &-description {
+      margin-top: 18px;
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+    }
+
+    @media ($bp-mds) {
+      padding-top: 71px;
+      padding-bottom: 60px;
+    }
+  }
+
+  &__container {
+    @media ($bp-mds) {
+      max-width: 928px;
+    }
+  }
+
+  &__summaries {
+    display: flex;
+    row-gap: 32px;
+    flex-wrap: wrap;
+
+    &-summariesDetails,
+    &-summary {
+      flex: 0 0 100%;
+    }
+
+    &-summariesDetails {
+      &-policyholderDetails,
+      &-ehailingDriverDetails,
+      &-additionalDrivers {
+        padding-top: 32px;
+
+        @media ($bp-mds) {
+          padding-top: 60px;
+        }
+      }
+
+      &-vehicleDetails,
+      &-policyholderDetails,
+      &-ehailingDriverDetails,
+      &-additionalDrivers {
+        color: $light-black1;
+
+        &-header {
+          font-weight: $fw-light;
+          font-size: 24px;
+          line-height: 32px;
+          letter-spacing: 0.2px;
+        }
+
+        &-divider {
+          border-width: 0;
+          border-top-width: 1px;
+          border-color: $dark-white2;
+          border-style: solid;
+          margin: 3px 0 24px;
+        }
+
+        &-infos {
+          &:not(:first-of-type) {
+            padding-top: 24px;
+          }
+        }
+
+        &-no {
+          color: $light-black1;
+          padding-bottom: 8px;
+          font-weight: $fw-bold;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0.2px;
+        }
+
+        &-info {
+          display: flex;
+          column-gap: 14px;
+
+          &-label,
+          &-value {
+            flex-grow: 1;
+            flex-shrink: 0;
+            font-size: 16px;
+            line-height: 24px;
+          }
+
+          &-label {
+            flex-basis: calc(35% - 7px);
+            color: $light-black2;
+          }
+
+          &-value {
+            flex-basis: calc(65% - 7px);
+            color: $light-black1;
+            word-break: break-all;
+          }
+        }
+
+        @media ($bp-mds) {
+          &-header {
+            font-size: 26px;
+          }
+
+          &-divider {
+            margin-top: 10px;
+            margin-bottom: 24px;
+          }
+
+          &-infos {
+            &:not(:first-of-type) {
+              padding-top: 24px;
+            }
+          }
+
+          &-no {
+            font-size: 16px;
+            line-height: 24px;
+          }
+
+          &-info {
+            column-gap: 32px;
+
+            &-label {
+              flex-basis: calc(33% - 16px);
+            }
+
+            &-value {
+              flex-basis: calc(67% - 16px);
+            }
+          }
+        }
+      }
+    }
+
+    @media ($bp-mds) {
+      row-gap: 0;
+      column-gap: 32px;
+
+      &-summariesDetails,
+      &-summary {
+        flex-grow: 0;
+        flex-shrink: 1;
+      }
+
+      &-summariesDetails {
+        flex-basis: calc(58.5% - 16px);
+      }
+
+      &-summary {
+        flex-basis: calc(41.5% - 16px);
+      }
+    }
+  }
+
+  &__agreement {
+    margin-top: 32px;
+
+    &-policy {
+      ::ng-deep {
+        .nx-checkbox__label-text {
+          color: $light-black1;
+          font-size: 16px;
+          line-height: 24px;
+
+          a {
+            color: $dark-blue2;
+            font-weight: $fw-semibold;
+          }
+        }
+      }
+    }
+
+    @media ($bp-mds) {
+      margin-top: 60px;
+    }
+  }
+
+  &__recaptcha {
+    margin-top: 32px;
+    margin-left: -7.5px;
+    transform: scale(0.95);
+
+    ::ng-deep {
+      div {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
+    @media ($bp-mds) {
+      margin-top: 40px;
+      transform: unset;
+    }
+  }
+
+  &__buttons {
+    margin-top: 46px;
+    display: flex;
+    row-gap: 20px;
+    column-gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__button {
+    max-width: unset;
+    flex: 0 0 100%;
+
+    @media ($bp-sm) {
+      max-width: 256px;
+      flex: 0 0 calc(50% - 16px);
+    }
+  }
+
+  &__divider {
+    width: calc(100% + 16px);
+    margin-left: -16px;
+    margin-top: 60px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: $dark-white2;
+
+    @media ($bp-mds) {
+      margin-top: 80px;
+    }
+  }
+}

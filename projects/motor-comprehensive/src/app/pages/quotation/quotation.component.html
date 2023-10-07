@@ -1,0 +1,105 @@
+<ng-template #spinner>
+    <div class="spinner">
+        <nx-spinner nxSize="medium"></nx-spinner>
+    </div>
+</ng-template>
+
+<form [formGroup]="motorComprehensiveForm" class="quotation__form">
+    <nx-progress-stepper currentStepLabel="Step" #stepper [class.wide--]="activePartner">
+        <nx-step label="Get a Quote"></nx-step>
+        <nx-step label="Vehicle & Owner Details"></nx-step>
+        <nx-step label="Quotation">
+            <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+            </product-stage>
+
+            <div class="quotation" formGroupName="coverageForm" *ngIf="!isLoading; else spinner">
+                <p class="quotation__description">
+                    Please select your preferred coverage amount and additional coverage(s) you'd like to add to your
+                    policy.
+                </p>
+
+                <div class="quotation__container wrapper">
+                    <div class="quotation__content">
+                        <div class="quotation__coverage-details">
+                            <div class="quotation__coverage-detail-holder">
+                                <div class="quotation__coverage-detail">
+                                    <p class="quotation__coverage-detail-label">Car number</p>
+                                    <p class="quotation__coverage-detail-value">{{(plateNumber$ |async)}}</p>
+                                </div>
+
+                                <div class="quotation__coverage-detail">
+                                    <p class="quotation__coverage-detail-label">Premiums¹</p>
+                                    <p class="quotation__coverage-detail-value">RM {{(quote$
+                                        |async).premium.annualPremium | number: '1.2-2'}}
+                                    </p>
+                                    <p class="quotation__coverage-detail-note">¹Premiums is after NCD of {{(quote$
+                                        |async).premium.ncdPct}}%
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="quotation__coverage-detail">
+                                <p class="quotation__coverage-detail-coverage-label">Coverage²</p>
+                                <p class="quotation__coverage-detail-value">RM {{sumInsuredValue}}</p>
+                                <div class="quotation__coverage-detail-note">
+                                    <p class="quotation__coverage-detail-coverage-note nx-margin-top-s">
+                                        ²Based on agreed value
+                                        <a href="/motor-online/assets/allianz/forms/AgreedValueMarketValue.pdf"
+                                            target="_blank">
+                                            <nx-icon class="icon-circle" name="info-circle-o" size="s"></nx-icon>
+                                        </a>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="quotation__coverage-comparison-table">
+                            <dynamic-table *ngIf="!isQuotationLoading" class="coverage-details__dynamic-table"
+                                [accordionData]="additionalCoverages" [showPricing]="false"
+                                [control]="coverageForm.get('additionalCoverages')"
+                                (coverageApplied)="updateCoverageForm($event)"
+                                (accordionError)="updateAccordionError($event)" [displayNumber]="7">
+                            </dynamic-table>
+                        </div>
+                    </div>
+
+                    <quotation-summary-card *ngIf="!isSummariesLoading" class="quotation__summary" [data]="summaries"
+                        [purchaseNote]="summaries.purchaseNote"
+                        [purchaseNotePopoverMsg]="summaries.purchaseNotePopoverMsg"
+                        [additionalPurchaseNote]="summaries.additionalPartnerPurchaseNote"></quotation-summary-card>
+                </div>
+
+                <div class="quotation__buttons">
+                    <button class="quotation__button" nxButton="secondary" type="button" queryParamsHandling="preserve"
+                        routerLink="/vehicle-owner-details" (click)="proceedBack()">
+                        Back
+                    </button>
+                    <div *ngIf="!activePartner && (flowSelectedType =='direct' && !(selectedPackageCode$|async))"
+                        class="horizontal-checkboxes">
+                        <button class="quotation__button" nxButton="primary" type="button"
+                            queryParamsHandling="preserve" (click)="proceedNext()"
+                            [disabled]="isLoading || accordionRefreshRequried">
+                            FIND AN AGENT
+                        </button>
+                        <icon-popover class="nx-margin-top-s nx-margin-left-s"
+                            popoverMessage="By clicking ‘Find An Agent’, you may select an agent of your choice to contact you for further explanation and assistance on this product.">
+                        </icon-popover>
+                    </div>
+
+                    <button *ngIf="activePartner || (flowSelectedType =='direct' &&(selectedPackageCode$|async))"
+                        class="quotation__button" nxButton="primary" type="button" queryParamsHandling="preserve"
+                        (click)="proceedNext()" [disabled]="isLoading || accordionRefreshRequried">
+                        Next
+                    </button>
+                </div>
+            </div>
+
+        </nx-step>
+        <nx-step *ngIf="!activePartner" label="Find An Agent"></nx-step>
+        <nx-step *ngIf="activePartner" label="Policyholder Details"></nx-step>
+        <nx-step *ngIf="activePartner" label="Policy Summary & Payment"></nx-step>
+    </nx-progress-stepper>
+</form>
+
+<shared-dialog #serverTimeoutDialog [header]="serverTimeoutDialogHeader" [description]="serverTimeoutDialogDescription"
+    [buttonText]="'CLOSE'"></shared-dialog>

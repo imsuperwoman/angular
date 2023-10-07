@@ -1,0 +1,189 @@
+<ng-template #spinner>
+  <div class="spinner">
+    <nx-spinner nxSize="medium"></nx-spinner>
+  </div>
+</ng-template>
+
+<form class="quotation__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote"></nx-step>
+
+    <nx-step label="Quotation">
+      <product-stage productImage="{{ LOGO }}" header="{{ HEADER }}" description="{{ SUBHEADER }}">
+      </product-stage>
+      <div class="quotation" *ngIf="!isLoading; else spinner">
+          <div class="quotation__container wrapper">
+            <div class="quotation__content" [formGroup]="coverageForm">
+              <div nxLayout="grid nopadding">
+                <div nxRow>
+                  <div nxCol="12,12,7,8">
+                    <div class="nx-margin-bottom-3m">
+                      <nx-accordion variant="light" multi="true">
+
+                        <div class="quotation__coverage-comparison-table table-border nx-margin-top-3xs">
+                          <dynamic-table class="coverage-details__dynamic-table" [benefits]="benefits">
+                          </dynamic-table>
+                        </div>
+                        <nx-expansion-panel formGroupName="sportsCoverage" *ngIf="coverageForm.get('sportsCoverage')">
+                          <nx-expansion-panel-header>
+                            <nx-expansion-panel-title>
+                              <div class="quotation__accordion-title">
+                                <div class="quotation__accordion-title-icons">
+                                  <nx-icon class="quotation__accordion-title-icon checked--" name="check-circle" *ngIf="
+                          getCoverageFormGroupName('sportsCoverage','sportsCoverageCheck')">
+                                  </nx-icon>
+                                  <div class="quotation__accordion-title-icon unchecked--" *ngIf="!getCoverageFormGroupName('sportsCoverage','sportsCoverageCheck')"></div>
+                                </div>
+                                <span class="quotation__accordion-title-text">Sports Insurance Coverage </span>
+                              </div>
+                            </nx-expansion-panel-title>
+                          </nx-expansion-panel-header>
+
+                          <nx-checkbox class="nx-margin-top-3xs" formControlName="sportsCoverageCheck" (change)="updatePanelByCheckbox('SPORT')">
+                            <div class="has-popover">
+                              <span>I would like to add Sports Insurance Coverage as an additional coverage.</span>
+                              <button nxPlainButton class="info-icon nx-margin-left-xs" aria-label="More information" [nxPopoverTriggerFor]="popoverContent1"
+                                nxPopoverTrigger="click" type="button">
+                        <nx-icon name="info-circle-o"></nx-icon>
+                      </button>
+                              <nx-popover #popoverContent1>
+                                <span>Covers death and injury resulting from certain water sports, winter sports
+                          (if non-domestic) and other sports categorized to be higher risk, including
+                          mountaineering up to 3,500 metres. Please refer brochure for list of sports
+                          activities covered.</span>
+                              </nx-popover>
+                            </div>
+                          </nx-checkbox>
+                           <div class="nx-margin-top-2m"  *ngIf="getCoverageFormGroupName('sportsCoverage','sportsCoverageCheck')"></div>
+                          <div *ngIf="getCoverageFormGroupName('sportsCoverage','sportsCoverageCheck')">
+                             <p class="nx-margin-bottom-s  nx-font-weight-semibold" *ngIf="quoteForm.get('trgrpcode')?.value === 'FM'">Premium per family (RM) : </p>
+                            <p class="nx-margin-top-2m nx-font-weight-semibold" *ngIf="quoteForm.get('trgrpcode')?.value !== 'FM'">Premium per person (RM) </p>
+                            <p class="nx-margin-bottom-2m ">
+                              {{coverageForm.get('sportsCoverage')?.get('sportsAmount')?.value | number: '1.2-2' }}</p>
+                            <dynamic-table [benefits]="sportsCoverageList"></dynamic-table>
+
+                            <p class=" nx-margin-top-m nx-margin-bottom-s">
+                              This coverage is not applicable for Senior Citizen plans.<br/>This optional coverage excludes any mountaineering or climbing activities
+                              in Nepal.
+                            </p>
+                            <dynamic-table-sport *ngIf="sportsArray" [benefits]="sportsArray" [control]="sportsArrayControl" (selectAllChange)="updateSportCheckBox($event)"
+                              [selectAllCheckBox]="sportSelectAllControl">
+                            </dynamic-table-sport>
+                          </div>
+                        </nx-expansion-panel>
+                        <nx-expansion-panel formGroupName="mountaineeringCoverage" *ngIf="coverageForm.get('mountaineeringCoverage')">
+                          <nx-expansion-panel-header>
+                            <nx-expansion-panel-title>
+                              <div class="quotation__accordion-title">
+                                <div class="quotation__accordion-title-icons">
+                                  <nx-icon class="quotation__accordion-title-icon checked--" name="check-circle" *ngIf="
+                          getCoverageFormGroupName('mountaineeringCoverage','mountaineeringCoverageCheck') && mountArrayControl.valid 
+                              ">
+                                  </nx-icon>
+                                  <nx-icon class=" quotation__accordion-title-icon warning--" name="exclamation-triangle" *ngIf="getCoverageFormGroupName('mountaineeringCoverage','mountaineeringCoverageCheck') && mountArrayControl.invalid &&  mountArrayControl.touched"></nx-icon>
+                                  <div class="quotation__accordion-title-icon unchecked--" *ngIf="!getCoverageFormGroupName('mountaineeringCoverage','mountaineeringCoverageCheck') ">
+                                  </div>
+                                </div>
+                                <span class="quotation__accordion-title-text">High Altitude Mountaineering Coverage </span>
+                              </div>
+                            </nx-expansion-panel-title>
+                          </nx-expansion-panel-header>
+
+                          <nx-checkbox class="nx-margin-top-3xs" formControlName="mountaineeringCoverageCheck" (change)="updatePanelByCheckbox('MOUNT')">
+                            <div class="has-popover">
+                              <span>I would like to add High Altitude Mountaineering Coverage as an additional coverage.</span>
+                              <button nxPlainButton class="info-icon nx-margin-left-xs" aria-label="More information" [nxPopoverTriggerFor]="popoverContent1"
+                                nxPopoverTrigger="click" type="button">
+                        <nx-icon name="info-circle-o"></nx-icon>
+                      </button>
+                              <nx-popover #popoverContent1>
+                                <span>Covers death and injury resulting from mountaineering at high altitudes (above 3,500 and
+                          up to 5,500 metres). This coverage is valid for 30 days per activity.</span>
+                              </nx-popover>
+                            </div>
+                          </nx-checkbox>
+                          <div class="nx-margin-top-2m"  *ngIf="getCoverageFormGroupName('mountaineeringCoverage','mountaineeringCoverageCheck')"></div>
+                          <div *ngIf="getCoverageFormGroupName('mountaineeringCoverage','mountaineeringCoverageCheck')">
+                            <p class="nx-margin-bottom-s nx-margin-top-s nx-margin-left-xl "></p>
+                            <dynamic-table [benefits]="mountaineeringCoverageList">
+                            </dynamic-table>
+                            <p class=" nx-margin-top-m nx-margin-bottom-s">
+                              This coverage is a one-off 30 days benefit and it is not applicable for Child and Senior Citizen plans.<br/> This optional coverage
+                              excludes any mountaineering or climbing activities in Nepal.
+                            </p>
+                            <dynamic-table-mount *ngIf="mountArray" [benefits]="mountArray" [control]="mountArrayControl" (accordionError)="updateMountAccordionError($event)"
+                              [selectAllCheckBox]="selectAllControl" (selectALLEmit)="selectAllCheckBoxevent()">
+                            </dynamic-table-mount>
+                            <nx-error class="nx-margin-top-m" *ngIf="mountArrayControl.invalid">
+                              Please select age range if you would like to add High Altitude Mountaineering coverage. Otherwise uncheck all items to proceed.
+                            </nx-error>
+                          </div>
+                        </nx-expansion-panel>
+                        <nx-expansion-panel formGroupName="domesticCoverage" *ngIf="coverageForm.get('domesticCoverage')">
+                          <nx-expansion-panel-header>
+                            <nx-expansion-panel-title>
+                              <div class="quotation__accordion-title">
+                                <div class="quotation__accordion-title-icons">
+                                  <nx-icon class="quotation__accordion-title-icon checked--" name="check-circle" *ngIf="
+                          getCoverageFormGroupName('domesticCoverage','domesticCoverageCheck')
+                              ">
+                                  </nx-icon>
+                                  <div class="quotation__accordion-title-icon unchecked--" *ngIf="!getCoverageFormGroupName('domesticCoverage','domesticCoverageCheck')"></div>
+                                </div>
+                                <span class="quotation__accordion-title-text">Domestic Coverage </span>
+                              </div>
+                            </nx-expansion-panel-title>
+                          </nx-expansion-panel-header>
+
+                          <nx-checkbox formControlName="domesticCoverageCheck" class="nx-margin-top-3xs" (change)="updatePanelByCheckbox('DOM')">
+                            <div class="has-popover">
+                              <span>I would like to add Domestic Coverage as an additional coverage.</span>
+                              <button nxPlainButton class="info-icon nx-margin-left-xs" aria-label="More information" [nxPopoverTriggerFor]="popoverContent1"
+                                nxPopoverTrigger="click" type="button">
+                        <nx-icon name="info-circle-o"></nx-icon>
+                      </button>
+                              <nx-popover #popoverContent1>
+                                <span>The Worldwide or Asia plan does not include Malaysia (domestic). If you
+                          would like to include domestic travel to your travel insurance, please add
+                          domestic coverage as well.</span>
+                              </nx-popover>
+                            </div>
+                          </nx-checkbox>
+                          <div class="nx-margin-top-2m" *ngIf="domesticCoverageList.length > 0"></div>
+                          <dynamic-table class="coverage-details__dynamic-table" *ngIf="domesticCoverageList.length > 0" [benefits]=" domesticCoverageList">
+                          </dynamic-table>
+                        </nx-expansion-panel>
+                      </nx-accordion>
+                    </div>
+                  </div>
+
+                  <div nxCol="12,12,5,4">
+                    <quotation-summary-card class="quotation__summary" [data]="summaries"></quotation-summary-card>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="quotation__buttons">
+          <button class="quotation__button" nxButton="secondary" routerLink="/get-info" type="button" (click)="proceedBack()" queryParamsHandling="preserve">
+            BACK
+          </button>
+          <button class="quotation__button" [disabled]="coverageForm.invalid" nxButton="primary" type="button" (click)="proceedNext()">
+            Purchase Now
+          </button>
+        </div>
+      </div>
+      <div class="quotation__agent" *ngIf="(productConfig$ | async)?.LeaveMyDetailsBtnInd == 'Y'">
+        <h2 class="quotation__agent-header">Leave my details</h2>
+        <p class="quotation__agent-description">
+          Simply leave your contact information here and an agent will reach out to you as soon as possible.
+        </p>
+        <button class="quotation__agent-button details" nxButton="primary" type="button" routerLink="/leave-details" queryParamsHandling="preserve">
+          LEAVE MY DETAILS
+        </button>
+      </div>
+    </nx-step>
+    <nx-step label="Policyholder Details"></nx-step>
+    <nx-step label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>

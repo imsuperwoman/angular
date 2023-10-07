@@ -1,0 +1,56 @@
+<div [formGroup]="address" nxLayout="grid" class="wrapper nx-margin-top-2m nx-margin-bottom-3m">
+  <div nxRow>
+    <div nxCol="12">
+      <nx-formfield label="Unit number (For non-landed only)">
+        <textarea nxInput formControlName="addressnumber" autocomplete="off" cdkTextareaAutosize blockSpecialInput
+          inputCapitalization></textarea>
+      </nx-formfield>
+    </div>
+    <div nxCol="12">
+      <nx-formfield label="Address line 1">
+        <textarea nxInput type="text" formControlName="address1" autocomplete="off" inputCapitalization
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+          blockSpecialInput></textarea>
+        <nx-error nxFormfieldError>{{address.errors?.message}} </nx-error>
+      </nx-formfield>
+    </div>
+    <div nxCol="12">
+      <nx-formfield label="Address line 2">
+        <textarea maxlength="100" nxInput type="text" formControlName="address2" autocomplete="off" inputCapitalization
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+          blockSpecialInput></textarea>
+      </nx-formfield>
+    </div>
+    <div nxCol="12">
+      <nx-formfield label="Address line 3">
+        <textarea maxlength="100" nxInput type="text" formControlName="address3" autocomplete="off" inputCapitalization
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+          blockSpecialInput></textarea>
+      </nx-formfield>
+    </div>
+  </div>
+  <div nxRow>
+    <div nxCol="6">
+      <nx-formfield label="Postcode">
+        <input nxInput [value]="address.get('postCode')?.value" disabled />
+      </nx-formfield>
+    </div>
+    <div nxCol="6">
+      <nx-formfield label="City">
+        <input nxInput [value]="address.get('city')?.value" disabled />
+      </nx-formfield>
+    </div>
+  </div>
+  <div nxRow>
+    <div nxCol="6">
+      <nx-formfield label="State">
+        <input nxInput [value]="address.get('state')?.value" disabled />
+      </nx-formfield>
+    </div>
+    <div nxCol="6">
+      <nx-formfield label="Country">
+        <input nxInput value="Malaysia" disabled />
+      </nx-formfield>
+    </div>
+  </div>
+</div>

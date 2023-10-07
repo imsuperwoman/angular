@@ -1,0 +1,21 @@
+/*--------------------
+    Nx Accordion
+--------------------*/
+
+.nx-accordion {
+  user-select: none;
+  display: block;
+
+  &__expansion-panel {
+    &-title {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.nx-expansion-panel {
+  &__body {
+    padding: 24px 3px !important;
+  }
+}

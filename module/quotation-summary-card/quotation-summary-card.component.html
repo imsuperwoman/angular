@@ -1,0 +1,192 @@
+<nx-card class="quotation-summary-card nx-margin-top-s" [class.summary--]="paymentEnded" [class.sticky--]="sticky">
+  <h3 class="quotation-summary-card__title" *ngIf="!paymentEnded">Quotation summary</h3>
+
+  <h3 class="quotation-summary-card__title" *ngIf="paymentEnded && paymentStatus !=='success'">Quotation summary</h3>
+  <h3 class="quotation-summary-card__title" *ngIf="paymentEnded && paymentStatus ==='success'">Insurance Summary</h3>
+
+  <ng-container *ngIf="!paymentEnded && data">
+    <div class="quotation-summary-card__details">
+      <div class="quotation-summary-card__details-container" *ngFor="let item of data.planBreakdown">
+        <ng-container *ngIf="item.type === 'string' || item.type === 'number'">
+          <p class="quotation-summary-card__details-label">
+            {{ item.label }}
+          </p>
+          <p class="quotation-summary-card__details-value">
+            {{ item.value }}
+          </p>
+        </ng-container>
+
+        <ng-container *ngIf="item.type === 'currency'">
+          <p class="quotation-summary-card__details-label">
+            {{ item.label }}
+          </p>
+          <p class="quotation-summary-card__details-value">
+            {{ item.value | currency: 'RM ' }}
+          </p>
+        </ng-container>
+
+        <ng-container *ngIf="item.type === 'date'">
+          <p class="quotation-summary-card__details-label">
+            {{ item.label }}
+          </p>
+          <p class="quotation-summary-card__details-value">
+            {{ item.value | date: 'dd/MM/YYYY' }}
+          </p>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="quotation-summary-card__breakdown">
+      <div class="quotation-summary-card__breakdown-container border-top--"
+        [class.dir-column--]="breakdown.items.length > 1 || breakdown.header"
+        *ngFor="let breakdown of data.costBreakdown; let i = index">
+        <p class="quotation-summary-card__breakdown-header" *ngIf="breakdown.header">
+          {{ breakdown.header }}
+        </p>
+
+        <div class="quotation-summary-card__breakdown-holder" *ngFor="let item of breakdown.items">
+          <ng-container *ngIf="item.type === 'string' || item.type === 'number'">
+            <p class="quotation-summary-card__breakdown-label">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__breakdown-value">
+              {{ item.value }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'currency'">
+            <p class="quotation-summary-card__breakdown-label">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__breakdown-value">
+              {{ item.value | currency: 'RM ' }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'currencyNegative'">
+            <p class="quotation-summary-card__breakdown-label">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__breakdown-value">
+              - {{ item.value | currency: 'RM ' }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'date'">
+            <p class="quotation-summary-card__breakdown-label">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__breakdown-value">
+              {{ item.value | date: 'dd/MM/YYYY' }}
+            </p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="quotation-summary-card__summaries">
+      <div class="quotation-summary-card__summaries-container border-top--"
+        [class.dir-column--]="summary.items.length > 1 || summary.header"
+        *ngFor="let summary of data.costSummaries; let i = index">
+        <p class="quotation-summary-card__summaries-header" *ngIf="summary.header">
+          {{ summary.header }}
+        </p>
+        <div class="quotation-summary-card__summaries-holder" *ngFor="let item of summary.items">
+          <ng-container *ngIf="item.type === 'string' || item.type === 'number'">
+            <p class="quotation-summary-card__summaries-label fw-semibold--">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__summaries-value">
+              {{ item.value }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'currency'">
+            <p class="quotation-summary-card__summaries-label fw-semibold--">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__summaries-value">
+              {{ item.value | currency: 'RM ' }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'currencyNegative'">
+            <p class="quotation-summary-card__breakdown-label">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__breakdown-value">
+              - {{ item.value | currency: 'RM ' }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'date'">
+            <p class="quotation-summary-card__summaries-label fw-semibold--">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__summaries-value">
+              {{ item.value | date: 'dd/MM/YYYY' }}
+            </p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="paymentEnded">
+    <div class="quotation-summary-card__end">
+      <div class="quotation-summary-card__end-holder" *ngFor="let item of data.paymentSummary">
+        <p class="quotation-summary-card__end-label">
+          {{ item.label }}
+        </p>
+        <p class="quotation-summary-card__end-value">
+          {{ item.value }}
+        </p>
+      </div>
+
+      <ng-container *ngIf="data.insurantsSummary">
+        <div class="quotation-summary-card__end-insurant-details-holder" *ngFor="let items of data.insurantsSummary">
+          <p class="quotation-summary-card__end-insurant-details-title">{{ items.insurant }}</p>
+
+          <div class="quotation-summary-card__end-insurant-details" *ngFor="let item of items.item">
+            <p class="quotation-summary-card__end-insurant-detail-label">
+              {{ item.label }}
+            </p>
+            <p class="quotation-summary-card__end-insurant-detail-value">
+              {{ item.value }}
+            </p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <hr class="quotation-summary-card__divider" />
+  </ng-container>
+
+  <p class="quotation-summary-card__total">
+    <ng-container *ngIf="paymentStatus === 'success'">Total premium paid:</ng-container>
+
+    <ng-container *ngIf="paymentStatus === 'fail'">Total premium payable:</ng-container>
+
+    <ng-container *ngIf="!paymentStatus">Premium payable:</ng-container>
+    {{ data?.premiumPayable | currency: 'RM ' }}
+  </p>
+
+  <p *ngIf="purchaseNote.length" class="quotation-summary-card__purchaseNote">
+    {{ purchaseNote }}
+
+    <icon-popover *ngIf="purchaseNotePopoverMsg.length" class="quotation-summary-card__purchaseNote-popover"
+      [popoverMessage]="purchaseNotePopoverMsg"></icon-popover>
+  </p>
+
+  <p *ngIf="additionalPurchaseNote.length" class="quotation-summary-card__additional-purchaseNote">
+    {{ additionalPurchaseNote }}
+  </p>
+  <div *ngIf="primaryButton">
+    <button nxButton="block primary" type="button" class="nx-margin-top-m" [innerHTML]="buttonText" (click)="close()">
+    </button>
+  </div>
+  <div *ngIf="secondaryButton">
+    <button nxButton="block secondary" type="button" class="nx-margin-top-m" [innerHTML]="buttonText" (click)="close()">
+    </button>
+  </div>
+</nx-card>

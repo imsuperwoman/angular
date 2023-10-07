@@ -1,0 +1,219 @@
+@import 'globals';
+
+.quotation {
+  padding: 57px 16px 60px;
+  background-color: $blue;
+  color: $light-black1;
+
+  &__description {
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: $fw-regular;
+
+    @media ($bp-mds) {
+      font-size: 18px;
+    }
+  }
+
+  &__container {
+    padding-right: 0;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    max-width: 1120px;
+    margin-top: 46px;
+
+    @media ($bp-mds) {
+      flex-direction: row;
+      gap: 32px;
+      margin-top: 48px;
+    }
+  }
+
+  &__content {
+    flex: 1 1 calc(68% - 155px);
+  }
+
+  &__coverage-details {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 46px;
+    flex-direction: column;
+
+    @media ($bp-mds) {
+      flex-direction: row;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__coverage-detail {
+    width: 50%;
+    font-size: 16px;
+    line-height: 24px;
+    position: relative;
+
+    &:not(:last-child) {
+      border-right: 2px solid #D4DBDC;
+    }
+
+    &-holder {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+
+      @media ($bp-mds) {
+        width: 70%;
+      }
+    }
+
+    &-coverage {
+      width: 100%;
+      position: relative;
+
+      &-note {
+        font-size: 14px;
+        line-height: 15px;
+        font-weight: $fw-regular;
+        position: absolute;
+        bottom: 0;
+        margin-top: 12px;
+      }
+
+      &-label {
+        font-weight: $fw-semibold;
+      }
+
+      @media ($bp-mds) {
+        width: 30%;
+      }
+    }
+
+    &-label {
+      font-weight: $fw-semibold;
+    }
+
+    &-value {
+      font-weight: $fw-regular;
+    }
+
+    &-note {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: $fw-regular;
+      margin-top: 17px;
+    }
+
+    &-dropdown {
+      margin-bottom: 8px;
+
+      ::ng-deep {
+        .nx-formfield__wrapper {
+          padding-top: 0;
+        }
+      }
+    }
+
+    @media ($bp-mds) {
+      border-right: 2px solid #D4DBDC;
+    }
+  }
+
+  &__comparison-table {
+    margin-top: -24px;
+    overflow: auto;
+
+    ::ng-deep {
+      .azol__comparison-table {
+        overflow: unset;
+      }
+
+      .nx-comparison-table__row .nx-comparison-table__description-cell {
+        flex: 1 1 auto !important;
+        min-width: 230px;
+      }
+
+      .nx-comparison-table__row .nx-comparison-table__placeholder-cell {
+        flex: 1 1 auto !important;
+        min-width: 230px;
+      }
+
+      .azol__comparison-table nx-comparison-table-flex-row .nx-comparison-table__row > div:not(:first-of-type),
+      .nx-comparison-table__row .nx-comparison-table__popular-cell {
+        flex: 1 1 auto !important;
+        min-width: 151px;
+      }
+
+      table .nx-comparison-table__description-cell {
+        width: 100% !important;
+        min-width: 230px;
+      }
+
+      .nx-comparison-table__table-body {
+        clip-path: none !important;
+      }
+    }
+
+    @media (bp-lg) {
+      ::ng-deep {
+        .nx-comparison-table__description-cell .nx-comparison-table__cell-content {
+          padding-right: 65px !important;
+        }
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    margin-top: 46px;
+  }
+
+  &__button {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  @media ($bp-mds) {
+    padding-top: 48px;
+    padding-bottom: 80px;
+
+    &__summary {
+      max-width: 352px;
+      flex: 1 1 calc(28% - 20px);
+      margin-top: 0;
+    }
+
+    &__buttons {
+      margin-top: 60px;
+      flex-direction: row;
+      justify-content: center;
+      row-gap: 0;
+      column-gap: 32px;
+    }
+
+    &__button {
+      max-width: 256px;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+}
+
+.icon-circle {
+  font-size: 18px;
+  position: absolute;
+  bottom: 0;
+  right: -25px;
+  color: $dark-blue2;
+}
+
+.horizontal-checkboxes { display: flex; flex-direction: row; }

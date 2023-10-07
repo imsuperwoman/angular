@@ -1,0 +1,12 @@
+<div class="leave-page-dialog">
+  <img class="leave-page-dialog__image" [src]="imageFolder + 'people/waving-guy.svg'"
+    alt="Textual description of agent-required.png" />
+  <h3 class="leave-page-dialog__header">Leave page</h3>
+  <p class="leave-page-dialog__description">
+    All provided information will be lost if you choose to do so.
+  </p>
+  <div class="leave-page-dialog__buttons">
+    <button class="leave-page-dialog__button" nxButton="secondary" (click)="closeDialog()">STAY ON PAGE</button>
+    <button class="leave-page-dialog__button" nxButton="primary" (click)="leavePage()">LEAVE PAGE</button>
+  </div>
+</div>

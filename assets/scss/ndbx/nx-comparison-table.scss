@@ -1,0 +1,44 @@
+/*--------------------
+ Nx Comparison Table
+--------------------*/
+
+.nx-comparison-table {
+  &-header-cell {
+    &__container {
+      text-align: center;
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.2px;
+    }
+
+    &__price,
+    &__button {
+      margin-top: 8px;
+    }
+
+    &__price {
+      &-highlight {
+        font-size: 20px;
+        font-weight: $fw-semibold;
+        line-height: 28px;
+      }
+    }
+  }
+
+  &-description-cell {
+    display: flex;
+    column-gap: 8px;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  &-footer-cell {
+    &__container {
+      font-size: 14px;
+    }
+
+    &__title {
+      margin-top: 16px;
+    }
+  }
+}

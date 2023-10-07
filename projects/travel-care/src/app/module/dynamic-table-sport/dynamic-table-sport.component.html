@@ -1,0 +1,24 @@
+<nx-swipebar label="Swipe to view more">
+  <table nxTable zebra [formGroup]="control">
+    <thead>
+      <tr nxTableRow>
+        <th nxHeaderCell>
+          <nx-checkbox [formControl]="selectAllCheckBox" (checkedChange)="updateSportsCheckbox($event)"></nx-checkbox>
+        </th>
+        <th nxHeaderCell>Traveller(s)</th>
+        <th nxHeaderCell>Age range</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr nxTableRow *ngFor="let item of benefits;index as i">
+        <ng-container [formGroupName]="i">
+          <td nxTableCell>
+            <nx-checkbox formControlName="ExtSportsInd" (checkedChange)="onIndividualCheckBoxChange()"></nx-checkbox>
+          </td>
+          <td nxTableCell>{{item.traveller | titlecase}}</td>
+          <td nxTableCell>{{item.ageRangeDesc}}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</nx-swipebar>

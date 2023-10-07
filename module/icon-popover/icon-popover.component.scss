@@ -1,0 +1,15 @@
+@import 'globals';
+
+:host {
+  display: inline-block;
+}
+
+.icon-popover {
+  height: 22px;
+  cursor: pointer;
+
+  &__icon {
+    font-size: 22px !important;
+    color: $dark-blue3;
+  }
+}

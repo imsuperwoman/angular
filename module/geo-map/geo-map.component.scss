@@ -1,0 +1,102 @@
+@import 'globals';
+
+:host {
+  display: inline-block;
+}
+
+@mixin scrollbar {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.google-map {
+  width: 100%;
+
+  .map-container {
+    width: 100% !important;
+    height: 500px;
+
+  }
+
+  #search {
+    position: relative;
+  }
+}
+
+// switcher
+.float_right {
+  float: right;
+}
+
+.float_left {
+  float: left;
+}
+
+// MAP
+#map {
+  height: 100%;
+}
+
+#description {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.card_position {
+  position: absolute;
+  z-index: 1;
+  width: 70%;
+
+  @media only screen and (min-width: 704px) {
+    width: 50%;
+  }
+}
+
+.pac-card {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  overflow: hidden;
+  padding: 0;
+}
+
+.pac-item {
+  white-space: pre-wrap
+}
+
+#card_container {
+  padding: 20px;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+.pac-container,
+.pac-item {
+  z-index: 2147483647 !important;
+}
+
+.fullscreen-pac-container[style] {
+  z-index: 2547483647 !important;
+  top: 100px !important;
+}

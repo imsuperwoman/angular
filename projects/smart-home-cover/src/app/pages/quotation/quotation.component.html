@@ -1,0 +1,381 @@
+<ng-template #spinner>
+  <div class="spinner">
+    <nx-spinner nxSize="medium"></nx-spinner>
+  </div>
+</ng-template>
+
+<nx-progress-stepper currentStepLabel="Step" #stepper>
+  <nx-step label="Get A Quote" *ngIf="!renewal$"></nx-step>
+  <nx-step label="Policy Details" *ngIf="renewal$"></nx-step>
+  <nx-step label="Coverage Details">
+    <product-stage productImage="smart-home-cover-logo.png" header="Smart Home Cover"
+      description="A new kind of home insurance">
+    </product-stage>
+    <div class="quotation">
+      <div class="quotation__container wrapper">
+        <p class="quotation__description">
+          Please click on each coverage item to view more details. <br />
+          Your plan must consist of either the HouseOwner (Building) coverage or the HouseHolder
+          (Content) coverage.
+        </p>
+
+        <div class="quotation__policies" *ngIf="!isLoading; else spinner">
+          <div class="quotation__selection" [formGroup]="coverageForm">
+            <nx-accordion class="azol__accordion" variant="light" [multi]="true" *ngIf="planRecommendationReturn">
+              <nx-expansion-panel [formGroupName]="plan.formGroupName"
+                *ngFor="let plan of planRecommendationReturn; let i = index;trackBy: identifyer"
+                (expandedChange)="expandedChange(i)">
+                <nx-expansion-panel-header>
+                  <nx-expansion-panel-title>
+                    <div class="azol__accordion-title">
+                      <div class="azol__accordion-title-icons">
+                        <nx-icon class="azol__accordion-title-icon checked--" name="check-circle" *ngIf="
+                              getCoverageCheckboxValue(plan.narration) && !accordionErrorHidden[i]
+                            ">
+                        </nx-icon>
+                        <nx-icon class="azol__accordion-title-icon warning--" name="exclamation-triangle"
+                          *ngIf="accordionErrorHidden[i]"></nx-icon>
+                        <div class="azol__accordion-title-icon unchecked--"
+                          *ngIf="!getCoverageCheckboxValue(plan.narration)"></div>
+                      </div>
+                      <span class="azol__accordion-title-text">{{plan.description}}</span>
+                    </div>
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+
+                <ng-template nxExpansionPanelBody>
+                  <div *ngIf="plan.mandatoryIndicator">
+                    <nx-checkbox class="azol__accordion-checkbox" [checked]="true"
+                      [disabled]="plan.mandatoryIndicator">{{ plan.narration
+                      }}</nx-checkbox>
+                  </div>
+                  <div *ngIf="!plan.mandatoryIndicator">
+                    <nx-checkbox class="azol__accordion-checkbox" [disabled]="plan.mandatoryIndicator"
+                      [formControlName]="getCoverageFormGroupName(plan.narration)" (checkedChange)="
+                        updatePanelByCheckbox(
+                          getCoverageFormGroupNameCoverCode(plan.coverCode),
+                          getCoverageFormGroupName(plan.narration),
+                          plan.coverCode,
+                          i
+                        )
+                      ">{{ plan.narration }}</nx-checkbox>
+                  </div>
+                  <ng-container *ngIf="plan.coverCode == '03' || plan.coverCode == '14'">
+                    <div class="quotation__selection-summary" *ngIf="plan.basicPremium">
+                      <div class="quotation__selection-summary-container">
+                        <div class="quotation__selection-summary-label-container">
+                          <p class="quotation__selection-summary-label">
+                            Sum insured (RM)
+                          </p>
+                        </div>
+                        <p class="quotation__selection-summary-info">
+                          {{ plan.sumInsured === 0 ? '-' : (plan.sumInsured | number: '1.2-2') }}
+                          <span class="quotation__selection-summary-label" *ngIf="useCalculatedValue">
+                            (Agreed value)
+                          </span>
+                          <icon-popover *ngIf="useCalculatedValue" class="quotation__selection-card-title-popover"
+                            textAlign="center" [popoverMessage]="agreedValuePopover">
+                          </icon-popover>
+                        </p>
+                      </div>
+                      <div class="quotation__selection-summary-container">
+                        <div class="quotation__selection-summary-label-container">
+                          <div class="quotation__selection-summary-labels">
+                            <p class="quotation__selection-summary-label">Premiums (RM)</p>
+                          </div>
+                        </div>
+                        <p class="quotation__selection-summary-info">
+                          {{
+                          plan.basicPremium === 0 ? '-' : (plan.basicPremium | number: '1.2-2')
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                    <div *ngIf="plan.basicPremium && plan.additionalCover && plan.hideAdditionalDiscount == false">
+                      <nx-card class="quotation__selection-card" formGroupName="discountForm">
+                        <h3 class="quotation__selection-card-title">
+                          Additional discount (optional)
+
+                          <icon-popover class="quotation__selection-card-title-popover" textAlign="center"
+                            [popoverMessage]="crossSellingPopup"></icon-popover>
+                        </h3>
+
+                        <p class="quotation__selection-card-description">
+                          If you have an active eligible policy with us, you will be entitled for
+                          additional discount up to a maximum of 30%. Please complete the details below to check on
+                          your
+                          eligibility.
+                        </p>
+
+                        <div class="quotation__selection-card-dateField">
+                          <date-field label="Smart Home Cover policy start date" [control]="policyDateControl"
+                            [minDate]="minDate" [maxDate]="maxDate" (keyup)="clearCheckEligibility()"></date-field>
+                        </div>
+
+                        <div class="quotation__selection-card-policyHolder">
+                          <p class="quotation__selection-card-policyHolder-title">Policyholder</p>
+                          <div formGroupName="policyHolder">
+                            <div class="quotation__selection-card-policyHolder-fields">
+                              <nx-formfield class="quotation__selection-card-policyHolder-field" label="ID type">
+                                <nx-dropdown formControlName="idType" (ngModelChange)="idTypeChange($event)">
+                                  <nx-dropdown-item *ngFor="let custIDType of custIDTypeWithBlank$ | async"
+                                    [value]="custIDType.Code">
+                                    {{ custIDType.Description }}
+                                  </nx-dropdown-item>
+                                </nx-dropdown>
+                                <nx-error nxFormfieldError> Please enter ID Type. </nx-error>
+                              </nx-formfield>
+
+                              <nx-formfield class="quotation__selection-card-policyHolder-field" label="ID no">
+                                <input nxInput validateMask="false" [nxMask]="
+                                    getCoverageFormControls('houseOwner')
+                                      ?.get('discountForm')
+                                      ?.get('policyHolder')
+                                      ?.get('idType')?.value === 'NRIC'
+                                      ? '000000-00-0000'
+                                      : 'AAAAAAAAAAAAAAAAAAAA'
+                                  " formControlName="idNo" autocomplete="off" />
+                                <nx-error nxFormfieldError>
+                                  {{ discountForm.get('policyHolder')?.get('idNo')?.errors?.message }}
+                                </nx-error>
+                              </nx-formfield>
+
+                            </div>
+                            <nx-formfield class="quotation__selection-card-policyHolder-field idType_width"
+                              label="Nationality">
+                              <nx-dropdown formControlName="nationality">
+                                <nx-dropdown-item *ngFor="let nation of nationality$ | async" [value]="nation.Code">
+                                  {{ nation.Description }}
+                                </nx-dropdown-item>
+                              </nx-dropdown>
+                              <nx-error nxFormfieldError> Please enter Nationality </nx-error>
+                            </nx-formfield>
+                          </div>
+                        </div>
+                        <div class="quotation__selection-card-jointPolicyHolder-fields">
+                          <nx-message context="success" *ngIf="(eligibleDiscount$|async)">
+                            You're eligible and discount added.
+                          </nx-message>
+                        </div>
+
+                        <p class="quotation__selection-card-note">
+                          Note: The discount eligibility will be reflected in the HouseOwner
+                          premium amount.
+                        </p>
+
+                        <div class="quotation__selection-card-buttons">
+                          <button nxButton="secondary" type="button" class="quotation__selection-card-button"
+                            [disabled]="houseOwnerJointPolicyClear" (click)="clearCheckEligibility(i)">
+                            CLEAR
+                          </button>
+                          <button nxButton="primary" type="button" class="quotation__selection-card-button"
+                            [disabled]="houseOwnerJointPolicyCheck || (eligibleDiscount$|async)"
+                            (click)="callEligibility(i)">
+                            CHECK ELIGIBILITY
+                          </button>
+                        </div>
+                      </nx-card>
+                    </div>
+
+                    <ng-container *ngIf="plan.additionalCover">
+                      <dynamic-table class="quotation__dynamic-table" [accordionData]="plan" [control]="
+                            coverageForm
+                              .get(plan.formGroupName)
+                              ?.get('additionalCoverage')
+                          " [premiumCost]="plan.basicPremium" (accordionError)="updateAccordionError($event, i)"
+                        (coverageApplied)="updateTotalPremiumPayable($event, i)"></dynamic-table>
+                    </ng-container>
+                  </ng-container>
+
+                  <ng-container>
+                    <ng-container *ngIf="plan.plans">
+                      <nx-comparison-table class="azol__comparison-table"
+                        [selectedIndex]="getSelectedPlan(plan.plans) - 1" [class.flexLess--]="plan.plans.length <= 3"
+                        [class.flexMore--]="plan.plans.length > 3">
+                        <ng-container nxComparisonTableRow type="header">
+                          <nx-comparison-table-popular-cell [forColumn]="getRecommendedPlan(plan.plans)">
+                            <div class="azol__comparison-table-recommended">
+                              <p class="azol__comparison-table-recommended-title">Recommended</p>
+                            </div>
+                          </nx-comparison-table-popular-cell>
+                          <nx-comparison-table-cell type="header" *ngFor="let data of plan.plans; let p = index">
+                            <div class="azol__comparison-table-header">
+                              <p class="azol__comparison-table-header-title">
+                                {{ data.planDescription }}
+                              </p>
+                              <p class="azol__comparison-table-header-premium">
+                                {{ data.displayPremium | currency: 'RM ' }}
+                              </p>
+                              <button (click)="updatePlansPayable(getCoverageFormGroupNameCoverCode(plan.coverCode),
+                                plan.coverCode, data.planCode ,i )" class="azol__comparison-table-header-button"
+                                nxComparisonTableSelectButton unselectedLabel="Select" selectedLabel="Selected"
+                                type="button"></button>
+                            </div>
+                          </nx-comparison-table-cell>
+                        </ng-container>
+
+                        <ng-container *ngFor="let dataX of plan.plans[0].benefits; let pqr = index"
+                          nxComparisonTableRow>
+                          <nx-comparison-table-description-cell>
+                            <div class="azol__comparison-table-row">
+                              <p class="azol__comparison-table-row-header"
+                                [innerHTML]="formatNewLine(dataX.description)"></p>
+                              <icon-popover [popoverMessage]="dataX.additionalInformation"></icon-popover>
+                            </div>
+                          </nx-comparison-table-description-cell>
+                          <nx-comparison-table-cell *ngFor="let benefitPlan of plan.plans; let k = index">
+                            {{ plan.plans[k].benefits[pqr].coverage }}
+                          </nx-comparison-table-cell>
+                        </ng-container>
+
+                        <ng-container nxComparisonTableRow type="footer">
+                          <nx-comparison-table-cell *ngFor="let data of plan.plans">
+                            <div class="azol__comparison-table-footer">
+                              <button (click)="updatePlansPayable(getCoverageFormGroupNameCoverCode(plan.coverCode),
+                                plan.coverCode, data.planCode ,i )" nxComparisonTableSelectButton
+                                unselectedLabel="Select" selectedLabel="Selected"
+                                class="azol__comparison-table-footer-button" type="button"></button>
+                              <p class="azol__comparison-table-footer-plan">
+                                {{ data.planDescription }}
+                              </p>
+                            </div>
+                          </nx-comparison-table-cell>
+                        </ng-container>
+                      </nx-comparison-table>
+
+                      <ng-container *ngIf="plan.additionalCover">
+                        <dynamic-table class="quotation__dynamic-table" [accordionData]="plan" [control]="
+                              coverageForm
+                                .get(getCoverageFormGroupNameCoverCode(plan.coverCode))
+                                ?.get('additionalCoverage')
+                            " [premiumCost]="plan.basicPremium" (accordionError)="updateAccordionError($event, i)"
+                          (coverageApplied)="updateTotalPremiumPayable($event, i)"></dynamic-table>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-template>
+              </nx-expansion-panel>
+            </nx-accordion>
+          </div>
+
+          <div class="quotation__summary">
+            <h3 class="quotation__summary-title">Quotation summary</h3>
+
+            <div class="quotation__summary-upper">
+              <div class="quotation__summary-upper-holder">
+                <p class="quotation__summary-upper-label">Reference no.</p>
+                <p class="quotation__summary-upper-value">
+                  {{ quoteNumber$ | async }}
+                </p>
+              </div>
+              <div class="quotation__summary-upper-holder">
+                <p class="quotation__summary-upper-label">Product</p>
+                <p class="quotation__summary-upper-value">
+                  {{ productName }}
+                </p>
+              </div>
+              <div class="quotation__summary-upper-holder">
+                <p class="quotation__summary-upper-label">Period of insurance</p>
+                <p class="quotation__summary-upper-value" *ngIf="(coverageType$ | async) == 'AN'">
+                  1 year
+                </p>
+                <p class="quotation__summary-upper-value" *ngIf="(coverageType$ | async) == 'MY'">
+                  3 years
+                </p>
+              </div>
+            </div>
+            <div class="quotation__summary-plan">
+              <ng-container *ngFor="let product of planRecommendation$ | async">
+                <div class="quotation__summary-plan-holder" *ngIf="product.selectedIndicator">
+                  <p class="quotation__summary-plan-label">
+                    {{ product.description }}
+                  </p>
+                  <p class="quotation__summary-plan-value">
+                    {{ product.displayPremium | currency: 'RM ' }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="quotation__summary-amount">
+              <div class="quotation__summary-amount-holder">
+                <p class="quotation__summary-amount-label" *ngIf="(premium$ | async)?.minPremiumInd === false">Premium
+                  due</p>
+                <p class="quotation__summary-amount-label" *ngIf="(premium$ | async)?.minPremiumInd === true">Minimum
+                  premium due</p>
+                <p class="quotation__summary-amount-value">
+                  {{ (premium$ | async)?.grossPremium | currency: 'RM ' }}
+                </p>
+              </div>
+              <div class="quotation__summary-amount-holder">
+                <p class="quotation__summary-amount-label">
+                  Service tax ({{ (premium$ | async)?.serviceTaxPercentage }}%)
+                </p>
+                <p class="quotation__summary-amount-value">
+                  {{ (premium$ | async)?.serviceTaxAmount | currency: 'RM ' }}
+                </p>
+              </div>
+              <div class="quotation__summary-amount-holder" *ngIf="(premium$ | async)?.rebateAmt">
+                <p class="quotation__summary-amount-label">[Rebate]</p>
+                <p class="quotation__summary-amount-value">
+                  [ {{ (premium$ | async)?.rebateAmt | currency: 'RM ' }} ]
+                </p>
+              </div>
+              <div class="quotation__summary-amount-holder">
+                <p class="quotation__summary-amount-label">Stamp duty</p>
+                <p class="quotation__summary-amount-value">
+                  {{ (premium$ | async)?.stampDuty | currency: 'RM ' }}
+                </p>
+              </div>
+            </div>
+
+            <p class="quotation__summary-total">
+              Premium payable:
+              {{ (premium$ | async)?.premiumDueRounded | currency: 'RM ' }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quotation__buttons step-two--">
+        <button class="quotation__button step-two--" nxButton="secondary" type="button" routerLink="/get-info"
+          queryParamsHandling="preserve">
+          Back
+        </button>
+        <div *ngIf="(flowType$ |async) =='DIRECT'" class="horizontal-checkboxes">
+          <button class="quotation__button button_seven" nxButton="primary" type="button" queryParamsHandling="preserve"
+            routerLink="/agent-locator" [disabled]="accordionRefreshRequried">
+            FIND AN AGENT
+          </button>
+          <icon-popover class="nx-margin-top-s nx-margin-left-s"
+            popoverMessage="By clicking ‘Find An Agent’, you may select an agent of your choice to contact you for further explanation and assistance on this product.">
+          </icon-popover>
+        </div>
+        <button *ngIf="(flowType$ |async) !='DIRECT'" class="quotation__button step-two--" nxButton="primary"
+          type="button" (click)="nextCustomerDetails()">
+          Purchase Now
+        </button>
+      </div>
+    </div>
+
+    <div class="quotation__agent" *ngIf="
+        (productConfig$ | async)?.LeaveMyDetailsBtnInd == 'Y' && (sourceSystem$ | async) != 'AZOL'
+      ">
+      <h2 class="quotation__agent-header">Leave my details</h2>
+      <p class="quotation__agent-description">
+        Simply leave your contact information here and an agent will reach out to you as soon as
+        possible.
+      </p>
+      <button class="quotation__agent-button details" nxButton="primary" type="button" routerLink="/leave-details"
+        queryParamsHandling="preserve">
+        LEAVE MY DETAILS
+      </button>
+    </div>
+  </nx-step>
+  <nx-step *ngIf="(flowType$ |async) =='DIRECT'" label="Find An Agent"></nx-step>
+  <nx-step *ngIf="(flowType$ |async) !='DIRECT'" label="Policyholder Details"></nx-step>
+  <nx-step *ngIf="(flowType$ |async) !='DIRECT'" label="Policy Summary & Payment"></nx-step>
+</nx-progress-stepper>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+  [buttonText]="'CLOSE'"></shared-dialog>

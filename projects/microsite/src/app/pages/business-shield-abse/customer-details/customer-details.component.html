@@ -1,0 +1,260 @@
+<form class="customer-details__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote"></nx-step>
+    <nx-step label="Coverage Details"></nx-step>
+    <nx-step label="Policyholder Details">
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}></product-stage>
+      <form class="form-example" [formGroup]="formGroup">
+        <div class="customer-details__wrapper">
+          <div class="nx-margin-y-2m">
+            <p nxCopytext="large" class="align-center">
+              Please fill in all mandatory fields.
+            </p>
+          </div>
+
+          <nx-accordion variant="light">
+            <div formGroupName="coverageDetails">
+              <nx-expansion-panel class="large_no_accordion">
+                <nx-expansion-panel-header class="hide_accordion_arrow click_disable_accordion noclickable">
+                  <nx-expansion-panel-title class="">
+                    <div>
+                      <nx-icon name="check-circle" class="nx-margin-right-s checked_green checked-- noclickable"
+                        *ngIf="coverageDetails.valid" size="s"></nx-icon>
+                      <nx-icon class="warning-- nx-margin-right-s noclickable" name="exclamation-triangle"
+                        *ngIf="coverageDetails.invalid && coverageDetails.touched"></nx-icon>
+                      <span class="nx-font-weight-semibold noclickable">Coverage details</span>
+                    </div>
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+
+                <div class="customer-details__content-block">
+                  <div class="customer-details__content-col">
+                    <div class="customer-details__content-input">
+                      <div nxRow>
+                        <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                          <date-field label="Policy start date" [control]="coverageDetails.get('effectivedate')"
+                            [minDate]="minDate" [maxDate]="maxDate"></date-field>
+                        </div>
+                        <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                          <div class="customer-details__content-input">
+                            <date-field label="Policy end date"
+                              [control]="coverageDetails.get('expirydate')"></date-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nx-expansion-panel>
+            </div>
+
+            <div formGroupName="policyholderDetails">
+              <nx-expansion-panel class="large_no_accordion">
+                <nx-expansion-panel-header class="hide_accordion_arrow click_disable_accordion noclickable">
+                  <nx-expansion-panel-title class="">
+                    <div class="expansion-title-with-icon">
+                      <span class="hide_icon">
+                        <nx-icon name="check-circle" class="nx-margin-right-s noclickable" size="s"
+                          *ngIf="policyholderDetails.untouched"></nx-icon>
+                      </span>
+                      <nx-icon name="check-circle" class="nx-margin-right-s checked_green checked-- noclickable"
+                        size="s" *ngIf="policyholderDetails.valid"></nx-icon>
+                      <nx-icon class="nx-margin-right-s checked_warning checked-- noclickable"
+                        name="exclamation-triangle"
+                        *ngIf="policyholderDetails.invalid && policyholderDetails.touched"></nx-icon>
+                      <span class="nx-font-weight-semibold noclickable">Policyholder details</span>
+                    </div>
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+                <div nxLayout="grid nopadding" class="nx-margin-top-2m">
+                  <div nxRow>
+                    <div nxCol="12" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Business name / Name as per ID">
+                        <input nxInput type="text" formControlName="businessname" inputCapitalization />
+                        <nx-error nxFormfieldError>This field is required.</nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="ID Type">
+                        <nx-dropdown formControlName="idType">
+                          <nx-dropdown-item *ngFor="let businessIdType of (businessIdType$|async)"
+                            [value]="businessIdType.Code">{{businessIdType.Description}}
+                          </nx-dropdown-item>
+                        </nx-dropdown>
+                        <nx-error nxFormfieldError>Please select an ID Type.</nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="ID no. / Business registration no.">
+                        <input nxInput validateMask="false" [nxMask]="
+                        policyholderDetails.get('idType')?.value === 'NRIC'
+                          ? '000000-00-0000'
+                          : 'AAAAAAAAAAAAAAAAAAAA'" autocomplete="off" formControlName="idNo" inputCapitalization />
+                        <nx-error nxFormfieldError>{{ getIdNo.errors?.message }}</nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <div nxRow>
+                        <div nxCol="4,4,4,3" class=" nopadding-right">
+                          <nx-formfield label="Mobile No" class="country">
+                            <nx-dropdown placeholder="+6010" formControlName="mobilePrefixname">
+                              <nx-dropdown-item *ngFor="let mobile of (mobilePrefix$|async)"
+                                [value]="mobile.Code">{{mobile.Description}}</nx-dropdown-item>
+                            </nx-dropdown>
+                          </nx-formfield>
+                        </div>
+
+                        <div nxCol="8,8,8,9" class="nopadding-left">
+                          <nx-formfield label="" class="number">
+                            <input nxInput inputmode="numeric" required numberOnly formControlName="phonenumber"
+                              minlength="7" maxlength="8" autocomplete="off" />
+                            <nx-error nxFormfieldError> This field is required. </nx-error>
+                          </nx-formfield>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Email address">
+                        <input nxInput formControlName="email" />
+                        <nx-error nxFormfieldError>
+                          {{policyholderDetails.get('email')?.errors?.message}}
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Address number">
+                        <input nxInput formControlName="addressnumber" inputCapitalization />
+                        <nx-error nxFormfieldError> This field is required.</nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Building name">
+                        <input nxInput formControlName="buildingname" inputCapitalization />
+                        <nx-error nxFormfieldError> {{policyholderDetails.errors?.message}}</nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Street name">
+                        <input nxInput formControlName="streetname" inputCapitalization />
+                        <nx-error nxFormfieldError> {{policyholderDetails.errors?.message}}</nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,6" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Area">
+                        <input nxInput formControlName="area" inputCapitalization />
+                        <nx-error nxFormfieldError> {{policyholderDetails.errors?.message}}</nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+
+                  <div nxRow>
+                    <div nxCol="12,12,4" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Postcode">
+                        <input nxInput inputmode="numeric" type="text" formControlName="postcode" autocomplete="off"
+                          numberOnly maxlength="5" minlength="5" (focusout)="focusOutPostcode($event)" />
+                        <nx-error nxFormfieldError>{{
+                          policyholderDetails.get('postcode')?.errors?.message }}
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,4" class="nx-margin-bottom-2m">
+                      <nx-formfield label="City">
+                        <input [readonly]="true" nxInput formControlName="city" inputCapitalization />
+                      </nx-formfield>
+                    </div>
+
+                    <div nxCol="12,12,4" class="nx-margin-bottom-2m">
+                      <nx-formfield label="State">
+                        <input [readonly]="true" nxInput formControlName="state" inputCapitalization />
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12" class="nx-margin-bottom-2m">
+                      <nx-formfield label="Business operation">
+                        <nx-dropdown formControlName="businessoperation">
+                          <nx-dropdown-item *ngFor="let businessData of (businessOperationList$|async)"
+                            [value]="businessData.Code">{{businessData.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                        <nx-error nxFormfieldError>This field is required.</nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                </div>
+              </nx-expansion-panel>
+            </div>
+          </nx-accordion>
+
+          <div nxLayout="grid nogutters wrapper">
+            <div nxRow class="nx-margin-bottom-m">
+              <div nxCol="12">
+                <p nxCopytext="large" class="nx-margin-bottom-2m nx-font-weight-semibold">
+                  By clicking “Next”, I confirm and declare :
+                </p>
+
+                <ol nxList class="nx-font-weight-semibold">
+                  <li class="nx-margin-0">
+                    My premise is Fully brick walls with tile/ metal/ concrete roof OR Partly
+                    brick/metal walls with tile/metal roof.
+                  </li>
+
+                  <li class="nx-margin-0">
+                    My business has not suffered any insurance losses in past five (5) years.
+                  </li>
+
+                  <li class="nx-margin-0">
+                    My proposal or renewal has never been declined, withdrawn, cancelled, or subject
+                    to increased rate or special condition.
+                  </li>
+
+                  <li class="nx-margin-0">
+                    All entrances to my premise are protected by roller shutter/ iron grilles/ glass
+                    door/ padlock.
+                  </li>
+
+                  <li class="nx-margin-0">
+                    I acknowledge that I require the services of the {{ (activePartner$ | async)?.PartnerName}} and the
+                    Agency is entitled to
+                    commission.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <!--- end grid -->
+          <hr class="nx-margin-y-l nx-hidden-xs nx-hidden-s" />
+          <hr class="nx-margin-y-l nx-margin-x-s nx-hidden-m nx-hidden-l nx-hidden-xl nx-hidden-2xl nx-hidden-3xl" />
+        </div>
+        <!--- end wrapper -->
+      </form>
+
+      <div nxLayout="grid nopadding" class="nx-margin-bottom-xl nx-margin-top-2xl wrapper">
+        <div nxRow>
+          <div nxCol="12,12,2,3" class="nx-hidden-xs nx-hidden-s "></div>
+          <div nxCol="12,12,4,3">
+            <button nxButton="block secondary" type="button" class="nx-margin-bottom-m"
+              (click)="proceedBack()">Back</button>
+          </div>
+          <div nxCol="12,12,4,3">
+            <button nxButton="block primary" type="button" class="nx-margin-bottom-m" (click)="checkoutpage()"
+              [disabled]="formGroup.invalid">Next</button>
+          </div>
+          <div nxCol="12,12,2,3" class="nx-hidden-xs nx-hidden-s "></div>
+        </div>
+      </div>
+    </nx-step>
+
+    <nx-step label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>
+
+<hr style="border: 0; border-bottom: 1px solid #d9d9d9; margin: 0;">

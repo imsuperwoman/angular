@@ -1,0 +1,193 @@
+@import 'globals';
+
+.successful {
+  padding: 53px 16px 60px;
+
+  &__image {
+    width: 120px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  &__header {
+    padding: {
+      right: 4px;
+      left: 4px;
+    }
+
+    font-size: 35px;
+    font-weight: $fw-light;
+    letter-spacing: 0.3px;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  &__subheader {
+    padding: {
+      right: 4px;
+      left: 4px;
+    }
+
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__info {
+    padding: {
+      right: 4px;
+      left: 4px;
+    }
+
+    margin-top: 32px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+
+    &-header {
+      font-weight: $fw-semibold;
+      font-size: 16px;
+    }
+
+    &-body+&-header {
+      margin-top: 24px;
+    }
+  }
+
+  &__summary {
+    max-width: 767px;
+    margin: 24px auto 0;
+    display: block;
+  }
+
+  &__enquiry {
+    padding-right: 4px;
+    padding-left: 4px;
+    margin-top: 24px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+
+    a {
+      font-weight: $fw-semibold;
+      color: $dark-blue2;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  &__button {
+    width: calc(100% - 32px);
+    max-width: 288px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 46px;
+  }
+
+  &__divider {
+    width: calc(100% + 16px);
+    margin-left: -16px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: $dark-white2;
+  }
+
+  &__roadTax {
+    background-color: #E6F4F6;
+    text-align: center;
+    padding: 40px 16px 60px;
+
+    &-title {
+      font-size: 35px;
+      line-height: 40px;
+      color: #414141;
+      font-weight: $fw-light;
+      margin-bottom: 32px;
+    }
+
+    &-desc {
+      font-size: 16px;
+      line-height: 24px;
+      color: #414141;
+      font-weight: $fw-regular;
+      margin-bottom: 32px;
+    }
+
+    &-button {
+      max-width: 173px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media ($bp-mds) {
+    padding-top: 71px;
+    padding-bottom: 80px;
+
+    &__image {
+      width: 150px;
+    }
+
+    &__header {
+      padding-right: 0;
+      padding-left: 0;
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 24px;
+    }
+
+    &__subheader {
+      padding-right: 0;
+      padding-left: 0;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+      line-height: 28px;
+    }
+
+    &__info {
+      max-width: 767px;
+      padding-right: 0px;
+      padding-left: 0px;
+      margin-right: auto;
+      margin-left: auto;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      column-gap: 24px;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+
+      &-header {
+        font-weight: $fw-bold;
+      }
+
+      &-body+&-header {
+        margin-top: 0px;
+      }
+    }
+
+    &__enquiry {
+      max-width: 626px;
+      padding-right: 0;
+      padding-left: 0;
+      margin: 24px auto 0;
+    }
+
+    &__buttons {
+      flex-direction: row;
+      justify-content: center;
+      row-gap: 0;
+      column-gap: 32px;
+    }
+  }
+}

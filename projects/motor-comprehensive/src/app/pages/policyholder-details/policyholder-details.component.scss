@@ -1,0 +1,237 @@
+@import 'globals';
+
+.policyholder {
+  padding: 57px 16px 60px;
+  background-color: $blue;
+  color: $light-black1;
+
+  &__description {
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: $fw-regular;
+
+    @media ($bp-mds) {
+      font-size: 18px;
+    }
+  }
+
+  &__container {
+    padding-right: 0;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    max-width: 1120px;
+    margin-top: 46px;
+
+    @media ($bp-mds) {
+      flex-direction: row;
+      gap: 32px;
+      margin-top: 48px;
+    }
+  }
+
+ 
+   &__content {
+         flex: 1 1 calc(68% - 155px);
+
+         &-box{
+            padding: 28px 23px;
+            border: 1px solid #999999;
+            border-radius: 5px;
+           
+         }
+           &-section {
+             border-top: 1px solid #d9d9d9;
+             padding-top: 28px;
+
+             &:first-child {
+                 border-top: 0;
+                 padding-top: 0;
+             }
+          
+           }    
+
+  }
+   &__horizontal-buttons {
+       display: flex;
+       flex-direction: row;
+        gap: 15px;
+    }
+      
+
+  &__accordion-content {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: -16px;
+
+    @media ($bp-lg) {
+      margin-top: -24px;
+      padding: 0 30px;
+    }
+
+    ::ng-deep {
+      .no-pt-- {
+        .nx-formfield__wrapper {
+          padding-top: 0px;
+        }
+      }
+    }
+  }
+
+  &__section-label {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: $fw-semibold;
+  }
+
+  &__input-row {
+    gap: 0px;
+    width: 100%;
+
+    .column {
+      flex: 1 0 0%;
+
+      &.postcode-- {
+        flex: 0 0 15%;
+      }
+
+      &.gender-- {
+        .label {
+          position: relative;
+          bottom: 5px;
+          font-size: 12px;
+          font-weight: $fw-semibold;
+        }
+      }
+
+      @media only screen and (max-width: 970px) {
+        &.gender-- {
+          margin-bottom: 24px;
+        }
+      }
+
+      @media only screen and (max-width: 704px) {
+        &.gender-- {
+          margin-top: 40px;
+          margin-bottom: 50px;
+
+          .label {
+            bottom: 40px;
+          }
+        }
+      }
+    }
+
+    .formfield {
+      .label {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+    }
+
+    .label {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    margin-top: 46px;
+  }
+
+  &__button {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  @media ($bp-mds) {
+    padding-top: 48px;
+    padding-bottom: 80px;
+
+    &__summary {
+      max-width: 352px;
+      flex: 1 1 calc(28% - 20px);
+      margin-top: 0;
+    }
+
+    &__buttons {
+      margin-top: 60px;
+      flex-direction: row;
+      justify-content: center;
+      row-gap: 0;
+      column-gap: 32px;
+    }
+
+
+    &__input-row {
+      display: flex;
+      padding-left: 32px;
+      padding-right: 32px;
+      gap: 32px;
+
+      &.remove_gap {
+        gap: 0px;
+
+        &.phone-- {
+          width: 100%;
+          display: flex;
+
+          .country {
+            width: 150px;
+          }
+
+          .number {
+            width: calc(100% - 100px);
+
+            input {
+              padding-left: 15px;
+            }
+          }
+        }
+      }
+
+    }
+
+
+
+    &__section-label {
+      margin-top: 32px;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    &__button {
+      max-width: 256px;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+
+  @media only screen and (max-width: 970px) {
+    &__input-row {
+      flex-direction: column;
+      gap: 0px;
+    }
+  }
+  @media (min-width: 704px){
+        .policyholder__content-box {
+     margin-left: 58px; 
+     margin-right: 58px;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+@import '~@angular/cdk/overlay-prebuilt.css';
+@import '@angular/cdk/a11y-prebuilt.css';
+
+/*-----    Global Component ----*/
+@import 'globals/functions';
+@import 'globals/mixins';
+@import 'globals/vars';
+
+/*---- Low Priority Components ----*/
+@import 'components/starters';
+
+/*---- Components ----*/
+@import 'components/spinner';
+@import 'components/wrappers';
+
+/*---- NDBX components ----*/
+// @import 'ndbx/styles.common-fixes.css';
+@import 'ndbx/nx-modal-dialog.scss';
+@import 'ndbx/nx-word.scss';
+@import 'ndbx/nx-natural-language.scss';
+@import 'ndbx/nx-toggle-button.scss';
+@import 'ndbx/nx-comparison-table.scss';
+@import 'ndbx/nx-progress-stepper.scss';
+@import 'ndbx/nx-button.scss';
+@import 'ndbx/nx-accordion.scss';
+@import 'ndbx/nx-header.scss';
+@import 'ndbx/nx-switcher.scss';
+@import 'ndbx/nx-message.scss';
+@import 'ndbx/nx-popover.scss';
+@import 'ndbx/nx-card.scss';
+@import 'ndbx/nx-footer.scss';
+@import 'ndbx/nx-popover.scss';
+@import 'ndbx/nx-swipe-bar..scss';

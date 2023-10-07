@@ -1,0 +1,23 @@
+/*--------------------
+    Nx Message
+--------------------*/
+
+.nx-message {
+  .context-error {
+    display: flex;
+  }
+
+  .nx-message__content {
+    display: flex;
+  }
+
+  &__content {
+    display: inline;
+    word-break: keep-all;
+  }
+
+  &__link {
+    font-weight: $fw-semibold;
+    color: $dark-blue2;
+  }
+}

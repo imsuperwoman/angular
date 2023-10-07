@@ -1,0 +1,87 @@
+/*--------------------
+    Nx Natural Language
+--------------------*/
+
+nx-natural-language-form {
+  max-width: 900px;
+  padding-top: 0 !important;
+  padding-bottom: 40px !important;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+
+  .nx-natural-language-form__wrapper {
+    row-gap: 8px;
+    justify-content: center;
+    display: inline-block !important;
+    line-height: 48px;
+  }
+
+  .nx-formfield {
+    &__wrapper {
+      padding-top: 0;
+      margin: 0 4px 8px;
+    }
+
+    // For date field container
+    &__input-container {
+      height: 38px;
+    }
+
+    &__input {
+      text-align: center;
+    }
+
+    &.is-filled {
+      input {
+        color: $dark-blue2 !important;
+        font-size: 26px !important;
+        font-weight: $fw-regular !important;
+        line-height: 32px !important;
+      }
+
+      .nx-formfield__suffix,
+      .nx-formfield__hints {
+        color: $dark-blue2 !important;
+      }
+    }
+
+    &__input-dropdown,
+    &__input-field {
+      line-height: 36px;
+
+      &.size-small {
+        min-width: 120px !important;
+      }
+
+      &.size-medium-small {
+        min-width: 160px !important;
+      }
+
+      &.size-medium {
+        min-width: 220px !important;
+      }
+
+      &.fit-- {
+        width: fit-content !important;
+      }
+    }
+
+    &__input-dropdown {
+      .nx-dropdown__rendered {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .nx-dropdown {
+        margin-bottom: -16px;
+        top: -8px;
+      }
+
+      .nx-dropdown.is-filled {
+        margin-bottom: -8px;
+        top: 0;
+      }
+    }
+  }
+}

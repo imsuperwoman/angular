@@ -1,0 +1,128 @@
+<nx-progress-stepper currentStepLabel="Step" #stepper>
+  <nx-step label="Get a Quote"></nx-step>
+  <nx-step label="Coverage Details"></nx-step>
+  <nx-step label="Policyholder Details"></nx-step>
+  <nx-step label="Policy Summary & Payment">
+    <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+    </product-stage>
+
+    <div nxLayout="grid nopadding" class="align-center nx-margin-y-2m wrapper">
+      <div nxRow>
+        <div nxCol="12" class="nx-margin-bottom-m fail">
+          <figure nxFigure>
+            <img [src]="imageFolder + 'people/agent-required.png'" class="successful__image"
+              alt="Textual description of agent-required.png">
+          </figure>
+          <h2 class="fail__header">We're sorry!</h2>
+          <p class="fail__subheader">Your payment was unsuccessful.</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div nxLayout="grid" class="nx-margin-y-2m wrapper">
+      <div nxRow>
+        <div nxCol="12,12,4" class="nx-margin-bottom-m">
+          <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-semibold">Payment Status</h4>
+          <p nxCopytext="large">{{ paymentDetails.status }}</p>
+        </div>
+        <div nxCol="12,12,4" class="nx-margin-bottom-m">
+          <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-semibold">Payment reference no.</h4>
+          <p nxCopytext="large">{{ paymentDetails.reference }}</p>
+        </div>
+        <div nxCol="12,12,4" class="nx-margin-bottom-m">
+          <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-semibold">Error</h4>
+          <p nxCopytext="large">{{ paymentDetails.error }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div nxLayout="grid" class="nx-margin-y-2m wrapper">
+      <div nxRow>
+        <div nxCol="12">
+          <nx-card class="full_width">
+            <nx-card-header>
+              <h3 nxHeadline="subsection-small" class="nx-margin-bottom-2m font-color">Quotation summary</h3>
+            </nx-card-header>
+
+            <div nxLayout="grid nopadding" class="nx-margin-top-m">
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Reference no.</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large">{{ paymentDetails.summary.ReferenceNo }}</p>
+                </div>
+              </div>
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Product</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large">{{ paymentDetails.summary.product }}</p>
+                </div>
+              </div>
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Period of insurance</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large">{{ paymentDetails.summary.periodOfInsurance }}</p>
+                </div>
+              </div>
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Plan</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large">{{ paymentDetails.summary.plan }}</p>
+                </div>
+              </div>
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Business name / Name as per ID</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large">{{ paymentDetails.summary.fullName }}</p>
+                </div>
+              </div>
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Mobile no.</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large">{{ formatMobileNumber(paymentDetails.summary.mobileNo) }}</p>
+                </div>
+              </div>
+              <div nxRow class="nx-margin-bottom-m">
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="grey-listing">Email address</p>
+                </div>
+                <div nxCol="12,12,6">
+                  <p nxCopytext="large" class="overflow_text">{{ paymentDetails.summary.email }}</p>
+                </div>
+              </div>
+            </div>
+            <hr class="nx-margin-y-2m">
+
+            <h3 nxHeadline="subsection-medium"
+              class="font-color nx-font-weight-bold nx-margin-bottom-xs align-center wrapper">{{
+              paymentDetails.totalPremium | currency: 'Total premium payable: RM ' }}</h3>
+          </nx-card>
+        </div>
+      </div>
+    </div>
+
+    <div nxLayout="grid nopadding" class="nx-margin-bottom-xl nx-margin-top-2xl wrapper">
+      <div nxRow>
+        <button nxButton="block secondary" type="button" (click)="goBack()" class="nx-margin-bottom-m">BACK TO GET
+          A QUOTE</button>
+        <div nxCol="12,12,6,2" class="nx-hidden-xs nx-hidden-s nx-hidden-m"></div>
+        <div nxCol="12,12,6,4">
+        </div>
+        <div nxCol="12,12,6,2" class="nx-hidden-xs nx-hidden-s nx-hidden-m"></div>
+      </div>
+    </div>
+
+  </nx-step>
+</nx-progress-stepper>

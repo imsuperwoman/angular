@@ -1,0 +1,185 @@
+<div class="azol__dynamic-table">
+  <div class="azol__dynamic-table-scrollbar" *ngIf="showPricing">
+    <p class="azol__dynamic-table-scrollbar-header">Swipe to view more</p>
+
+    <div class="azol__dynamic-table-scrollbar-container">
+      <div class="azol__dynamic-table-scrollbar-inner" #scrollbarInner></div>
+    </div>
+  </div>
+
+  <div class="azol__dynamic-table-upper-container" [class.notShowPricing--]="!showPricing">
+    <table class="azol__dynamic-table-header" #dynamicTable>
+      <colgroup>
+        <col id="left-column" />
+        <col *ngIf="showPricing" id="right-column" />
+      </colgroup>
+
+      <tr>
+        <th>Additional coverage</th>
+        <th *ngIf="showPricing">Premium (RM)</th>
+      </tr>
+    </table>
+
+    <table class="azol__dynamic-table-rows" [formGroup]="control">
+      <colgroup>
+        <col id="left-column" />
+        <col id="middle-column" />
+        <col *ngIf="showPricing" id="right-column" />
+      </colgroup>
+
+      <ng-container *ngIf="showPricing">
+        <tr class="azol__dynamic-table-row" *ngFor="let data of accordionData.additionalCoverage; let i = index">
+          <td>
+            <nx-checkbox class="azol__dynamic-table-row-checkbox" [formControlName]="data.formControlName" (click)="updateSelectedCheckbox(accordionData.formGroupName, data.formControlName , $event)"></nx-checkbox>
+          </td>
+
+          <td class="azol__dynamic-table-row-labelHolder">
+            <p class="azol__dynamic-table-row-label">
+              {{ data.label }}
+            </p>
+
+            <div *ngIf="data.popoverMessage" class="azol__dynamic-table-row-popover">
+              <icon-popover [popoverMessage]="data.popoverMessage"></icon-popover>
+            </div>
+          </td>
+
+          <td *ngIf="showPricing" class="azol__dynamic-table-row-premium">
+            {{ data.premium | number: '1.2-2' }}
+          </td>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngIf="!showPricing">
+        <tr class="azol__dynamic-table-row" *ngFor="let data of accordionData; let i = index">
+          <ng-container *ngIf="i < showAdditionalCoveagesAmounts ">
+            <td>
+              <nx-checkbox class="azol__dynamic-table-row-checkbox" [formControlName]="data.formControlName" (click)="updateSelectedCheckbox(control, data.formControlName, $event)"></nx-checkbox>
+            </td>
+
+            <td class="azol__dynamic-table-row-labelHolder">
+              <div class="azol__dynamic-table-row-label-dropdown-holder">
+                <div class="azol__dynamic-table-row-label notShowPricing--">
+                  {{ data.label }}
+                  <span *ngIf="data.formControlName == 'RP_0100'" class="Rahmah">
+                    <img class="Rahmah__image" [src]="imageFolder + '/Rahmah_logo.png'" alt="Textual description of Rahmah.png" />
+                  </span>
+                </div>
+
+                <ng-container *ngIf="data.dropdowns">
+                  <nx-formfield class="azol__dynamic-table-row-label-dropdown" [label]="dropdown.label" *ngFor="let dropdown of data.dropdowns">
+                    <nx-dropdown required [formControlName]="dropdown.formControlName">
+                      <nx-dropdown-item selected *ngFor="let option of dropdown.options" [value]="option.Code">
+                        {{option.Description}}
+                      </nx-dropdown-item>
+                    </nx-dropdown>
+                  </nx-formfield>
+                </ng-container>
+
+                <ng-container *ngIf="data.checkboxs">
+                  <div *ngFor="let checkbox of data.checkboxs" class="azol__dynamic-table-row-label-checkbox" [class.disabled--]="control.get(checkbox.formControlName).disabled">
+                    <div class="label">{{ checkbox.label }}</div>
+                    <div class="container">
+                      <nx-checkbox-group required [formControlName]="checkbox.formControlName">
+                        <div *ngFor="let option of checkbox.options" class="checkbox">
+                          <div class="value">{{ option.code }}</div>
+                          <nx-checkbox [value]="option.code"></nx-checkbox>
+                        </div>
+                      </nx-checkbox-group>
+                    </div>
+                    <nx-error class="azol__dynamic-table-row-error" *ngIf="control.get(checkbox.formControlName).invalid" nxFormfieldError class="error-msg">Please select at least one service provider</nx-error>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="data.sumInsuredControlName">
+                  <nx-formfield class="azol__dynamic-table-row-label-text" label="Sum Insurred">
+                    <input nxInput type="text" [formControlName]="data.sumInsuredControlName" inputmode="numeric" required numberOnly autocomplete="false"
+                      maxlength="5" />
+
+                    <nx-error nxFormfieldError>Please enter a value for the sum insured</nx-error>
+                  </nx-formfield>
+                </ng-container>
+
+                <ng-container *ngIf="data.personelDetails">
+                  <div class="azol__dynamic-table-row-label-id" *ngFor="let detail of data.personelDetails; index as i" formArrayName="additionalDriverDetails">
+                    <ng-container [formGroupName]="i">
+                      <nx-formfield class="azol__dynamic-table-row-label-dropdown-idType" label="ID Type">
+                        <nx-dropdown required [formControlName]="detail.idTypeControlName">
+                          <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                            {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+
+                      <nx-formfield class="azol__dynamic-table-row-label-text" label="ID no.">
+                        <input *ngIf="control.get('additionalDriverDetails')?.at(i).get('idType')?.value === 'NRIC'" nxInput [nxMask]="'000000-00-0000'"
+                          [formControlName]="detail.idNoControlName" />
+                        <input *ngIf="control.get('additionalDriverDetails')?.at(i).get('idType')?.value !== 'NRIC'" nxInput [formControlName]="detail.idNoControlName"
+                          inputCapitalization />
+
+                        <nx-error nxFormfieldError>Please enter ID no.</nx-error>
+                      </nx-formfield>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div *ngIf="data.popoverMessage" class="azol__dynamic-table-row-popover">
+                <icon-popover [popoverMessage]="data.popoverMessage"></icon-popover>
+              </div>
+            </td>
+          </ng-container>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="azol__dynamic-table-row-button-cell">
+            <button *ngIf="!showMore" class="azol__dynamic-table-row-button" nxButton="tertiary small" type="button" (click)="showAdditionalCoveagesAmounts = accordionData.length; showMore = true">
+              Display more coverages
+              <nx-icon class="azol__dynamic-table-row-button-icon" name="arrow-right" size="s"></nx-icon>
+            </button>
+
+            <button *ngIf="showMore" class="azol__dynamic-table-row-button" nxButton="tertiary small" type="button" (click)="showAdditionalCoveagesAmounts = displayNumber; showMore = false">
+              Display Less coverages
+              <nx-icon class="azol__dynamic-table-row-button-icon" name="arrow-right" size="s"></nx-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+
+  <div class="azol__dynamic-table-lower-container" [class.notShowPricing--]="!showPricing">
+    <table class="azol__dynamic-table-footer">
+      <colgroup>
+        <col id="middle-column" />
+        <col *ngIf="showPricing" id="right-column" />
+      </colgroup>
+
+      <tr *ngIf="showPricing">
+        <td>Additional coverage charges</td>
+        <td>{{ addCoverageCost | number: '1.2-2' }}</td>
+      </tr>
+
+      <tr *ngIf="showPricing">
+        <td>Total</td>
+        <td>{{ premiumCost | number: '1.2-2' }}</td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <button class="azol__dynamic-table-footer-button" nxButton="primary small" type="button" (click)="applyCoverage()" [disabled]="!newFormValue">
+            APPLY COVERAGE
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="newFormValue">
+        <td colspan="2">
+          <nx-error class="nx-message azol__dynamic-table-footer-error">
+            Click “Apply coverage” to refresh quote
+          </nx-error>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription" [buttonText]="'CLOSE'"></shared-dialog>

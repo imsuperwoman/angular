@@ -1,0 +1,106 @@
+<!-- Heading-->
+<div class="renewal-form__block">
+  <h1 class="renewal-form__header">We’re at your service</h1>
+
+  <p class="renewal-form__subheader">Let us help you get the protection that you deserve</p>
+</div>
+
+<!-- Renewal Form-->
+<form class="renewal-form__form" [formGroup]="renewalForm">
+  <p class="renewal-form__form-heading">
+    Renewing your policy is easy with Allianz Online. Simply fill in the form below to begin the
+    renewal process.
+  </p>
+
+  <div class="renewal-form__form-main">
+    <div nxLayout="grid">
+      <p class="renewal-form__form-heading">
+        {{title}}
+      </p>
+      <nx-formfield label="Full name as per ID">
+        <input nxInput type="text" autocomplete="off" formControlName="name" />
+      </nx-formfield>
+
+      <div class="renewal-form__form-id">
+        <nx-formfield label="ID type" class="renewal-form__form-id-dropdown">
+          <nx-dropdown formControlName="idType">
+            <nx-dropdown-item *ngFor="let option of idOption" [value]="option"></nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+
+        <nx-formfield label="ID no." class="renewal-form__form-id-input">
+          <input nxInput validateMask="false" autocomplete="off" formControlName="id" [nxMask]="
+              renewalForm.get('idType')?.value === 'NRIC'
+                ? '000000-00-0000'
+                : 'AAAAAAAAAAAAAAAAAAAA'
+            " />
+        </nx-formfield>
+      </div>
+
+      <div class="renewal-form__form-phone">
+        <nx-formfield label="Mobile No." class="country">
+          <nx-dropdown formControlName="phoneCountryCode">
+            <nx-dropdown-item *ngFor="let mobilePrefix of (mobilePrefix$|async)" [value]="mobilePrefix.Description">
+            </nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+
+        <nx-formfield label="" class="number">
+          <input nxInput inputmode="numeric" required numberOnly formControlName="mobileNo" minlength="7" maxlength="8"
+            autocomplete="off" />
+          <nx-error nxFormfieldError> Please enter your phone no. </nx-error>
+        </nx-formfield>
+      </div>
+
+      <nx-formfield label="Email adress">
+        <input nxInput type="email" formControlName="email" autocomplete="off" (change)="onEmailChange()" />
+      </nx-formfield>
+
+      <nx-formfield label="Email confirmation">
+        <input nxInput type="email" formControlName="emailConfirm" autocomplete="off" (change)="onEmailChange()" />
+      </nx-formfield>
+
+      <span>
+        <nx-formfield label="PostCode">
+          <input #PostCodeInput nxInput formControlName="postCode" required autocomplete="off" maxlength="5"
+            minlength="5" numberOnly (keyup)="validatePostCode()" />
+        </nx-formfield>
+        <nx-error *ngIf="invalidPostCode">Invalid postcode number.</nx-error>
+      </span>
+
+      <nx-checkbox class="nx-margin-bottom-s renewal-form__form-checkbox" formControlName="check">
+        I have read
+
+        <nx-link>
+          <a class="renewal-form__form-link" href="https://www.allianz.com.my/personal/privacy-statement.html">Allianz
+            Malaysia's Privacy
+            Statement</a>
+        </nx-link>
+
+        and agree to provide my personal contact details to enable you to contact me for the
+        purposes of this Quotation and to receive future marketing/promotions from Allianz. I
+        understand that I can choose to unsubscribe at any time if I no longer wish to receive any
+        marketing/promotions from Allianz by writing to
+
+        <nx-link>
+          <a class="renewal-form__form-link"
+            routerLink="mailto:customer.service@allianz.com.my">customer.service@allianz.com.my</a>
+        </nx-link>.
+      </nx-checkbox>
+
+      <div class="renewal-form__form-recaptcha" *ngIf="recaptchaEnabled$ != 'N'">
+        <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+      </div>
+
+      <div class="renewal-form__form-buttons">
+        <button class="renewal-form__form-button" nxButton="secondary" type="button"
+          (click)="renewalForm.reset()">Clear</button>
+
+        <button class="renewal-form__form-button" nxButton="primary" type="button" [disabled]="renewalForm.invalid"
+          (click)="submitForm()">
+          NEXT
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,197 @@
+@import 'globals';
+
+.quotation {
+    padding: 57px 16px 60px;
+    background-color: $blue;
+    color: $light-black1;
+
+    &__description {
+        text-align: center;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: $fw-regular;
+
+        @media ($bp-mds) {
+            font-size: 18px;
+        }
+    }
+
+    &__container {
+        padding-right: 0;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 46px;
+        max-width: 1120px;
+      // margin-top: 46px;
+
+        @media ($bp-mds) {
+            flex-direction: row;
+            gap: 32px;
+            margin-top: 48px;
+        }
+    }
+
+    &__content {
+        flex: 1 1 calc(68% - 155px);
+    }
+
+    &__buttons {
+        margin-top: 46px;
+        display: flex;
+        row-gap: 20px;
+        column-gap: 32px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    &__button {
+        max-width: unset;
+        flex: 0 0 100%;
+
+        @media ($bp-sm) {
+            max-width: 256px;
+            flex: 0 0 calc(50% - 16px);
+        }
+    }
+
+
+    @media ($bp-mds) {
+        padding-top: 48px;
+        padding-bottom: 80px;
+
+        &__summary {
+            max-width: 500px;
+            flex: 1 1 calc(28% - 20px);
+            margin-top: 0;
+        }
+
+        &__buttons {
+            margin-top: 60px;
+            flex-direction: row;
+            justify-content: center;
+            row-gap: 0;
+            column-gap: 32px;
+        }
+    }
+
+    &__accordion {
+        user-select: none;
+
+        &-title {
+            display: flex;
+            align-items: top;
+
+            &-icons {
+                margin-right: 13px;
+                display: inherit;
+                align-items: inherit;
+            }
+
+            &-icon {
+
+                &.checked--,
+                &.warning-- {
+                    font-size: 22px !important;
+                }
+
+                &.checked-- {
+                    color: $green;
+                }
+
+                &.warning-- {
+                    color: $red;
+                }
+
+                &.unchecked-- {
+                    width: 22px;
+                    height: 22px;
+                    padding: 2px;
+                    border-radius: 10px;
+                    background-color: $dark-white2;
+                }
+            }
+        }
+
+        &-checkbox {
+            margin-top: 24px;
+        }
+
+        @media ($bp-mds) {
+
+            .nx-expansion-panel__content {
+                overflow: visible !important;
+                contain: paint;
+            }
+
+            &-checkbox {
+                margin-top: 35px;
+            }
+        }
+    }
+
+    /*-- Start of Agent --*/
+    &__agent {
+        padding: 45px 16px 60px;
+        color: $light-black1;
+        text-align: center;
+        background-color: $dark-white3;
+
+        &-header {
+            font-size: 35px;
+            font-weight: $fw-light;
+            line-height: 40px;
+        }
+
+        &-description {
+            margin-top: 29px;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        &-button {
+            max-width: 288px;
+            margin: 32px auto 0;
+        }
+
+        @media ($bp-mds) {
+            padding-top: 60px;
+            padding-bottom: 80px;
+
+            &-header {
+                font-size: 40px;
+                line-height: 48px;
+            }
+
+            &-description {
+                margin-top: 40px;
+            }
+
+            &-button {
+                margin-top: 40px;
+            }
+        }
+    }
+
+    /*-- End of Agent --*/
+    // ::ng-deep .nx-expansion-panel__header-content {
+    //            padding-left: 0px !important;
+    //         }
+   
+}
+        ::ng-deep{
+        .nx-expansion-panel__body{
+            padding-top: 0px !important;
+            padding-left: 70px !important;
+
+            @media (max-width: 703px){
+                padding-left: 40px !important;
+            }
+        }
+    }
+        .table-border{
+            border-bottom:  1px solid $dark-white2;
+            padding-bottom: 16px;
+            padding-top: 10px
+        }
+      

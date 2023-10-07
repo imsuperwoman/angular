@@ -1,0 +1,518 @@
+@import 'globals';
+.vehicle-owner-details {
+    padding: 53px 16px 23px;
+    color: $light-black1;
+    &__wrapper {
+        padding: 0 16px;
+        width: 100%;
+        max-width: 928px;
+        margin: 0 auto;
+    }
+    &__title {
+        padding: 57px 0 24px;
+        font-size: 16px;
+        font-weight: $fw-regular;
+        line-height: 24px;
+        color: #414141;
+        text-align: center;
+        @media ($bp-mds) {
+            padding: 37px 0 24px;
+            font-size: 18px;
+        }
+    }
+    &__insurance-period {
+        font-size: 16px;
+        line-height: 24px;
+        color: #414141;
+        text-align: left;
+        // max-width: 180px;
+        &-label {
+            font-weight: $fw-semibold;
+        }
+        &-value {
+            font-weight: $fw-regular;
+        }
+    }
+    &__accordion {
+        margin-top: 48px;
+        &-indicator {
+            display: flex;
+        }
+    }
+    &__natural-language-form {
+        padding-top: 10px;
+        padding-bottom: 0;
+        margin-bottom: -40px;
+        &-input {
+            width: 100%;
+            margin-right: -20px;
+            margin-bottom: 0 !important;
+            display: flex;
+            align-items: center;
+            &-dropdown {
+                width: 99%;
+                font-weight: $fw-regular !important;
+                color: #006192;
+                 ::ng-deep {
+                    .nx-formfield__input-container {
+                        border-bottom: 2px solid #d9d9d9;
+                    }
+                    .nx-formfield:not(.nx-formfield--negative):not(.has-error):not(.is-disabled):not(.is-focused):not(.has-outline) .nx-formfield__row:hover .nx-formfield__input-container {
+                        border-bottom: 2px solid #d9d9d9;
+                    }
+                }
+                &.hasValue-- {
+                    color: $dark-blue2;
+                     ::ng-deep {
+                        .nx-formfield__input-container {
+                            border-bottom: 2px solid $dark-blue3;
+                        }
+                        .nx-formfield:not(.nx-formfield--negative):not(.has-error):not(.is-disabled):not(.is-focused):not(.has-outline) .nx-formfield__row:hover .nx-formfield__input-container {
+                            border-bottom: 2px solid $dark-blue3;
+                        }
+                    }
+                }
+            }
+            &-text {
+                width: 1%;
+            }
+             ::ng-deep {
+                .nx-formfield__wrapper {
+                    padding-top: 0 !important;
+                    padding-bottom: 0 !important;
+                    margin: 0 !important;
+                }
+                .nx-formfield__flexfield {
+                    font-weight: $fw-regular !important;
+                    font-size: 26px;
+                }
+            }
+        }
+        &-divider {
+            border-top: 0;
+            border-bottom: 1px solid #d8d8d8;
+            margin-top: 18px;
+            margin-bottom: 24px !important;
+            @media ($bp-mds) {
+                margin-top: 30px;
+                margin-bottom: 32px !important;
+            }
+        }
+        &-confirmations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 0 !important;
+            flex-direction: column;
+            justify-content: space-between;
+            @media ($bp-mds) {
+                flex-direction: row;
+                gap: 35px;
+            }
+        }
+        &-confirmation {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 10px;
+            &.fullWidth-- {
+                width: 100%;
+            }
+            &-copy {
+                width: 100%;
+                font-size: 16px;
+                line-height: 24px;
+                @media ($bp-mds) {
+                    font-size: 18px;
+                    letter-spacing: 0.2px;
+                }
+            }
+            &-info {
+                font-size: 16px;
+                line-height: 24px;
+                color: #414141;
+                width: 100%;
+                 ::ng-deep {
+                    .nx-formfield {
+                        &.is-filled {
+                            margin-top: 16px;
+                        }
+                    }
+                    .nx-formfield__input-container {
+                        height: unset;
+                    }
+                    .nx-formfield__wrapper {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        margin-bottom: 0;
+                    }
+                    .nx-dropdown,
+                    .c-input {
+                        text-align: left;
+                    }
+                    .c-input {
+                        font-size: 20px !important;
+                        line-height: 28px !important;
+                        font-weight: $fw-semibold !important;
+                    }
+                }
+                &-label {
+                    font-weight: $fw-semibold;
+                }
+                &-value {
+                    font-weight: $fw-regular;
+                }
+            }
+            &-button {
+                margin-bottom: 3px;
+                line-height: 0;
+                &:disabled {
+                    opacity: 0.4;
+                    nx-icon {
+                        cursor: not-allowed;
+                    }
+                }
+            }
+            @media ($bp-mds) {
+                width: 30%;
+            }
+        }
+        &-date {
+            width: 188px;
+            display: inline-block;
+            margin-bottom: 0 !important;
+             ::ng-deep {
+                .nx-formfield__wrapper {
+                    margin: 0 !important;
+                }
+                .nx-formfield__input {
+                    text-align: center;
+                    font-size: 26px;
+                    line-height: 32px;
+                    font-weight: $fw-regular;
+                }
+            }
+        }
+        &-holder {
+            text-align: left;
+        }
+        &-tooltip {
+            width: 24px;
+            display: inline-block;
+            position: relative;
+            top: -1px;
+        }
+        &-info {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 4px;
+            padding-left: 0;
+            &-label {
+                font-weight: $fw-semibold;
+            }
+            &-value {
+                font-weight: $fw-regular;
+            }
+            @media ($bp-mds) {
+                padding-left: 41px;
+            }
+        }
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        @media ($bp-mds) {
+            padding-top: 20px;
+            margin-bottom: -32px;
+        }
+         ::ng-deep {
+            .nx-natural-language-form__wrapper {
+                text-align: left !important;
+                padding-left: 0;
+                width: 100%;
+                @media ($bp-mds) {
+                    padding-left: 41px;
+                    padding-right: 45px;
+                }
+            }
+        }
+    }
+    &__variant-row {
+        display: flex;
+        flex-wrap: wrap;
+         ::ng-deep {
+            .nx-formfield__input-dropdown {
+                flex-grow: 1;
+                min-width: 300px;
+                margin-top: 18px;
+                width: 75% !important;
+                &.is-filled {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+    &__recaptcha {
+        max-width: 303px;
+        margin-top: 32px;
+        transform: scale(0.93);
+        margin-left: auto;
+        margin-right: auto;
+        @media screen and (max-width: 330px) {
+            margin-left: -5px;
+        }
+        @media ($bp-mds) {
+            margin-top: 40px;
+            transform: unset;
+        }
+    }
+    &__divider {
+        width: calc(100% + 16px);
+        margin-left: -16px;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-color: $dark-white2;
+    }
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        margin-top: 46px;
+        margin-bottom: 37px;
+        @media ($bp-mds) {
+            margin-top: 60px;
+            margin-bottom: 52px;
+        }
+    }
+    &__button {
+        width: calc(100% - 32px);
+        max-width: 288px;
+        margin-right: auto;
+        margin-left: auto;
+        button {
+            width: 100%;
+        }
+    }
+    @media ($bp-mds) {
+        padding-top: 48px;
+        padding-bottom: 30px;
+        &__buttons {
+            flex-direction: row;
+            justify-content: center;
+            row-gap: 0;
+            column-gap: 32px;
+        }
+        &__button {
+            margin-right: 0;
+            margin-left: 0;
+            &.step-one-- {
+                max-width: 160px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            &.step-two-- {
+                max-width: 256px;
+            }
+        }
+    }
+}
+
+.modal-dialog {
+    /*---- Shared Dialog ----*/
+    &__comparison-table {
+        overflow: unset !important;
+    }
+    &__terms {
+        margin-top: 24px;
+        margin-bottom: 0;
+        @media ($bp-mds) {
+            margin-top: 31px;
+            margin-bottom: 10px;
+        }
+    }
+    &__term {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: $fw-regular;
+        &.second-- {
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: $fw-regular;
+            margin-top: 24px;
+            @media ($bp-mds) {
+                margin-top: 12px;
+            }
+        }
+    }
+    &__shared {
+        margin: 0px auto -12px;
+        max-height: 85vh;
+        overflow-y: auto;
+        &-content {
+            width: clamp(320px, 100vw, 704px);
+            margin: 0;
+            margin-top: 20px;
+            padding: 0 8px 0 16px !important;
+            overflow: unset !important;
+            @media ($bp-mds) {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        &-header {
+            font-size: 16px;
+            font-weight: $fw-regular;
+            letter-spacing: 0.3px;
+            line-height: 24px;
+            margin-top: 0;
+            margin-bottom: 17px;
+            text-align: left;
+            display: block;
+            @media only screen and (min-width: 704px) {
+                text-align: center;
+                font-weight: $fw-light;
+                margin-top: 20px;
+                display: none;
+                font-size: 30px;
+                line-height: 36px;
+            }
+        }
+        &-break {
+            border-top: 0;
+            border-bottom: 1px solid #d9d9d9;
+            width: 130%;
+            margin-left: -20px;
+            display: block;
+            @media only screen and (min-width: 704px) {
+                display: none;
+            }
+        }
+        &-description {
+            margin-top: 24px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            letter-spacing: 0;
+            line-height: 20px;
+            font-weight: $fw-regular;
+            text-align: left;
+            @media ($bp-mds) {
+                font-size: 16px;
+                line-height: 24px;
+                margin-top: 0;
+                margin-bottom: 31px;
+            }
+        }
+        &-table {
+            width: clamp(280px, 87.5vw, 704px);
+            overflow: auto;
+            &-header {
+                table-layout: fixed;
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 16px;
+                line-height: 24px;
+                font-weight: $fw-semibold;
+                th {
+                    border: 1px solid $dark-white4;
+                    padding: 16px 9px;
+                }
+            }
+            @media screen and (min-width: 320px) {
+                 ::ng-deep {
+                    .nx-comparison-table__intersection-cell {
+                        min-width: 100px;
+                    }
+                    table .nx-comparison-table__mobile-header-cell {
+                        font-weight: $fw-semibold !important;
+                    }
+                    table .nx-comparison-table__cell {
+                        font-weight: $fw-semibold !important;
+                    }
+                }
+            }
+            @media ($bp-sm) {
+                 ::ng-deep {
+                    .nx-modal__close {
+                        top: 23px !important;
+                        right: 41px !important;
+                    }
+                    .nx-modal__close nx-icon {
+                        font-size: 20px !important;
+                    }
+                }
+            }
+            @media ($bp-mds) {
+                width: 100%;
+                margin: 0px auto;
+                padding: 0px;
+                max-height: none;
+                /** NDBX Conparison Table **/
+                 ::ng-deep {
+                    .close-button .nx-modal__close {
+                        top: 28px !important;
+                        right: 41px !important;
+                    }
+                    .close-button .nx-modal__close nx-icon {
+                        font-size: 30px !important;
+                    }
+                    .nx-comparison-table__placeholder-cell {
+                        display: none !important;
+                    }
+                    .nx-comparison-table__placeholder-cell+.nx-comparison-table__cell:nth-child(2),
+                    .nx-comparison-table__cell:nth-child(3) {
+                        border-left: 1px solid $dark-white4;
+                        font-weight: $fw-semibold !important;
+                        text-align: center !important;
+                    }
+                    .nx-comparison-table__cell:nth-child(1) {
+                        border-left: 1px solid $dark-white4;
+                        text-align: center;
+                        font-size: 16px;
+                        line-height: 24px;
+                    }
+                    nx-comparison-table-flex-row.is-header-row {
+                        margin-bottom: 23px !important;
+                    }
+                    nx-comparison-table-flex-row.is-header-row .nx-comparison-table__cell:not(.is-selected) .nx-comparison-table__cell-content {
+                        text-align: center;
+                    }
+                    .nx-comparison-table__mobile-header-cell {
+                        font-weight: $fw-semibold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.icon-pen {
+    width: 17px;
+    height: 17px;
+    color: #006192;
+    vertical-align: bottom;
+    cursor: pointer;
+    &.disabled-- {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
+
+.icon-circle {
+    color: $dark-blue1;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    position: absolute;
+    top: -12px;
+}
+
+.button_seven {
+    width: 700px;
+}
+
+.horizontal-checkboxes {
+    display: flex;
+    flex-direction: row;
+}

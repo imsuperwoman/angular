@@ -1,0 +1,115 @@
+@import 'globals';
+
+.renewal-form {
+  &__block{
+    background-color: #F1F9FA;
+    color: #414141;
+    text-align: center;
+    padding: 53px 16px;
+  }
+
+  &__header {
+    font-size: clamp(40px, 12.500vw, 54px);
+    line-height: clamp(48px, 15vw, 60px);
+    font-weight: $fw-light;
+  }
+
+  &__subheader {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: $fw-regular;
+    margin-top: clamp(16px, 5vw, 24px);
+  }
+
+  &__form {
+    padding: clamp(32px, 10vw, 60px) 16px 82px;
+    text-align: center;
+    border-bottom: 1px solid #D9D9D9;
+
+    &-heading {
+      font-size: clamp(16px, 5vw, 18px);
+      line-height: 24px;
+      font-weight: $fw-regular;
+      color: #414141;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &-main {
+      max-width: 544px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: clamp(32px, 10vw, 56px);
+    }
+
+    &-phone {
+      display: flex;
+    }
+
+    &-id {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+
+      &-dropdown {
+        min-width: 192px;
+      }
+
+      &-input {
+        min-width: clamp(288px, 90vw, 320px);
+      }
+
+      @media ($bp-md) {
+        flex-direction: row;
+        gap: 32px;
+      }
+    }
+
+    &-checkbox {
+      text-align: left;
+    }
+
+    &-recaptcha {
+      margin-top: clamp(32px, 10vw, 40px);
+      width: clamp(288px, 90vw, 303px);
+      margin-left: auto;
+      margin-right: auto;
+      transform: scale(0.93) translateX(-6px);
+
+      @media ($bp-xs) {
+        transform: unset;
+      }
+    }
+
+    &-buttons {
+      margin-top: clamp(32px, 10vw, 40px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(18px, 5.625vw, 32px);
+
+      @media ($bp-sm) {
+        flex-direction: row;
+      }
+    }
+
+    &-button {
+      width: 100%;
+    }
+
+    &-link {
+      display: inline !important;
+      letter-spacing: 0 !important;
+    }
+  }
+}
+
+.country {
+  width: 100px;
+}
+
+.number {
+  width: calc(100% - 100px);
+}
+
+

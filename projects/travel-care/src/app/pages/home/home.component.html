@@ -1,0 +1,17 @@
+<div class="travel-care">
+  <router-outlet></router-outlet>
+  <!-- Unique Selling Points -->
+  <div class="travel-care__usp">
+    <h2 class="travel-care__usp-header">Travel with ease of mind</h2>
+    <div class="travel-care__usp-container wrapper">
+      <div class="travel-care__usp-info" *ngFor="let usp of contentData.uspInfos">
+        <img [src]="imageFolder + usp.image" class="travel-care__usp-info-image"
+          alt="Textual description of info-image" />
+        <h3 class="travel-care__usp-info-header">{{ usp.header }}</h3>
+        <p class="travel-care__usp-info-description">
+          {{ usp.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

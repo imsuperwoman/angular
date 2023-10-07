@@ -1,0 +1,193 @@
+@import 'globals';
+
+.checkout {
+    &__header {
+        padding-top: 57px;
+        padding-bottom: 32px;
+        color: $light-black1;
+        text-align: center;
+
+        &-title {
+            font-weight: $fw-light;
+            font-size: 35px;
+            line-height: 40px;
+            letter-spacing: 0.3px;
+
+            @media ($bp-mds) {
+                font-size: 40px;
+                line-height: 48px;
+            }
+        }
+
+        &-description {
+            margin-top: 18px;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.2px;
+        }
+
+        @media ($bp-mds) {
+            padding-top: 71px;
+            padding-bottom: 60px;
+        }
+    }
+
+    &__tick {
+        margin-right: 14px;
+        display: inline-block;
+        width: 23px;
+        height: 23px;
+        background-color: #d9d9d9;
+        border-radius: 50%;
+        vertical-align: middle;
+        transform: translateY(-2px);
+
+        &.active-- {
+            background-color: transparent;
+        }
+
+        .checked-- {
+            color: #1e8927;
+        }
+
+        .warning-- {
+            color: #dc3149;
+        }
+    }
+
+    &__container {
+        @media ($bp-mds) {
+            max-width: 928px;
+        }
+    }
+
+    &__summaries {
+        display: flex;
+        row-gap: 32px;
+        flex-wrap: wrap;
+
+        &-summariesDetails,
+        &-summary {
+            flex: 0 0 100%;
+        }
+
+        @media ($bp-mds) {
+            row-gap: 0;
+            column-gap: 32px;
+
+            &-summariesDetails,
+            &-summary {
+                flex-grow: 0;
+                flex-shrink: 1;
+            }
+
+            &-summariesDetails {
+                flex-basis: calc(55% - 16px);
+            }
+
+            &-summary {
+                flex-basis: calc(45% - 16px);
+            }
+        }
+    }
+
+    &__agreement {
+        margin-top: 32px;
+
+        &-policy {
+            ::ng-deep {
+                .nx-checkbox__label-text {
+                    color: $light-black1;
+                    font-size: 16px;
+                    line-height: 24px;
+
+                    a {
+                        color: $dark-blue2;
+                        font-weight: $fw-semibold;
+                    }
+                }
+            }
+        }
+
+        @media ($bp-mds) {
+            margin-top: 60px;
+        }
+    }
+
+    &__recaptcha {
+        margin-top: 32px;
+        margin-left: -7.5px;
+        transform: scale(0.95);
+
+        ::ng-deep {
+            div {
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+
+        @media ($bp-mds) {
+            margin-top: 40px;
+            transform: unset;
+        }
+    }
+
+    &__buttons {
+        margin-top: 46px;
+        display: flex;
+        row-gap: 20px;
+        column-gap: 32px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    &__button {
+        max-width: unset;
+        flex: 0 0 100%;
+
+        @media ($bp-sm) {
+            max-width: 256px;
+            flex: 0 0 calc(50% - 16px);
+        }
+    }
+
+    &__divider {
+        width: calc(100% + 16px);
+        margin-left: -16px;
+        margin-top: 60px;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-color: $dark-white2;
+
+        @media ($bp-mds) {
+            margin-top: 80px;
+        }
+    }
+
+    &__promo-divider {
+        width: calc(100% + 16px);
+        border-style: solid;
+        border-color: $dark-white2;
+    }
+}
+
+.font-italic {
+    font-style: italic;
+    color: $light-black1;
+}
+
+::ng-deep .card_content {
+    .content {
+        row-gap: 10px !important;
+        display: block !important;
+    }
+}
+
+
+:host ::ng-deep .nx-expansion-panel--light .nx-expansion-panel__header-content,
+.nx-expansion-panel--light .nx-expansion-panel__header-content {
+    padding: 16px 0px !important;
+}
+.nx-margin-t-ne-m{
+            margin-top: -24px !important;
+        }

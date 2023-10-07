@@ -1,0 +1,54 @@
+<nx-progress-stepper class="wide--" currentStepLabel="Step" #stepper>
+  <nx-step label="Get a Quote"></nx-step>
+  <nx-step label="Vehicle & Owner Details"></nx-step>
+  <nx-step label="Quotation"></nx-step>
+  <nx-step label="Policyholder Details"></nx-step>
+  <nx-step label="Policy Summary & Payment">
+    <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+    </product-stage>
+
+    <div class="successful wrapper">
+      <img class="successful__image" [src]="imageFolder + 'people/successful.png'"
+        alt="Textual description of successful.png" />
+      <h2 *ngIf="!isSCB" class="successful__header">Thank you for choosing Allianz</h2>
+      <h2 *ngIf="isSCB" class="successful__header">Thank you for using Allianz Standard Chartered Online!</h2>
+      <p class="successful__subheader">
+        Your payment was successful. A copy of the e-Policy will be sent to your inbox shortly within 24 hours.
+      </p>
+
+      <div class="successful__info">
+        <ng-container>
+          <h3 class="successful__info-header">Payment status</h3>
+          <p class="successful__info-body">Payment Successful</p>
+        </ng-container>
+        <ng-container>
+          <h3 class="successful__info-header">Payment reference no.</h3>
+          <p class="successful__info-body">{{paymentResult.pymt.SubmissionNumber}}</p>
+        </ng-container>
+      </div>
+
+      <quotation-summary-card class="successful__summary with-border--" [data]="quotationSummaryData"
+        [paymentEnded]="true" [paymentStatus]="'success'"></quotation-summary-card>
+
+      <p class="successful__enquiry">
+        {{mayContact.anyEnquiry}}{{message1}}
+        <a href="tel:{{tel}}">1&nbsp;300&nbsp;22&nbsp;5542</a>{{message2}}.
+      </p>
+    </div>
+
+
+    <div class="successful__roadTax">
+      <p class="successful__roadTax-title">Road tax renewal</p>
+
+      <p class="successful__roadTax-desc">Upon receiving your e-Policy, you may renew your road tax online here and get
+        it delivered right to your doorstep.</p>
+
+      <button class="successful__roadTax-button" nxButton="primary" type="button">
+        <a href="https://allianz.myroadtax.store/azol" target="_blank">
+          RENEW NOW
+        </a>
+      </button>
+    </div>
+
+  </nx-step>
+</nx-progress-stepper>

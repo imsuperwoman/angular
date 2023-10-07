@@ -1,0 +1,73 @@
+<div class="site-header">
+  <header nx-header>
+    <nx-header-row>
+      <div class="site-header__main wrapper">
+        <a class="site-header__main-link" [href]="currentURL">
+          <img class="site-header__main-logo" [src]="imageFolder + 'allianz-logo.svg'"
+            alt="Textual description of allianz-logo.svg" />
+        </a>
+
+        <!-- Desktop Partners -->
+        <div class="site-header__cobranding" *ngIf="activePartner$">
+          <nx-header-actions *ngIf="(sourceSystemCat$|async) != 'RFOL'"
+            class="cobranding site-header__cobranding-actions" [innerHTML]="
+              (activePartner$ | async)?.Header?.name ||
+              (activePartner$ | async)?.Header?.workingTime
+            ">
+          </nx-header-actions>
+          <nx-header-actions *ngIf="(sourceSystemCat$|async) == 'RFOL'"
+            class="cobranding site-header__cobranding-actions" [innerHTML]="
+             (activePartner$ | async)?.Header?.workingTime ||workingTime
+            ">
+          </nx-header-actions>
+
+          <nx-header-brand class="nx-margin-right-0" *ngIf="(activePartner$|async)?.Header?.tel">
+            <nx-link>
+              <a [href]="'tel:' + (activePartner$ | async)?.Header?.tel">
+                <figure nxFigure class="site-header__cobranding-figure">
+                  <nx-icon name="phone-o" size="s"></nx-icon>
+                </figure>
+                <span class="logo-text">{{ (activePartner$ | async)?.Header?.tel }}</span>
+              </a>
+            </nx-link>
+          </nx-header-brand>
+
+          <a class="site-header__main-link" [href]="(activePartner$ | async).PartnerWebsite" target="_blank"
+            *ngIf="partnerLogo!=''">
+            <img class="site-header__main-logo" [src]="partnerLogo" (error)="setDefaultPic()"
+              alt="Textual description of partnerLogo" />
+          </a>
+        </div>
+      </div>
+    </nx-header-row>
+
+    <!-- Mobile Partners -->
+    <div class="site-header__cobranding mobile-cobranding" *ngIf="activePartner$">
+      <div class="site-header__cobranding-info">
+        <p class="cobranding site-header__cobranding-actions" *ngIf="(sourceSystemCat$|async) != 'RFOL'" [innerHTML]="
+            (activePartner$ | async)?.Header?.name || (activePartner$ | async)?.Header?.workingTime
+          "></p>
+        <p class="cobranding site-header__cobranding-actions" *ngIf="(sourceSystemCat$|async) == 'RFOL'"
+          class="cobranding site-header__cobranding-actions" [innerHTML]="
+           (activePartner$ | async)?.Header?.workingTime ||workingTime
+           "></p>
+
+        <nx-header-brand class="nx-margin-right-0" *ngIf="(activePartner$|async)?.Header?.tel">
+          <nx-link>
+            <a [href]="'tel:' + (activePartner$ | async)?.Header?.tel">
+              <figure nxFigure class="site-header__cobranding-figure">
+                <nx-icon name="phone-o" size="s"></nx-icon>
+              </figure>
+              <span class="logo-text">{{ (activePartner$ | async)?.Header?.tel }}</span>
+            </a>
+          </nx-link>
+        </nx-header-brand>
+      </div>
+      <a [href]="(activePartner$ | async).PartnerWebsite" target="_blank" *ngIf="partnerLogo!=''">
+        <img class="site-header__cobranding-logo" [src]="partnerLogo" (error)="setDefaultPic()" [ngStyle]="{
+            width: partnerLogo + 'px'
+          }" alt="Textual description of partnerLogo" />
+      </a>
+    </div>
+  </header>
+</div>

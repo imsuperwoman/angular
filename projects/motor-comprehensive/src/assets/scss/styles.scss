@@ -1,0 +1,24 @@
+@import '~@angular/cdk/overlay-prebuilt.css';
+@import '@angular/cdk/a11y-prebuilt.css';
+
+/*---- Globals ----*/
+
+@import 'globals/functions';
+@import 'globals/vars';
+
+/*---- Low Priority Components ----*/
+@import 'components/starters';
+
+/*---- Components ----*/
+@import 'components/spinner';
+@import 'components/wrappers';
+
+/*---- NDBX components ----*/
+@import 'ndbx/styles.common-fixes.css';
+@import 'ndbx/nx-phone-input.scss';
+@import 'ndbx/nx-accordion.scss';
+@import 'ndbx/nx-comparison-table.scss';
+@import 'ndbx/nx-selectable-card.scss';
+@import 'ndbx/nx-formfield.scss';
+@import 'ndbx/nx-overlay.scss';
+@import 'ndbx/nx-popover.scss';

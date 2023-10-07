@@ -1,0 +1,65 @@
+<div class="azol__disclosure-message">
+  <p class="disclosure-message__form-note" *ngIf="(flowType$|async) == 'DIRECT'">
+    By clicking on "Next",
+    I confirm that I have read and agreed to the terms laid down in the
+    <a href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target='_blank'> Duty of
+      Disclosure</a>.
+  </p>
+
+  <p class="disclosure-message__form-note" *ngIf="(flowType$|async) == 'BANK'">
+    By clicking "Next", I acknowledge that I require the services of {{ (activePartner$ | async)?.PartnerName}}
+    and the Bank is entitled to commission. I confirm that I have read and agreed to the terms laid down in the
+    <a href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target='_blank'> Duty of
+      Disclosure</a>.
+  </p>
+
+  <p class="disclosure-message__form-note" *ngIf="(flowType$|async) == 'AGENT' && (sourceSystem$|async) != 'POSMAL'">
+    By clicking "Next", I acknowledge that I require the services of {{ (activePartner$ | async)?.PartnerName}}
+    and the Agency is entitled to commission. I confirm that I have read and agreed to the terms laid down in the
+    <a href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target='_blank'> Duty of
+      Disclosure</a>.
+  </p>
+
+  <p class="disclosure-message__form-note"
+    *ngIf="(flowType$|async) == 'AGENT' && (sourceSystem$|async) == 'POSMAL' && addressForm?.valid">
+    By clicking "Next", I acknowledge that I require the services of {{ (activePartner$ | async)?.PartnerName}}
+    and the Agency is entitled to commission. I confirm that I have read and agreed to the terms laid down in the
+    <a href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target='_blank'> Duty of
+      Disclosure</a>.
+  </p>
+
+  <p class="disclosure-message__form-note" *ngIf="(flowType$|async) == 'REFERRAL'">
+    By clicking "Next", I acknowledge that I would like to purchase through {{ (activePartner$ |
+    async)?.PartnerName}}
+    and the Partner is entitled to a fee. I confirm that I have read and agreed to the terms laid down in the
+    <a href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target='_blank'> Duty of
+      Disclosure</a>.
+  </p>
+
+  <p class="disclosure-message__form-note" *ngIf="(flowType$|async) == 'STAFFR'">
+    By clicking "Next", I confirm that I have read and agreed to the terms laid down in the
+    <a href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target='_blank'> Duty of
+      Disclosure</a>.
+  </p>
+  <p class="disclosure-message__form-note" *ngIf="(sourceSystem$|async) != 'POSMAL' && addressForm?.valid">
+    I also confirm that the address submitted is complete and accurate to the best of my knowledge.
+  </p>
+
+  <p class="disclosure-message__form-note" *ngIf="(sourceSystem$|async) == 'POSMAL' && addressForm?.valid">
+    I also confirm that the address submitted is complete and accurate to the best of my knowledge.
+  </p>
+
+  <p class="disclosure-message__form-note"
+    *ngIf="(flowType$|async) != 'STAFFR' && (sourceSystem$|async) == 'POSMAL' && addressForm?.valid ">
+    You may also find out more about our coverage by visiting your nearest Allianz branch.
+  </p>
+
+  <p class="disclosure-message__form-note"
+    *ngIf="(flowType$|async) != 'STAFFR' && (sourceSystem$|async) == 'POSMAL' && addressForm?.invalid ">
+  </p>
+
+
+  <p class="disclosure-message__form-note" *ngIf="(flowType$|async) != 'STAFFR' && (sourceSystem$|async) != 'POSMAL'">
+    You may also find out more about our coverage by visiting your nearest Allianz branch.
+  </p>
+</div>

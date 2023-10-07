@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="130" height="32" viewBox="0 0 130 32">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_137" data-name="Path 137" d="M398,71h16.563V89.208H398Zm0,0" transform="translate(-398 -71)"/>
+    </clipPath>
+    <clipPath id="clip-logo">
+      <rect width="130" height="32"/>
+    </clipPath>
+  </defs>
+  <g id="logo" clip-path="url(#clip-logo)">
+    <rect id="image0" width="140" height="140" transform="translate(-5 -53)" fill="none"/>
+    <g id="surface1" transform="translate(31.499 1.5)">
+      <path id="Path_130" data-name="Path 130" d="M.623,8.98,4.68,1.144A1.429,1.429,0,0,1,5.963.5h.079c1,0,1.7.725,1.344,1.4L3.722,8.98a1.086,1.086,0,0,0,0,1l3.7,7.14c.336.648-.326,1.34-1.282,1.34H5.963a1.43,1.43,0,0,1-1.283-.644L.623,9.979a1.085,1.085,0,0,1,0-1" fill="#042239"/>
+      <path id="Path_131" data-name="Path 131" d="M.623-208.02l4.058-7.836a1.43,1.43,0,0,1,1.283-.644h.079c1,0,1.7.725,1.344,1.4L3.722-208.02a1.086,1.086,0,0,0,0,1l3.7,7.14c.336.648-.326,1.34-1.282,1.34H5.963a1.429,1.429,0,0,1-1.283-.644L.623-207.021A1.086,1.086,0,0,1,.623-208.02Zm0,0" transform="translate(0 217)" fill="none"/>
+      <path id="Path_132" data-name="Path 132" d="M42.67,81.979l-4.044,7.811a1.486,1.486,0,0,1-1.334.669h-.057c-.995,0-1.684-.72-1.334-1.394l3.669-7.086a1.086,1.086,0,0,0,0-1L35.9,73.894c-.349-.675.34-1.394,1.334-1.394h.057a1.486,1.486,0,0,1,1.334.669L42.67,80.98a1.086,1.086,0,0,1,0,1" transform="translate(-30.905 -63.021)" fill="#0b2339"/>
+      <path id="Path_133" data-name="Path 133" d="M42.67-135.021l-4.044,7.811a1.486,1.486,0,0,1-1.334.669h-.057c-.995,0-1.684-.72-1.334-1.394l3.669-7.086a1.086,1.086,0,0,0,0-1L35.9-143.106c-.349-.675.34-1.394,1.334-1.394h.057a1.486,1.486,0,0,1,1.334.669l4.044,7.811A1.085,1.085,0,0,1,42.67-135.021Zm0,0" transform="translate(-30.905 153.979)" fill="none"/>
+      <path id="Path_134" data-name="Path 134" d="M252.46,90.458h-6.588a1.074,1.074,0,0,1-1.071-1.071V73.571a1.074,1.074,0,0,1,1.071-1.071h6.588a1.074,1.074,0,0,1,1.071,1.071V89.388a1.074,1.074,0,0,1-1.071,1.071" transform="translate(-213.833 -63.021)" fill="#042239"/>
+      <path id="Path_135" data-name="Path 135" d="M370.162,90.458h-.04a1.074,1.074,0,0,1-1.071-1.071V73.571a1.074,1.074,0,0,1,1.071-1.071h.04a1.074,1.074,0,0,1,1.071,1.071V89.388a1.074,1.074,0,0,1-1.071,1.071" transform="translate(-322.588 -63.021)" fill="#042239"/>
+      <g id="Group_38" data-name="Group 38" transform="translate(50.074 9.292)" clip-path="url(#clip-path)">
+        <path id="Path_136" data-name="Path 136" d="M415.233,87.74l-6.865-15.33a1.359,1.359,0,0,0-2.48,0l-6.865,15.33a1.358,1.358,0,0,0,1.24,1.914h.975a1.086,1.086,0,0,1-.776-1.507l3.573-7.978a1.087,1.087,0,0,1,1.983,0l3.573,7.978a1.086,1.086,0,0,1-.776,1.507h5.178a1.358,1.358,0,0,0,1.24-1.914" transform="translate(-398.791 -71.532)" fill="#0b2339"/>
+      </g>
+      <path id="Path_138" data-name="Path 138" d="M417.845,216.336h7.145a1.11,1.11,0,0,0,.215-.023h-7.576a1.119,1.119,0,0,0,.216.023" transform="translate(-365.107 -188.899)" fill="#0b2339"/>
+      <path id="Path_139" data-name="Path 139" d="M287.8-72.5h11.224" transform="translate(-251.47 90.958)" fill="none" stroke="#0b2339" stroke-miterlimit="10" stroke-width="6"/>
+      <path id="Path_140" data-name="Path 140" d="M415.8-45.5h11.224" transform="translate(-363.507 67.326)" fill="none" stroke="#0b2339" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_141" data-name="Path 141" d="M113.684,89.148a.146.146,0,0,1-.147.145,7.14,7.14,0,0,1,0-14.278.145.145,0,0,1,.147.145" transform="translate(-92.817 -65.222)" fill="#0b2339"/>
+      <path id="Path_142" data-name="Path 142" d="M113.684-127.852a.146.146,0,0,1-.147.145,7.141,7.141,0,0,1-6.994-7.139,7.14,7.14,0,0,1,6.994-7.139.145.145,0,0,1,.147.145Zm0,0" transform="translate(-92.817 151.777)" fill="none" stroke="#0b2339" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_143" data-name="Path 143" d="M169.547-105.883a.145.145,0,0,0,.147.145,7.141,7.141,0,0,0,6.994-7.139,7.142,7.142,0,0,0-6.492-7.111c-.166-.015-.333-.024-.5-.028a.145.145,0,0,0-.146.145Zm0,0" transform="translate(-147.964 132.549)" fill="none" stroke="#0b2339" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

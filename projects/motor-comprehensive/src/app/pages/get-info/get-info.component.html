@@ -1,0 +1,197 @@
+<form [formGroup]="motorComprehensiveForm" class="motor-comprehensive__form">
+    <nx-progress-stepper currentStepLabel="Step" #stepper [class.wide--]="activePartner">
+        <nx-step label="Get a Quote">
+
+            <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+            </product-stage>
+            <!-- <div *ngIf="!activePartner" class="get-info__info">
+        <p class="get-info__info-text">
+          This is a premium calculator only and online purchase is not available. You may opt for an
+          Allianz representative to contact you to purchase your Motor policy.
+        </p>
+      </div> -->
+            <div class="get-info__info">
+                <p class="get-info__info-text">
+                    <span><u class="text_white">Free*</u> </span> Rahmah Insurance Initiative! Covers Flood, Hospital
+                    Income and Accidental Death/Permanent Disablement. Get protected today! <br> <span
+                        class="text_small "> * Terms and conditions
+                        apply.</span>
+                </p>
+            </div>
+            <div class="get-info__banner" *ngIf="bannerData$!== undefined">
+                <h2 class="get-info__banner-header">{{bannerData$.header}}</h2>
+                <p class="get-info__banner-description">
+                    {{bannerData$.text}}
+                </p>
+                <p class="get-info__banner-description" [innerHTML]="bannerData$.subtext">
+                </p>
+            </div>
+
+            <div class="get-info" formGroupName="quoteForm">
+                <nx-natural-language-form class="get-info__natural-language-form nx-accordion" size="small">
+                    I would like insurance for my
+
+                    <nx-word class="nx-formfield__input-dropdown size-medium-small fit--"
+                        label="Provide this required field">
+                        <nx-dropdown required formControlName="vehicleType">
+                            <nx-dropdown-item value="car">car</nx-dropdown-item>
+                            <nx-dropdown-item value="motorcycle">motorcycle</nx-dropdown-item>
+                        </nx-dropdown>
+
+                        <div nxError>{{ quoteForm.get('vehicleType')?.errors?.message }}</div>
+                    </nx-word>.
+
+                    <br /> My vehicle plate number is
+
+                    <nx-word class="nx-formfield__input-field" label="Provide this required field">
+                        <input nxInput formControlName="plateNumber" required autocomplete="off" type="text"
+                            inputCapitalization maxlength="10" (keypress)="onKeyPress($event)" />
+
+                        <div nxError>{{ quoteForm.get('plateNumber')?.errors?.message }}</div>
+                    </nx-word>
+
+                    . My
+
+                    <nx-word class="nx-formfield__input-dropdown size-medium" label="Provide this required field">
+                        <nx-dropdown formControlName="idType" (valueChange)="idTypeChange()">
+                            <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                                {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+
+                        <div nxError>This field is required.</div>
+                    </nx-word>
+
+                    number is
+                    <nx-word class="nx-formfield__input-field size-medium" label="Provide this required field"
+                        *ngIf="quoteForm.get('idType')?.value !== 'NRIC'">
+                        <input nxInput validateMask="false" formControlName="idNo" required autocomplete="off"
+                            type="text" inputCapitalization (keypress)="onKeyPress($event)"
+                            [nxMask]="'AAAAAAAAAAAAAAAAAAAA'" />
+                        <div nxError>Please enter ID no.</div>
+                    </nx-word>
+
+                    <nx-word class="nx-formfield__input-field size-medium" label="Provide this required field"
+                        *ngIf="quoteForm.get('idType')?.value === 'NRIC'">
+                        <input nxInput required autocomplete="off" [nxMask]="'000000-00-0000'" formControlName="idNo" />
+                        <div nxError>{{ quoteForm.get('idNo')?.errors?.message }}</div>
+                    </nx-word>
+
+                    . My residential postcode is
+
+                    <nx-word class="nx-formfield__input-field" label="Provide this required field">
+                        <input nxInput formControlName="postcode" required autocomplete="off" numberOnly maxlength="5"
+                            minlength="5" type="text" />
+
+                        <div nxError>{{ quoteForm.get('postcode')?.errors?.message }}</div>
+                    </nx-word>.
+                </nx-natural-language-form>
+
+                <div *ngIf="acknowledgement" class="get-info__acknowledgement">
+                    <nx-checkbox class="nx-margin-bottom-s" formControlName="acknowledgement">
+                        <div *ngIf="(flowType$ | async) === 'BANK'">
+                            I acknowledge that I require the services of {{ (activePartner$ | async)?.PartnerName
+                            ?(activePartner$ | async)?.PartnerName: "the Agency"}} and the Bank is entitled to
+                            commission of 10%. I will not be entitled to the rebate by proceeding.
+                        </div>
+                        <div *ngIf="(flowType$ | async)!== 'DIRECT' && (flowType$ | async) !== 'BANK'">
+                            I acknowledge that I require the services of {{ (activePartner$ | async)?.PartnerName
+                            ?(activePartner$ | async)?.PartnerName: "the Agency"}} and the Agency is entitled to
+                            commission of 10%. I will not be entitled to the rebate by proceeding.
+                        </div>
+                        <div *ngIf="(flowType$ | async) === 'DIRECT'">
+                            I acknowledge that I require the services of the Agency and the Agency is entitled to
+                            commission of 10%. I will not be entitled to the rebate by proceeding.
+                        </div>
+                    </nx-checkbox>
+                </div>
+            </div>
+
+            <div [class.--referral]="activePartner" class="get-info__buttons">
+                <button class="get-info__button" nxButton="primary" type="button"
+                    [disabled]="(quoteForm.invalid || !acknowledgementControlValue)" (click)="customerValidation()">
+                    NEXT
+                </button>
+            </div>
+
+            <disclosure-message [control]="quoteForm"></disclosure-message>
+            <!-- Documents -->
+            <div class="get-info__documents">
+                <h2 class="get-info__documents-header">Documents</h2>
+                <p class="get-info__documents-description">
+                    To learn more about our product, please read our Product Disclosure Sheet here.
+                </p>
+                <ng-container *ngFor="let item of (documentData$| async)">
+                    <button class="nx-button get-info__documents-download-cta" nxPlainButton type="button">
+                        <nx-icon name="pdf"></nx-icon> <a [href]="item.queryParams" target='_blank'>{{ item.label }}</a>
+                    </button>
+                </ng-container>
+            </div>
+        </nx-step>
+        <nx-step label="Vehicle & Owner Details"></nx-step>
+        <nx-step label="Quotation"></nx-step>
+        <nx-step *ngIf="!activePartner" label="Find An Agent"></nx-step>
+        <nx-step *ngIf="activePartner" label="Policyholder Details"></nx-step>
+        <nx-step *ngIf="activePartner" label="Policy Summary & Payment"></nx-step>
+    </nx-progress-stepper>
+</form>
+
+<shared-dialog #leaveMyDetailsDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+    [routingPath]="'/leave-details'" [buttonText]="'LEAVE MY DETAILS'">
+</shared-dialog>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+    [buttonText]="'CLOSE'"></shared-dialog>
+<ng-template #template>
+    <div class="customized_popup special_popup" nxModalContent>
+        <div class="centered-content">
+            <form>
+                <h2 nxHeadline="subsection-medium" class="nx-font-weight-light text-center">
+                    How do you want to get insured today?</h2>
+                <div>
+                    <div nxRow class="nx-margin-top-m">
+                        <div nxCol="12,12,6">
+                            <nx-selectable-card appearance="expert" [checked]=isAgentSelected
+                                (checkedChange)="handleChange('agent')">
+                                <h3 nxHeadline="subsection-small" class="nx-font-weight-semibold font_semibold">Purchase
+                                    with an Agent
+                                </h3>
+                                <div>
+                                    <ul nxList class="customized_checkmark green_color">
+                                        <li nxListIcon="check">Agent is entitled to 10% commission
+                                        </li>
+                                        <li nxListIcon="check">Effective claims handling
+                                        </li>
+                                        <li nxListIcon="check">Leave your details for personalized advisory
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nx-selectable-card>
+                        </div>
+                        <div class="nx-margin-xs nx-hidden-m nx-hidden-l nx-hidden-xl nx-hidden-2xl nx-hidden-3xl">
+                        </div>
+                        <div nxCol="12,12,6">
+                            <nx-selectable-card [checked]=isDirectSelected (checkedChange)="handleChange('direct')"
+                                appearance="expert">
+                                <h3 nxHeadline="subsection-small" class="nx-font-weight-semibold font_semibold">Purchase
+                                    Direct
+                                </h3>
+                                <div>
+                                    <ul nxList class="customized_checkmark green_color">
+                                        <li nxListIcon="check">10% Rebate on commissions</li>
+                                        <li nxListIcon="check">Self service your insurance needs</li>
+                                        <li nxListIcon="check">Quick and seamless purchase</li>
+                                    </ul>
+                                </div>
+                            </nx-selectable-card>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <div class="text-center nx-margin-top-l">
+                <button nxButton (click)="closeTemplateDialog()" class="display_intial"
+                    [disabled]="!isAgentSelected && !isDirectSelected">NEXT</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

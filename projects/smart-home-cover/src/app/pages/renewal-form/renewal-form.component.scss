@@ -1,0 +1,31 @@
+@import 'globals';
+
+.renewal-form {
+  &__image {
+    width: 120px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
+
+  &__header {
+    margin-top: 24px;
+    font-size: 26px;
+    font-weight: $fw-light;
+    line-height: 32px;
+    letter-spacing: 0.3px;
+    text-align: center;
+  }
+
+  &__description {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__button {
+    max-width: 240px;
+    margin: 24px auto 0;
+  }
+}

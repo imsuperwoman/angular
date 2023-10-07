@@ -1,0 +1,88 @@
+<form>
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote"></nx-step>
+    <nx-step label="Coverage Details">
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+      </product-stage>
+
+      <div class="light_blue_color padding_quotation quotation">
+        <div nxLayout="grid nopadding" class="wrapper">
+          <div nxRow>
+            <div nxCol="12,12,7,7,8" class="quotation__selection nx-grid_69">
+              <div class="container">
+                <nx-comparison-table *ngIf="plans" [selectedIndex]="getSelectedPlan(plans) - 1"
+                  [class.flexLess--]="plans.length <= 3" [class.flexMore--]="plans.length > 3"
+                  class="azol__comparison-table">
+                  <ng-container nxComparisonTableRow type="header" [mayStick]="false">
+                    <nx-comparison-table-popular-cell [forColumn]="getRecommendedPlan(plans)">
+                      <div class="popular-cell__content-wrapper">
+                        <p class="popular-cell__title">Recommended</p>
+                      </div>
+                    </nx-comparison-table-popular-cell>
+                    <nx-comparison-table-cell type="header" *ngFor="let plan of plans">
+                      <div class="header-container">
+                        <p class="product-title">{{ plan.planDescription }}</p>
+                        <p class="product-price">RM {{ plan.premium.premiumDueRounded.toFixed(2) }}</p>
+                        <p class="product-text">per year</p>
+                        <button nxComparisonTableSelectButton unselectedLabel="Select" selectedLabel="Selected"
+                          type="button" (click)="updatePlansPayable(plan.planCode)"
+                          class="azol__comparison-table-header-button"></button>
+                      </div>
+                    </nx-comparison-table-cell>
+                  </ng-container>
+                  <ng-container nxComparisonTableRow *ngFor="let dataX of plans[0].benefits; let pqr = index">
+                    <nx-comparison-table-description-cell>
+                      <div class="has-popover">
+                        <span [innerHTML]="dataX.description"></span>
+                        <button nxPlainButton class="info-icon" aria-label="More information"
+                          nxPopoverTrigger="click" type="button">
+                          <icon-popover [popoverMessage]="dataX.additionalInformation"></icon-popover>
+                        </button>
+                      </div>
+                    </nx-comparison-table-description-cell>
+                    <nx-comparison-table-cell *ngFor="let benefitPlan of plans; let k = index">
+                      {{ plans[k].benefits[pqr].coverage }}
+                    </nx-comparison-table-cell>
+                  </ng-container>
+                  <ng-container nxComparisonTableRow type="footer">
+                    <nx-comparison-table-cell *ngFor="let plan of plans">
+                      <button nxComparisonTableSelectButton unselectedLabel="Select" selectedLabel="Selected"
+                        class="nx-margin-bottom-s" type="button" (click)="updatePlansPayable(plan.planCode)"></button>
+                      <p class="product-underline">{{ plan.planDescription }}</p>
+                    </nx-comparison-table-cell>
+                  </ng-container>
+                </nx-comparison-table>
+              </div>
+            </div>
+            <div nxCol="12,12,5,5,4" class="nx-margin-bottom-m card_center">
+              <quotation-summary-card class="quotation__summary" *ngIf="!isSummariesLoading"
+                [data]="summaries"></quotation-summary-card>
+            </div>
+          </div>
+        </div>
+
+
+        <div nxLayout="grid nopadding" class="nx-margin-bottom-xl nx-margin-top-2xl wrapper">
+          <div nxRow>
+            <div nxCol="12,12,2,3" class="nx-hidden-xs nx-hidden-s "></div>
+            <div nxCol="12,12,4,3">
+              <button nxButton="block secondary" type="button" class="nx-margin-bottom-m"
+                (click)="proceedBack()">Back</button>
+            </div>
+            <div nxCol="12,12,4,3">
+              <button nxButton="block primary" type="button" class="nx-margin-bottom-m" (click)="proceedNext()">purchase
+                now</button>
+            </div>
+            <div nxCol="12,12,2,3" class="nx-hidden-xs nx-hidden-s "></div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </nx-step>
+    <nx-step label="Policyholder Details"></nx-step>
+    <nx-step label="Policy Summary & Payment"></nx-step>
+
+  </nx-progress-stepper>
+</form>

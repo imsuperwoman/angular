@@ -1,0 +1,81 @@
+<nx-progress-stepper currentStepLabel="Step" #stepper>
+  <nx-step label="Get A Quote"></nx-step>
+  <nx-step label="Coverage Details"></nx-step>
+  <nx-step label="Policyholder Details"></nx-step>
+  <nx-step label="Policy Summary & Payment">
+    <product-stage productImage="smart-home-cover-logo.png" header="Smart Home Cover"
+      description="A new kind of home insurance">
+    </product-stage>
+
+    <div class="successful">
+      <img class="successful__image" [src]="imageFolder + 'people/successful.png'"
+        alt="Textual description of successful.png" />
+      <h2 *ngIf="!isSCB" class="successful__header">Thank you for choosing Allianz</h2>
+      <h2 *ngIf="isSCB" class="successful__header">Thank you for using Allianz Standard Chartered Online!</h2>
+      <p class="successful__subheader">
+        Your payment was successful. A copy of the e-Policy will be sent to your inbox shortly within 24 hours.
+      </p>
+
+      <div class="successful__info">
+        <ng-container>
+          <h3 class="successful__info-header">Payment status</h3>
+          <p class="successful__info-body">Payment Successful</p>
+        </ng-container>
+        <ng-container>
+          <h3 class="successful__info-header">Payment reference no.</h3>
+          <p class="successful__info-body">{{(paymentResult$|async ).pymt.SubmissionNumber}}</p>
+        </ng-container>
+      </div>
+
+      <div class="successful__summary">
+        <h2 class="successful__summary-header">Insurance summary</h2>
+        <div class="successful__summary-body">
+          <div class="successful__summary-body-section">
+            <h3 class="successful__summary-body-section-category">Product</h3>
+            <p class="successful__summary-body-section-value">
+              {{ product }}
+            </p>
+          </div>
+          <div class="successful__summary-body-section">
+            <h3 class="successful__summary-body-section-category">Period of insurance</h3>
+            <p class="successful__summary-body-section-value">
+              {{formatDate((paymentResult$|async )?.Risk.RiskGrp[0].RiskLoc.InceptionDate) +' to '+
+              formatDate((paymentResult$|async )?.Risk.RiskGrp[0].RiskLoc.ExpiryDate) }}
+            </p>
+          </div>
+          <div class="successful__summary-body-section">
+            <h3 class="successful__summary-body-section-category">Full name</h3>
+            <p class="successful__summary-body-section-value">
+              {{(paymentResult$|async )?.ClientName}}
+            </p>
+          </div>
+          <div class="successful__summary-body-section">
+            <h3 class="successful__summary-body-section-category">Mobile no.</h3>
+            <p class="successful__summary-body-section-value">
+              {{ formatMobileNumber((paymentResult$|async )?.MobileNumber)}}
+            </p>
+          </div>
+          <div class="successful__summary-body-section">
+            <h3 class="successful__summary-body-section-category">Email address</h3>
+            <p class="successful__summary-body-section-value">
+              {{(paymentResult$|async )?.EmailAddress}}
+            </p>
+          </div>
+        </div>
+        <hr />
+        <p class="successful__summary-total">
+          Total premium payable : {{(paymentResult$| async)?.PremiumDueRounded | currency: 'RM '}}
+        </p>
+      </div>
+
+      <p class="successful__enquiry">
+        {{mayContact.anyEnquiry}}{{message1}}
+        <a href="tel:{{tel}}">1&nbsp;300&nbsp;22&nbsp;5542</a>{{message2}}.
+      </p>
+      <button nxButton="primary" type="button" class="successful__button" (click)="clearStorageData()"
+        routerLink="/get-info" queryParamsHandling="preserve" *ngIf="renewal">
+        RENEW ANOTHER POLICY
+      </button>
+    </div>
+  </nx-step>
+</nx-progress-stepper>

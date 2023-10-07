@@ -1,0 +1,11 @@
+<div class="accordion-indicator">
+  <ng-container *ngIf="control.invalid && control.untouched">
+    <div class="accordion-indicator__default"></div>
+  </ng-container>
+  <ng-container *ngIf="control.invalid && !control.untouched">
+    <nx-icon class="accordion-indicator__invalid" name="exclamation-triangle"></nx-icon>
+  </ng-container>
+  <ng-container *ngIf="control.valid">
+    <nx-icon class="accordion-indicator__valid" name="check-circle"></nx-icon>
+  </ng-container>
+</div>

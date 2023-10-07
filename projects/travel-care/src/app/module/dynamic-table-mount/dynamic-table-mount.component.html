@@ -1,0 +1,36 @@
+<nx-swipebar label="Swipe to view more">
+  <table nxTable zebra [formGroup]="control">
+    <thead>
+      <tr nxTableRow>
+        <th nxHeaderCell>
+          <nx-checkbox [formControl]="selectAllCheckBox" (checkedChange)="updateMTCheckbox($event)"></nx-checkbox>
+        </th>
+        <th nxHeaderCell>Traveller(s)</th>
+        <th nxHeaderCell>Age range (adult)</th>
+        <th nxHeaderCell class="center-items">Premium per person (RM)</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr nxTableRow *ngFor="let item of benefits;index as i">
+        <ng-container [formGroupName]="i">
+          <td nxTableCell>
+            <nx-checkbox formControlName="MountaineeringInd"
+              (checkedChange)="onIndividualCheckBoxChange();updateSelectedCheckbox(i,$event)"></nx-checkbox>
+          </td>
+          <td nxTableCell>{{item.traveller | titlecase}}</td>
+          <td nxTableCell>
+            <nx-radio-group class="horizontal-checkboxes" formControlName="adultGroup">
+              <nx-radio value="adult1" name="size" [disabled]="!getCheckbox(i)" labelSize="small"
+                class="nx-margin-right-m">18-40</nx-radio>
+              <nx-radio value="adult2" name="size" [disabled]="!getCheckbox(i)" labelSize="small">41-60</nx-radio>
+            </nx-radio-group>
+          </td>
+          <td nxTableCell  class="center-items">
+            {{item.premiumPerPerson | number: '1.2-2' }}
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</nx-swipebar>

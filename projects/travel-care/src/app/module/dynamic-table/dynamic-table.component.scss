@@ -1,0 +1,65 @@
+@import 'globals';
+
+.has-popover {
+    display: flex;
+    flex-direction: row;
+    word-break: break-word;
+}
+
+.info-icon {
+    margin-left: auto;
+}
+table {
+  background-color: white;
+
+}
+span ::first-letter{
+text-transform:capitalize;
+}
+
+
+@media only screen and (max-width: 703px) {
+    .has-popover {
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 912px) {
+    .width_popover {
+        width: 250px !important;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .width_popover {
+        width: 200px !important;
+    }
+}
+
+.text-center{
+text-align: center;
+text-align: -webkit-center;
+} 
+
+::ng-deep .indicator {
+height: 8px !important;
+} 
+
+::ng-deep .scrollable {
+padding: 0 !important;
+}
+
+.table-container {
+overflow-x: auto;
+display: block;
+
+}
+::ng-deep .comparison_first_column {
+    thead tr th:first-child,
+    tbody tr td:first-child {
+        width: 35%;
+    }
+}
+
+
+
+

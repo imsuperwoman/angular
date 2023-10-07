@@ -1,0 +1,35 @@
+@import 'globals';
+
+:host {
+  display: block;
+}
+
+.align-center {
+  text-align: center;
+  text-align: -webkit-center;
+  font-size: 14px;
+}
+
+.disclosure-message {
+
+  &__form {
+    &-note {
+      margin: 36px 16px 60px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+
+      a {
+        color: $dark-blue2;
+        font-weight: $fw-semibold;
+      }
+
+      @media ($bp-mds) {
+        max-width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}

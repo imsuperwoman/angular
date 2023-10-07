@@ -1,0 +1,190 @@
+@import 'globals';
+
+.modal-dialog {
+  padding: 24px 16px;
+  margin: 0px auto -12px;
+
+  &__header {
+    width: calc(100% + 32px);
+    padding: 0 16px 16px;
+    margin-left: -16px;
+    border-bottom: 1px solid $dark-white2;
+    color: $light-black1;
+    font-size: 16px;
+    font-weight: $fw-regular;
+    letter-spacing: 0.3px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__description {
+    margin-top: 16px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+
+    &.type-2-- {
+      text-align: center;
+    }
+  }
+
+  &__amount {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    line-height: 28px;
+    text-align: center;
+
+    &.type-2-- {
+      text-align: center;
+    }
+  }
+
+  &__button {
+    padding: 5px !important;
+    margin: 11px auto 19px;
+    border: none;
+    padding: 0px;
+    width: auto;
+    min-height: auto;
+    color: $dark-blue2;
+    font-size: 16px;
+    font-weight: $fw-semibold;
+    letter-spacing: 1px;
+    line-height: 24px;
+
+    &__text {
+      margin-left: 4px;
+    }
+
+    &.type-2-- {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      // margin: 11px 0 40px;
+    }
+  }
+
+  &__options {
+    &-section {
+      margin-bottom: 32px;
+      text-align: center;
+
+      &-button {
+        min-height: auto;
+        min-width: 288px;
+        margin: 16px auto 0px;
+        padding: 12px 12px;
+        width: auto;
+      }
+
+      &-images {
+        height: 65px;
+        display: flex;
+        justify-content: center;
+
+        &-tng {
+          height: 65px;
+          width: 65px;
+        }
+
+        &-visa {
+          margin-top: auto;
+          margin-bottom: auto;
+          margin-right: 24px;
+          height: 26px;
+          width: 80px;
+        }
+
+        &-mastercard {
+          margin-top: auto;
+          margin-bottom: auto;
+          height: 50px;
+          width: 64.35px;
+        }
+      }
+    }
+  }
+
+  @media ($bp-mds) {
+    margin: 0 auto;
+    padding: 0;
+    max-height: none;
+
+    &__header {
+      padding: 0;
+      border-bottom: none;
+      font-size: 30px;
+      font-weight: $fw-light;
+      line-height: 36px;
+      text-align: center;
+    }
+
+    &__description.type-2-- {
+      text-align: center;
+    }
+
+    &__amount {
+      margin-top: 32px;
+      font-size: 20px;
+
+      &.type-2-- {
+        text-align: center;
+      }
+    }
+
+    &__button {
+      margin: 24px auto 48px;
+
+      &.margin-- {
+        margin: 24px auto 15px;
+      }
+
+      &.type-2-- {
+        margin: 24px auto 48px;
+      }
+    }
+
+    &__options {
+      display: flex;
+      column-gap: 40px;
+
+      &.gap-- {
+        column-gap: 16px;
+      }
+
+      &-section {
+        margin: auto;
+
+        &-button {
+          min-width: unset;
+          padding: 8px 16px;
+          margin: 24px auto 0px;
+          font-size: 14px;
+          line-height: 16px;
+          letter-spacing: 1px;
+
+          &.min-width {
+            min-width: 320px;
+            padding: 12px 16px;
+          }
+        }
+
+        &-images {
+          height: 80px;
+
+          &-tng {
+            height: 80px;
+            width: 80px;
+          }
+
+          &-visa {
+            margin-top: 23px;
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import 'globals';
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #eeccd5;
+  padding: clamp(32px, 10vw, 56px) 16px;
+  text-align: center;
+
+  &__heading {
+    font-weight: $fw-light;
+    font-size:  35px;
+    line-height: clamp(41px, 12.813vw, 48px);
+    margin-bottom: 48px;
+
+    @media only screen and (min-width: 704px) {
+      font-size: 40px;
+    }
+  }
+
+  &__subheading{
+    font-weight:$fw-semibold;
+    font-size: 16px;
+    line-height: clamp(22px, 6.875vw, 48px);
+
+    @media only screen and (min-width: 704px) {
+      font-size: 40px;
+      font-weight: $fw-light;
+    }
+  }
+
+  &__image {
+    width: auto;
+    height: 56px;
+    max-width: 90px;
+    max-height: 56px;
+  }
+
+  &__paragraph {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: $fw-regular;
+    margin-top: clamp(60px, 18.750vw, 80px);
+    margin-bottom: 48px;
+    padding: 16px;
+
+    @media only screen and (min-width: 704px) {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,289 @@
+<ng-template #spinner>
+    <div class="spinner">
+        <nx-spinner nxSize="medium"></nx-spinner>
+    </div>
+</ng-template>
+
+<div class="checkout">
+    <nx-progress-stepper currentStepLabel="Step" #stepper [class.wide--]="activePartner">
+        <nx-step label="Get a Quote"></nx-step>
+        <nx-step label="Vehicle & Owner Details"></nx-step>
+        <nx-step label="Quotation"></nx-step>
+        <nx-step label="Policyholder Details"></nx-step>
+        <nx-step label="Policy Summary & Payment">
+            <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+            </product-stage>
+
+            <div class="checkout__container wrapper">
+                <div class="checkout__header">
+                    <h3 class="checkout__header-title">Review and pay</h3>
+                    <p class="checkout__header-description">
+                        Please review your coverage details and ensure they're correct before proceeding to payment.
+                    </p>
+                </div>
+
+                <div class="checkout__summaries">
+                    <div class="checkout__summaries-summariesDetails">
+                        <div class="checkout__summaries-summariesDetails-vehicleDetails">
+                            <h3 class="checkout__summaries-summariesDetails-vehicleDetails-header">
+                                Vehicle details
+                            </h3>
+
+                            <hr class="checkout__summaries-summariesDetails-vehicleDetails-divider" />
+
+                            <div class="checkout__summaries-summariesDetails-vehicleDetails-info">
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-label">
+                                    Sum insured (agreed value)
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-value">
+                                    RM {{ userInput$.step2.vehicleDetails.SumInsured | number: '1.2-2'}}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-vehicleDetails-info">
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-label">
+                                    Registration no.
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-value">
+                                    {{ quoteFormValue.plateNumber }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-vehicleDetails-info">
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-label">
+                                    Make
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-value">
+                                    {{ userInput$.step2.vehicleDetails.comDetails.comBrandDesc }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-vehicleDetails-info">
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-label">
+                                    Model
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-value">
+                                    {{ userInput$.step2.vehicleDetails.comDetails.comModelDesc }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-vehicleDetails-info">
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-label">
+                                    Variant
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-vehicleDetails-info-value">
+                                    {{userInput$.step2.vehicleDetails.comDetails.comCarTypeDesc }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="checkout__summaries-summariesDetails-policyholderDetails">
+                            <h3 class="checkout__summaries-summariesDetails-policyholderDetails-header">
+                                Policyholder details
+                            </h3>
+
+                            <hr class="checkout__summaries-summariesDetails-policyholderDetails-divider" />
+
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Full name as per ID
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ policyHolderDetailsFormValue.fullname }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    ID type
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ policyHolderDetailsFormValue.idType | uppercase }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    ID no.
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ policyHolderDetailsFormValue.idNo | uppercase }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Date of birth
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ policyHolderDetailsFormValue.dob | date: 'dd/MM/YYYY' }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Gender
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ policyHolderDetailsFormValue.gender | titlecase }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Nationality
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ policyHolderDetailsFormValue.nationality | titlecase }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Mobile no.
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ phoneNumber }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Email address
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value">
+                                    {{ userInput$.step4.policyholder.email }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-policyholderDetails-info">
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-label">
+                                    Mailing address
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-policyholderDetails-info-value" innerHTML="{{ mailingAddress  }} "></p>
+                            </div>
+                        </div>
+
+                        <div class="checkout__summaries-summariesDetails-ehailingDriverDetails" *ngIf="ehailingDriverFormValue.fullname">
+                            <h3 class="checkout__summaries-summariesDetails-ehailingDriverDetails-header">
+                                e-Hailing driver
+                            </h3>
+
+                            <hr class="checkout__summaries-summariesDetails-ehailingDriverDetails-divider" />
+
+                            <div class="checkout__summaries-summariesDetails-ehailingDriverDetails-info">
+                                <p class="checkout__summaries-summariesDetails-ehailingDriverDetails-info-label">
+                                    Full name as per ID
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-ehailingDriverDetails-info-value">
+                                    {{ ehailingDriverFormValue.fullname }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-ehailingDriverDetails-info">
+                                <p class="checkout__summaries-summariesDetails-ehailingDriverDetails-info-label">
+                                    ID type
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-ehailingDriverDetails-info-value">
+                                    {{ ehailingDriverFormValue.idType }}
+                                </p>
+                            </div>
+                            <div class="checkout__summaries-summariesDetails-ehailingDriverDetails-info">
+                                <p class="checkout__summaries-summariesDetails-ehailingDriverDetails-info-label">
+                                    ID no.
+                                </p>
+                                <p class="checkout__summaries-summariesDetails-ehailingDriverDetails-info-value">
+                                    {{ ehailingDriverFormValue.idNo }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="checkout__summaries-summariesDetails-additionalDrivers" *ngIf="additionalDriversFormValue.driver1.fullname">
+                            <h3 class="checkout__summaries-summariesDetails-additionalDrivers-header">
+                                Additional drivers
+                            </h3>
+
+                            <hr class="checkout__summaries-summariesDetails-additionalDrivers-divider" />
+
+                            <div class="checkout__summaries-summariesDetails-additionalDrivers-infos">
+                                <h3 class="checkout__summaries-summariesDetails-additionalDrivers-no" *ngIf="additionalDriversFormValue.driver2.fullname">
+                                    Additional driver 1
+                                </h3>
+
+                                <div class="checkout__summaries-summariesDetails-additionalDrivers-info">
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-label">
+                                        Full name as per ID
+                                    </p>
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-value">
+                                        {{ additionalDriversFormValue.driver1.fullname }}
+                                    </p>
+                                </div>
+                                <div class="checkout__summaries-summariesDetails-additionalDrivers-info">
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-label">
+                                        ID type
+                                    </p>
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-value">
+                                        {{ additionalDriversFormValue.driver1.idType | uppercase }}
+                                    </p>
+                                </div>
+                                <div class="checkout__summaries-summariesDetails-additionalDrivers-info">
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-label">
+                                        ID no.
+                                    </p>
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-value">
+                                        {{ additionalDriversFormValue.driver1.idNo }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="checkout__summaries-summariesDetails-additionalDrivers-infos" *ngIf="additionalDriversFormValue.driver2.fullname">
+                                <h3 class="checkout__summaries-summariesDetails-additionalDrivers-no">
+                                    Additional driver 2
+                                </h3>
+
+                                <div class="checkout__summaries-summariesDetails-additionalDrivers-info">
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-label">
+                                        Full name as per ID
+                                    </p>
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-value">
+                                        {{ additionalDriversFormValue.driver2.fullname }}
+                                    </p>
+                                </div>
+                                <div class="checkout__summaries-summariesDetails-additionalDrivers-info">
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-label">
+                                        ID type
+                                    </p>
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-value">
+                                        {{ additionalDriversFormValue.driver2.idType | uppercase }}
+                                    </p>
+                                </div>
+                                <div class="checkout__summaries-summariesDetails-additionalDrivers-info">
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-label">
+                                        ID no.
+                                    </p>
+                                    <p class="checkout__summaries-summariesDetails-additionalDrivers-info-value">
+                                        {{ additionalDriversFormValue.driver2.idNo }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <quotation-summary-card class="checkout__summaries-summary with-border--" [data]="summaries" [purchaseNote]="summaries.purchaseNote" [purchaseNotePopoverMsg]="summaries.purchaseNotePopoverMsg" [additionalPurchaseNote]="summaries.additionalPartnerPurchaseNote"></quotation-summary-card>
+                </div>
+
+                <form class="checkout__agreement" [formGroup]="agreedPolicyForm">
+                    <nx-checkbox class="checkout__agreement-policy" formControlName="policyAgreed">
+                        I have read
+                        <a href="https://www.allianz.com.my/personal/privacy-statement.html" target="_blank">Allianz Malaysia's
+              Privacy Statement</a> and agree to provide my personal contact details to enable you to contact me for the purposes of this Quotation and to receive future marketing/promotions from Allianz. I understand that I can
+                        choose to unsubscribe at any time if I no longer wish to receive any marketing or promotions from Allianz by writing to
+                        <a href="mailto:customer.service@allianz.com.my">customer.service@allianz.com.my</a>.
+                    </nx-checkbox>
+                </form>
+
+                <div class="checkout__buttons">
+                    <button class="checkout__button" nxButton="secondary" type="button" queryParamsHandling="preserve" routerLink="/policyholder-details">
+            BACK
+          </button>
+                    <button class="checkout__button" nxButton="primary" type="button" (click)="openPaymentDialog()" [disabled]="agreedPolicyForm.invalid">
+            PAY NOW
+          </button>
+                </div>
+            </div>
+
+            <hr class="checkout__divider" />
+
+        </nx-step>
+    </nx-progress-stepper>
+</div>
+
+<payment-dialog #paymentDialogModal returnUrl="policyholder-details" alignType="2" (closeEmitter)="paymentDialogModalClose()">
+</payment-dialog>

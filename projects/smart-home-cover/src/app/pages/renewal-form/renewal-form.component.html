@@ -1,0 +1,9 @@
+<shared-app-renewal-form [title]=title (renewalFormEvent)="receiveLeaveDetails($event)">
+</shared-app-renewal-form>
+<ng-template #template>
+    <h3 class="renewal-form__description">
+        Sorry, previous purchase not found. You will be re-directed to a new purchase journey.
+    </h3>
+    <button class="renewal-form__button" nxButton="primary" routerLink="/get-info" queryParamsHandling="preserve"
+        (click)="onClick()">Ok</button>
+</ng-template>

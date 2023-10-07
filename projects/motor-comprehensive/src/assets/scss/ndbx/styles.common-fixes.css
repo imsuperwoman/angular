@@ -1,0 +1,20 @@
+/*---- Start of Policy Hoder Step 3 ----*/
+
+.customer-details__content-input .nx-formfield__input {
+  flex-wrap: wrap;
+  row-gap: 20px;
+}
+
+@media (min-width: 704px) {
+  .customer-details__content-input .toggle .nx-radio-toggle__label-container {
+    justify-content: center;
+    padding: 2px;
+  }
+}
+
+/*---- End of Policy Hoder step 3 ----*/
+
+.nx-calendar-change-view-button {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

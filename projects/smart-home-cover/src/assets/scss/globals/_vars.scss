@@ -1,0 +1,222 @@
+//=============================================================================
+//  Variables
+//=============================================================================
+//
+//  $ Colors
+//  $ Easings
+//  $ Fonts
+//  $ Media
+//  $ Site Header
+//  $ Transitions
+//  $ Wrappers
+//  $ Z-Index
+//
+//=============================================================================
+//  $ Colors
+//-----------------------------------------------------------------------------
+//
+//  Organise colours as follows:
+//
+//      $grey: #aaa;
+//          $light-grey: #bbb;   <-- This must be lighter than $grey
+//          $light-grey-2: #ccc; <-- This must be lighter than $light-grey
+//          $light-grey-3: #ddd; <-- This must be lighter than $light-grey-2
+//          $dark-grey: #999;    <-- This must be darker than $grey
+//          $dark-grey-2: #888;  <-- This must be darker than $dark-grey
+//          $dark-grey-3: #777;  <-- This must be darker than $dark-grey-2
+//      $red: #f00;
+//          $light-red: #f99;   <-- This must be lighter than $red
+//          $dark-red: #a00;    <-- This must be darker than $red
+//      $white: #fff;
+//          $dark-white: #f00;   <-- This must be darker than $white
+//
+//  Elaboration:
+//
+//  - Organise $color in alphabetical order, e.g. $grey, then $red, then $white.
+//
+//  - $light-color and $dark-color should be placed right after its $color,
+//    and should be indented one level deeper.
+//
+//  - If you require more light or dark variations of the colour, place a number
+//    behind it. Make sure the intensity increases in a single direction, e.g.
+//    $light-color-2 must be lighter than $light-color, and $light-color-3 must
+//    be lighter than $light-color-2.
+//
+//=============================================================================
+
+$black: #333;
+$light-black1: #414141;
+$light-black2: #767676;
+$light-black3: #999999;
+$white: #fff;
+$dark-white1: #dddddd;
+$dark-white2: #d9d9d9;
+$dark-white3: #f8f4f2;
+$dark-white4: #ececec;
+$beige: #f5f3ed;
+$blue: #e6f4f6;
+$dark-blue1: #156d9b;
+$dark-blue2: #006192;
+$dark-blue3: #007ab3;
+$light-blue1: #99cae1;
+$green: #1e8927;
+$red: #dc3149;
+//=============================================================================
+//  $ Easings
+//-----------------------------------------------------------------------------
+//
+//  Easings are from http://easings.net/.
+//
+//  The `$ease-XXX-power#` naming convention is inspired by GreenSock: "Using
+//  a numeric approach like Power2 instead of Quart makes experimenting easier
+//  and the code reads more intuitively."
+//
+//=============================================================================
+
+$ease-out-power4: cubic-bezier(0.19, 1, 0.22, 1); // Ease Out Expo
+$ease-out-power3: cubic-bezier(0.165, 0.84, 0.44, 1); // Ease Out Quart
+$ease-out-power2: cubic-bezier(0.215, 0.61, 0.355, 1); // Ease Out Cubic
+$ease-out-power1: cubic-bezier(0.25, 0.46, 0.45, 0.94); // Ease Out Quad
+
+$ease-in-power4: cubic-bezier(0.95, 0.05, 0.795, 0.035); // Ease In Expo
+$ease-in-power3: cubic-bezier(0.895, 0.03, 0.685, 0.22); // Ease In Quart
+$ease-in-power2: cubic-bezier(0.55, 0.055, 0.675, 0.19); // Ease In Cubic
+$ease-in-power1: cubic-bezier(0.55, 0.085, 0.68, 0.53); // Ease In Quad
+
+$ease-in-out-power4: cubic-bezier(1, 0, 0, 1); // Ease In Out Expo
+$ease-in-out-power3: cubic-bezier(0.77, 0, 0.175, 1); // Ease In Out Quart
+$ease-in-out-power2: cubic-bezier(0.645, 0.045, 0.355, 1); // Ease In Out Cubic
+$ease-in-out-power1: cubic-bezier(0.455, 0.03, 0.515, 0.955); // Ease In Out Quad
+
+//=============================================================================
+//  $ Fonts
+//=============================================================================
+
+$ff-base: 'Heebo', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+$fw-thin: 200;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+$fw-extra-bold: 800;
+$fw-black: 900;
+
+//=============================================================================
+//  $ Media
+//-----------------------------------------------------------------------------
+//
+//  Glossary:
+//      - us = Ultra Small
+//      - xs = Extra Small
+//      - sm = Small
+//      - md = Medium
+//      - lg = Large
+//      - xl = Extra Large
+//      - ul = Ultra Large
+//      - bp = Breakpoint
+//      - dn = Down
+//
+//  So, `$bp-sm-dn` = `breakpoint-small-down`.
+//
+//  To use a single breakpoint variable:
+//
+//      @media ($bp-xs) { ... }
+//
+//  To use multiple breakpoint variables:
+//
+//      @media ($bp-xs) and ($bp-sm-dn) { ... }
+//
+//  To use a breakpoint variable with a custom breakpoint:
+//
+//      @media ($bp-xs) and (min-height: 525px) { ... }
+//
+//=============================================================================
+
+$media-us-width: 320px;
+$media-xs-width: 480px;
+$media-sm-width: 640px;
+$media-mds-width: 704px;
+$media-md-width: 800px;
+$media-lg-width: 1024px;
+$media-xl-width: 1280px;
+$media-ul-width: 1440px;
+
+$bp-xs: 'min-width: #{$media-xs-width}';
+$bp-sm: 'min-width: #{$media-sm-width}';
+$bp-md: 'min-width: #{$media-md-width}';
+$bp-mds: 'min-width: #{$media-mds-width}';
+$bp-lg: 'min-width: #{$media-lg-width}';
+$bp-xl: 'min-width: #{$media-xl-width}';
+$bp-ul: 'min-width: #{$media-ul-width}';
+
+$bp-xs-dn: 'max-width: #{$media-xs-width - 0.02}';
+$bp-sm-dn: 'max-width: #{$media-sm-width - 0.02}';
+$bp-md-dn: 'max-width: #{$media-md-width - 0.02}';
+$bp-mds-dn: 'max-width: #{$media-mds-width - 0.02}';
+$bp-lg-dn: 'max-width: #{$media-lg-width - 0.02}';
+$bp-xl-dn: 'max-width: #{$media-xl-width - 0.02}';
+$bp-ul-dn: 'max-width: #{$media-ul-width - 0.02}';
+
+$bp-xs-sm: '#{$bp-xs}) and (#{$bp-sm-dn}';
+$bp-xs-md: '#{$bp-xs}) and (#{$bp-md-dn}';
+$bp-xs-lg: '#{$bp-xs}) and (#{$bp-lg-dn}';
+$bp-xs-xl: '#{$bp-xs}) and (#{$bp-xl-dn}';
+$bp-xs-ul: '#{$bp-xs}) and (#{$bp-ul-dn}';
+
+$bp-sm-md: '#{$bp-sm}) and (#{$bp-md-dn}';
+$bp-sm-lg: '#{$bp-sm}) and (#{$bp-lg-dn}';
+$bp-sm-xl: '#{$bp-sm}) and (#{$bp-xl-dn}';
+$bp-sm-ul: '#{$bp-sm}) and (#{$bp-ul-dn}';
+
+$bp-md-lg: '#{$bp-md}) and (#{$bp-lg-dn}';
+$bp-md-xl: '#{$bp-md}) and (#{$bp-xl-dn}';
+$bp-md-ul: '#{$bp-md}) and (#{$bp-ul-dn}';
+
+$bp-lg-xl: '#{$bp-lg}) and (#{$bp-xl-dn}';
+$bp-lg-ul: '#{$bp-lg}) and (#{$bp-ul-dn}';
+
+$bp-xl-ul: '#{$bp-xl}) and (#{$bp-ul-dn}';
+
+$bp-desktop-nav: $bp-lg;
+$bp-mobile-nav: $bp-lg-dn;
+
+//=============================================================================
+//  $ Site Header
+//=============================================================================
+
+$site-header-mobile-height: 60px;
+$site-header-desktop-height: 75px;
+
+//=============================================================================
+//  $ Transitions
+//=============================================================================
+
+$transition-duration: 0.4s;
+$transition-easing: $ease-out-power4;
+
+$smooth-transition-duration: 0.6s;
+$smooth-transition-easing: $ease-out-power1;
+
+//=============================================================================
+//  $ Wrappers
+//=============================================================================
+
+$wrapper-width: 1120px;
+$wrapper-gutter: 32px;
+
+//=============================================================================
+//  $ Z-Index
+//-----------------------------------------------------------------------------
+//
+//  Setup all z-indices here so that it's easy to have an overview of the
+//  layers throughout the entire site.
+//
+//=============================================================================
+
+$zi-modal-dialog: 13;
+$zi-side-drawer: 13;
+$zi-side-drawer-overlay: 12;
+$zi-header: 11;
+$zi-site-tabs: 10;

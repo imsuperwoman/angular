@@ -1,0 +1,17 @@
+<div class="smart-home-cover">
+  <router-outlet></router-outlet>
+
+  <div class="smart-home-cover__usp">
+    <h2 class="smart-home-cover__usp-header">Protect your home</h2>
+    <div class="smart-home-cover__usp-container wrapper">
+      <div class="smart-home-cover__usp-info" *ngFor="let usp of contentData.uspInfos">
+        <img [src]="imageFolder + usp.image" class="smart-home-cover__usp-info-image"
+          alt="Textual description of usp.image" />
+        <h3 class="smart-home-cover__usp-info-header">{{ usp.header }}</h3>
+        <p class="smart-home-cover__usp-info-description">
+          {{ usp.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+/*--------------------
+    Nx Word
+--------------------*/
+
+nx-word {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+.ellipsis {
+  @media (min-width: 850px) {
+    max-width: 45ch !important;
+  }
+
+  @media ($bp-lg) {
+    max-width: 60ch !important;
+  }
+
+  @media (min-width: 1050px) {
+    max-width: unset !important;
+  }
+}

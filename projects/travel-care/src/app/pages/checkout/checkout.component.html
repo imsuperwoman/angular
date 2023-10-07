@@ -1,0 +1,241 @@
+<div class="checkout">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote"></nx-step>
+
+    <nx-step label="Quotation"></nx-step>
+    <nx-step label="Policyholder Details"></nx-step>
+    <nx-step label="Policy Summary & Payment">
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+      </product-stage>
+
+      <div class="checkout__container wrapper">
+        <div class="checkout__header">
+          <h3 class="checkout__header-title">Review and pay</h3>
+          <p class="checkout__header-description">
+            Please review your coverage details and ensure they're correct before proceeding to
+            payment.
+          </p>
+        </div>
+        <div class="checkout__summaries">
+          <div class="checkout__summaries-summariesDetails">
+            <div class="nx-margin-top-2m">
+              <h3 nxHeadline="subsection-medium" class="nx-margin-bottom-2xs">
+                Travel details
+              </h3>
+              <hr class="section-divider" />
+              <div nxLayout="grid nopadding" *ngFor="let section of travelDetails">
+                <div nxRow>
+                  <div nxCol="5" class="font-color__light-black">
+                    <p nxCopytext="normal">{{ section.label }}</p>
+                  </div>
+
+                  <div nxCol="5">
+                    <p nxCopytext="normal">{{section.value}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="nx-margin-top-2m" *ngIf="travellerTitle.length > 0">
+              <h3 nxHeadline="subsection-medium" class="nx-margin-bottom-2xs">
+                Traveller details
+              </h3>
+              <nx-accordion variant="light">
+                <nx-expansion-panel [expanded]="traveller.expand" *ngFor="let traveller of travellerTitle">
+                  <nx-expansion-panel-header>
+                    <nx-expansion-panel-title>
+                      {{ traveller.title }}
+                    </nx-expansion-panel-title>
+                  </nx-expansion-panel-header>
+                  <div nxLayout="grid nopadding" *ngFor="let travel of traveller.travellerDetails">
+                    <p nxCopytext="normal">{{ travel.label }}</p>
+                    <div nxRow *ngFor="let person of travel">
+                      <div nxCol="5" class="font-color__light-black">
+                        <p nxCopytext="normal">{{ person.label }}</p>
+                      </div>
+                      <div nxCol="5">
+                        <p nxCopytext="normal" innerHTML="{{ person.value }}"></p>
+                      </div>
+                    </div>
+                  </div>
+                </nx-expansion-panel>
+              </nx-accordion>
+
+            </div>
+            <div class="nx-margin-top-2m" *ngIf="nomineeTitle.length > 0">
+              <h3 nxHeadline="subsection-medium" class="nx-margin-bottom-2xs">
+                Nominee details
+              </h3>
+              <nx-accordion variant="light">
+                <nx-expansion-panel *ngFor="let nominee of nomineeTitle">
+                  <nx-expansion-panel-header>
+                    <nx-expansion-panel-title>
+                      {{ nominee.title }}
+                    </nx-expansion-panel-title>
+                  </nx-expansion-panel-header>
+                  <div nxLayout="grid nopadding" *ngFor="let nom of nominee.travellerDetails">
+                    <p nxCopytext="normal">{{ nom.label }}</p>
+                    <div nxRow *ngFor="let person of nom">
+                      <div nxCol="5" class="font-color__light-black">
+                        <p nxCopytext="normal">{{ person.label }}</p>
+                      </div>
+                      <div nxCol="5">
+                        <p nxCopytext="normal">{{ person.value }}</p>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                </nx-expansion-panel>
+              </nx-accordion>
+            </div>
+          </div>
+          <quotation-summary-card class="checkout__summaries-summary with-border--" [data]="summaries"
+            [additionalPurchaseNote]="purchaseNote" [primaryButton]="primaryPromoButton"
+            [secondaryButton]="secondaryPromoButton" [buttonText]="promoButton" (proceedEmitter)="openFromTemplate()">
+          </quotation-summary-card>
+        </div>
+
+        <form class="checkout__agreement" [formGroup]="agreedPolicyForm">
+          <nx-checkbox class="checkout__agreement-policy" *ngIf="this.agreedPolicyForm.get('renew')"
+            formControlName="renew">
+            I would like my policy to be auto-renewed for the subsequent years subject to eligibility.
+            <button nxPlainButton class="info-icon" aria-label="More information"
+              [nxPopoverTriggerFor]="popoverContent2" nxPopoverTrigger="click" type="button">
+              <nx-icon name="info-circle-o"></nx-icon>
+            </button>
+            <nx-popover #popoverContent2>
+              <span>Your policy will be auto-renewed (subject to eligibility), emailed to you and the premium
+                deducted
+                from your credit card. This is to ensure continued protection for you.</span>
+            </nx-popover>
+          </nx-checkbox>
+          <br />
+          <nx-checkbox class="checkout__agreement-policy" formControlName="policyAgreed">
+            I have read
+            <a href="https://www.allianz.com.my/personal/privacy-statement.html" target="_blank">Allianz
+              Malaysia's
+              Privacy Statement</a>
+            and agree to provide my personal contact details to enable you to contact me for the
+            purposes of this Quotation and to receive future marketing/promotions from Allianz. I
+            understand that I can choose to unsubscribe at any time if I no longer wish to receive
+            any marketing or promotions from Allianz by writing to
+            <a href="mailto:customer.service@allianz.com.my">customer.service@allianz.com.my</a>.
+          </nx-checkbox>
+          <!-- reCAPTCHA v2 -->
+          <div class="checkout__recaptcha" *ngIf="recaptchaEnabled$ != 'N'">
+            <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+          </div>
+        </form>
+
+        <div class="checkout__buttons">
+          <button class="checkout__button" nxButton="secondary" type="button" queryParamsHandling="preserve"
+            routerLink="/customer-details">
+            BACK
+          </button>
+          <button class="checkout__button" nxButton="primary" type="button" [disabled]="agreedPolicyForm.invalid"
+            (click)="openPaymentDialog()">
+            {{submitButton}}
+          </button>
+        </div>
+      </div>
+      <hr class="checkout__divider" />
+    </nx-step>
+  </nx-progress-stepper>
+</div>
+
+<payment-dialog #paymentDialogModal returnUrl="customer-details" [paymentLoading]="paymentLoading"
+  (closeEmitter)="paymentDialogModalClose()" (submitPaymentEmitter)="submitPaymentEmitter()">
+</payment-dialog>
+
+<ng-template #template>
+
+  <form [formGroup]="promoDialogForm" nxModalContent>
+    <p nxCopytext="large" class="text-center nx-margin-bottom-2m" *ngIf="promoResultList[0].policyLevelPromoList">
+      Your policy is entitled to a discount. Choose a coupon
+      to apply it to your purchase!
+    </p>
+    <div nxLayout="grid nopadding" *ngIf="promoResultList[0].policyLevelPromoList" >
+      <div nxRow>
+        <div nxCol="12,12,12,6,6" *ngFor="let promoList of promoResultList[0].policyLevelPromoList">
+          <nx-selectable-card appearance="expert" (checkedChange)="promoListSelection(promoList.promoId)"
+            [checked]="promoList.selected" class="card_content nx-margin-bottom-m">
+            <h3 nxHeadline="subsection-small">{{promoList.promoCode}}</h3>
+            <p *ngIf="promoList.promoType === 'FLT'" nxCopytext="medium">
+              RM {{promoList.promoValue  | number : '1.2-2'}} Discount</p>
+            <p *ngIf="promoList.promoType === 'PCT'" nxCopytext="medium">
+              {{promoList.promoValue}}% Discount</p>
+            <hr class="checkout__promo-divider " />
+            <p nxCopyText="normal" class="font-italic">Valid: {{promoList.periodFrom}} -{{promoList.periodTo}}</p>
+          </nx-selectable-card>
+          <nx-error class="nx-margin-bottom-m" *ngIf="promoList.promoId === promoResultList[0].errorPolicyId">
+            {{promoResultList[0].errorPolicyLevel}}
+          </nx-error>
+        </div>
+      </div>
+      <br>
+       <hr class="nx-margin-y-2m" />
+    </div>
+    <div *ngIf="promoResultList.riskLevelPromoList !==[] && promoResultList[0].riskLevelPromoList">     
+      <p nxCopytext="large" class="text-center nx-margin-bottom-2m">
+        The customer(s) below are entitled to a discount. Choose a coupon to apply it to your purchase!
+      </p>
+      <div *ngFor="let promoList of promoResultList;let i = index">
+        <nx-accordion variant="light">
+          <nx-expansion-panel>
+            <nx-expansion-panel-header>
+              <nx-expansion-panel-title>
+                <div *ngIf="promoCheck">
+                  <span class="checkout__tick" [class.active--]="promoCheck">
+                    <nx-icon class="checked--" name="check-circle" *ngIf="promoCheck&& (promoResultList[i]?.errorRisk === undefined ||
+                    !promoResultList[i]?.errorRisk
+                    )"></nx-icon>
+                    <nx-icon class="warning--" name="exclamation-triangle"
+                      *ngIf="promoCheck && promoResultList[i].errorRisk"></nx-icon>
+                  </span>
+                  {{promoList.name}}{{promoResultList[i].errorRisk}}
+                </div>
+                <div *ngIf="!promoCheck">
+                  <span class="checkout__tick" [class.active--]="promoCheck"></span>
+                  {{promoList.name}}
+                </div>
+              </nx-expansion-panel-title>
+            </nx-expansion-panel-header>
+            <form>
+              <div nxLayout="grid nopadding">
+                <div nxRow>
+                  <div nxCol="12,12,12,6,6" *ngFor="let promoList of promoList.riskLevelPromoList">
+                    <nx-selectable-card (checkedChange)="riskLevelSelection(promoList.promoId, i)"
+                      [checked]="promoList.selected" class="card_content nx-margin-bottom-2m" appearance="expert">
+                      <h3 nxHeadline="subsection-small">{{promoList.promoCode}}</h3>
+                      <p *ngIf="promoList.promoType === 'FLT'" nxCopytext="medium">
+                        RM {{promoList.promoValue  | number : '1.2-2'}} Discount</p>
+                      <p *ngIf="promoList.promoType === 'PCT'" nxCopytext="medium">
+                        {{promoList.promoValue}}% Discount</p>
+                      <hr class="checkout__promo-divider " />
+                      <p nxCopyText="normal" class="font-italic">Valid: {{promoList.periodFrom}} -{{promoList.periodTo}}
+                      </p>
+                    </nx-selectable-card>
+                    <nx-error class="nx-margin-bottom-m" *ngIf="promoList.promoId === promoResultList[i].errorRiskId">
+                      {{promoResultList[i].errorRiskLevel}}
+                    </nx-error>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </nx-expansion-panel>
+        </nx-accordion>
+      </div>
+    </div>
+    <div class="checkout__buttons">
+
+      <button class="checkout__button" nxButton="primary" type="button" [disabled]="applyClick"
+        (click)="applyTemplateDialog();applyClick = !applyClick ">
+        Apply Coupon!
+      </button>
+    </div>
+  </form>
+</ng-template>
+<div>
+
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+  [buttonText]="'CLOSE'" [isFail]="commonErrorIsFail" [isFail]=true></shared-dialog>

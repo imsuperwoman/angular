@@ -1,0 +1,424 @@
+<ng-template #spinner>
+  <div class="spinner">
+    <nx-spinner nxSize="medium"></nx-spinner>
+  </div>
+</ng-template>
+
+<form [formGroup]="motorComprehensiveForm" class="policyholder-details__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper [class.wide--]="activePartner">
+    <nx-step label="Get a Quote"></nx-step>
+    <nx-step label="Vehicle & Owner Details"></nx-step>
+    <nx-step label="Quotation"></nx-step>
+    <nx-step label="Policyholder Details">
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+      </product-stage>
+
+      <div class="policyholder" formGroupName="policyholderForm" *ngIf="!isLoading; else spinner">
+        <p class="policyholder__description">
+          Please fill in all mandatory fields and select your preferred option for additional
+          drivers.
+        </p>
+
+        <div class="policyholder__container wrapper">
+          <div class="policyholder__content">
+            <nx-accordion variant="light" [multi]="true">
+              <nx-expansion-panel  [expanded]="true">
+                <nx-expansion-panel-header>
+                  <nx-expansion-panel-title class="nx-accordion__expansion-panel-title">
+                    <accordion-indicator [control]="getPolicyholder">
+                    </accordion-indicator>
+                    Policyholder details
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+                    <!-- ====================== hsbcCardChecking ============================-->
+          <div class="policyholder__content"  *ngIf="hsbcCardChecking?.enabled">
+            <div class="policyholder__content-box" formGroupName="hsbcCardChecking">
+              <div class="policyholder__content-section">
+                <nx-label class="nx-margin-bottom-m">Are you an HSBC Malaysia Debit / Credit Cardholder and
+                  currently in Malaysia only?
+                  <icon-popover
+                    popoverMessage="This is an exclusive offer for HSBC Malaysia Debit / Credit Cardholder who is currently in Malaysia only.">
+                  </icon-popover>
+                </nx-label>
+
+                <ng-container>
+                  <nx-radio-group formControlName="hsbcCardHolder" name="myGroup">
+                    <div class="policyholder__horizontal-buttons">
+                      <nx-radio value="true" class="nx-margin-bottom-m">Yes</nx-radio>
+                      <nx-radio value="false" class="nx-margin-bottom-m"
+                        (valueChange)="hsbcCardHolderError()">No</nx-radio>
+                    </div>
+                  </nx-radio-group>
+                </ng-container>
+              </div>
+              <div class="policyholder__content-section">
+                <nx-label class="nx-margin-bottom-m">Please key in the <strong>first 6 digits</strong> of your
+                  HSBC Debit / Credit
+                  Card
+                  <icon-popover
+                    popoverMessage="This is an exclusive offer for HSBC Malaysia Debit/Credit Cardholder only. This verification process is important to help us authenticate the applicant of this plan. Premium payment shall be made via HSBC Malaysia Debit/Credit Card only.">
+                  </icon-popover>
+                </nx-label>
+
+                <ng-container>
+                  <nx-formfield label="First 6 digits">
+                    <input nxInput inputmode="numeric" formControlName="hsbcCardHolderNumber" autocomplete="off"
+                      numberOnly maxlength="6" minlength="6" (focusout)="checkHsbcCardHolderNumber()" />
+                  </nx-formfield>
+                </ng-container>
+                <nx-message context="success" *ngIf="validhsbcCard">
+                  Thank you for your verification
+                </nx-message>
+              </div>
+            </div>
+            <br>
+            <br>
+          </div>
+          <!-- ====================== hsbcCardChecking ============================-->
+
+                <div class="policyholder__accordion-content" formGroupName="policyholder">
+                  <div class="policyholder__input-row">
+                    <div class="column">
+                      <nx-formfield label="Full name as per ID">
+                        <input nxInput formControlName="fullname" inputCapitalization />
+                        <nx-error nxFormfieldError>Please enter Full name. </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+
+                  <div class="policyholder__input-row">
+                    <div class="column">
+                      <nx-formfield label="ID type">
+                        <nx-dropdown required formControlName="idType" nxDisabled="true">
+                          <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                            {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+                    </div>
+
+                    <div class="column">
+                      <nx-formfield label="ID no.">
+                        <input *ngIf="this.getPolicyholder.get('idType')?.value === 'NRIC'" nxInput
+                          [nxMask]="'000000-00-0000'" [disabled]="true" formControlName="idNo" />
+                        <input *ngIf="this.getPolicyholder.get('idType')?.value !== 'NRIC'" nxInput [disabled]="true"
+                          formControlName="idNo" inputCapitalization />
+                      </nx-formfield>
+                    </div>
+                  </div>
+
+                  <div class="policyholder__input-row">
+                    <div class="column">
+                      <date-field label="Date of birth" [control]="policyholder.get('dob')"></date-field>
+                    </div>
+
+                    <div class="column formfield gender--">
+                      <p class="label">Gender</p>
+                      <nx-radio-toggle formControlName="gender" class="nx-toggle-button type-2--">
+                        <nx-radio-toggle-button value="M">MALE</nx-radio-toggle-button>
+                        <nx-radio-toggle-button value="F">FEMALE</nx-radio-toggle-button>
+                      </nx-radio-toggle>
+                    </div>
+                  </div>
+
+                  <div class="policyholder__input-row" *ngFor="let field of fields">
+                    <div class="column">
+                      <nx-formfield [label]="field.name">
+                        <div *ngIf="field.type ==='numeric'">
+                          <input nxInput [formControlName]="field.id" inputmode="numeric" numberOnly autocomplete="off"
+                            [maxlength]="field.maxlength" />
+                        </div>
+                        <div *ngIf="field.type !=='numeric'">
+                          <input nxInput [formControlName]="field.id" autocomplete="off"
+                            [maxlength]="field.maxlength" />
+                        </div>
+                        <nx-error nxFormfieldError *ngIf="field.iButtonMssge !== ''">{{field.iButtonMssge}} </nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div class="column formfield gender--">
+                      <icon-popover popoverMessage={{field.additionalInfo}} *ngIf="field.additionalInfo !== '' ">
+                      </icon-popover>
+                    </div>
+                  </div>
+
+                  <div class="policyholder__input-row">
+                    <div class="column">
+                      <nx-formfield label="Nationality">
+                        <nx-dropdown required formControlName="nationality" value="my">
+                          <nx-dropdown-item *ngFor="let nation of (nationality$ | async)" [value]="nation.Code">
+                            {{nation.Description}}
+                          </nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div class="policyholder__input-row remove_gap phone--">
+                    <nx-formfield label="Mobile No." class="country">
+                      <nx-dropdown required formControlName="phonePrefix">
+                        <nx-dropdown-item *ngFor="let mobilePrefix of (mobilePrefix$|async)"
+                          [value]="mobilePrefix.Description">
+                        </nx-dropdown-item>
+                      </nx-dropdown>
+                    </nx-formfield>
+                    <nx-formfield label="" class="number">
+                      <input nxInput inputmode="numeric" required numberOnly formControlName="phoneNo" minlength="7"
+                        maxlength="8" (focusout)="checkUserInfo('phoneNo')" autocomplete="off" />
+                      <nx-error nxFormfieldError> Please enter your phone no. </nx-error>
+                    </nx-formfield>
+                  </div>
+
+
+                  <div class="policyholder__input-row" *ngIf="!hasStaffEmail">
+                    <div class="column">
+                      <nx-formfield label="Email address">
+                        <input nxInput required type="email" formControlName="email"
+                          (focusout)="checkUserInfo('email');" />
+                        <nx-error nxFormfieldError> {{getPolicyholder.get('email')?.errors?.message}} </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+
+                  <div class="policyholder__input-row" *ngIf="hasStaffEmail">
+                    <div class="column">
+                      <nx-formfield label="Email address">
+                        <input nxInput required type="email" formControlName="email"
+                          (focusout)="checkUserInfo('staffEmail');" />
+                        <nx-error nxFormfieldError> {{getPolicyholder.get('email')?.errors?.message}} </nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div class="column">
+                      <p class="label"></p>
+                      <p class="label">{{productConfig$?.voucherEmailDomain}}</p>
+                    </div>
+                  </div>
+
+                  <ng-container formGroupName="address">
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="Address line 1">
+                          <input nxInput formControlName="line1" oninput="this.value = this.value.toUpperCase()" />
+                          <nx-error nxFormfieldError>Please enter Address line 1. </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="Address line 2 (optional)">
+                          <input nxInput formControlName="line2" oninput="this.value = this.value.toUpperCase()" />
+                        </nx-formfield>
+                      </div>
+                    </div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="Address line 3 (optional)">
+                          <input nxInput formControlName="line3" oninput="this.value = this.value.toUpperCase()" />
+                        </nx-formfield>
+                      </div>
+                    </div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column postcode--">
+                        <nx-formfield label="Postcode">
+                          <input nxInput formControlName="postcode" />
+                          <nx-error nxFormfieldError>Please enter Postcode. </nx-error>
+                        </nx-formfield>
+                      </div>
+
+                      <div class="column">
+                        <nx-formfield label="City">
+                          <input nxInput formControlName="city" inputCapitalization />
+                          <nx-error nxFormfieldError>Please enter City. </nx-error>
+                        </nx-formfield>
+                      </div>
+
+                      <div class="column">
+                        <nx-formfield label="State">
+                          <input nxInput formControlName="state" inputCapitalization />
+                          <nx-error nxFormfieldError>Please enter State. </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </nx-expansion-panel>
+
+              <!-- Additional driver -->
+              <nx-expansion-panel *ngIf="displayAdditionalDriver()" formGroupName="additionalDriver" [expanded]="true">
+                <nx-expansion-panel-header>
+                  <nx-expansion-panel-title class="nx-accordion__expansion-panel-title">
+                    <accordion-indicator [control]="getAdditionalDriver">
+                    </accordion-indicator>
+                    Additional drivers
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+
+                <div class="policyholder__accordion-content">
+                  <div class="policyholder__input-row">
+                    <div class="column formfield">
+                      <p class="label">No. of additional drivers</p>
+                      <p>{{ getCoverageAdditionalDriverAmount.charAt(0) }} {{getCoverageAdditionalDriverAmount.charAt(0)
+                        === '1'?'(RM 0.00)': '(RM 10.00)'}} </p>
+                    </div>
+                  </div>
+
+                  <ng-container formGroupName="driver1"
+                    *ngIf="getCoverageAdditionalDriverAmount == '1 additional drivers' || getCoverageAdditionalDriverAmount == '2 additional drivers'">
+                    <div class="policyholder__section-label">Additional driver 1</div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="Full name as per ID">
+                          <input nxInput formControlName="fullname" inputCapitalization />
+                          <nx-error nxFormfieldError>Please enter Full name. </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="ID type">
+                          <nx-dropdown formControlName="idType">
+                            <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                              {{custIDType.Description}}</nx-dropdown-item>
+                          </nx-dropdown>
+                          <nx-error nxFormfieldError>ID type is required. </nx-error>
+                        </nx-formfield>
+                      </div>
+
+                      <div class="column">
+                        <nx-formfield label="ID no.">
+                          <input nxInput validateMask="false" [nxMask]="
+                            getAdditionalDriver.get('driver1')
+                              ?.get('idType')?.value === 'NRIC'
+                              ? '000000-00-0000'
+                              : 'AAAAAAAAAAAAAAAAAAAA'" autocomplete="off" formControlName="idNo"
+                            inputCapitalization />
+                          <nx-error nxFormfieldError>Please enter ID no. </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <ng-container formGroupName="driver2"
+                    *ngIf="getCoverageAdditionalDriverAmount == '2 additional drivers'">
+                    <div class="policyholder__section-label">Additional driver 2</div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="Full name as per ID">
+                          <input nxInput formControlName="fullname" inputCapitalization />
+                          <nx-error nxFormfieldError>Please enter Full name. </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+
+                    <div class="policyholder__input-row">
+                      <div class="column">
+                        <nx-formfield label="ID type">
+                          <nx-dropdown formControlName="idType">
+                            <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                              {{custIDType.Description}}</nx-dropdown-item>
+                          </nx-dropdown>
+                          <nx-error nxFormfieldError>ID type is required. </nx-error>
+                        </nx-formfield>
+                      </div>
+
+                      <div class="column">
+                        <nx-formfield label="ID no.">
+                          <input nxInput validateMask="false" [nxMask]="
+                            getAdditionalDriver.get('driver2')
+                              ?.get('idType')?.value === 'NRIC'
+                              ? '000000-00-0000'
+                              : 'AAAAAAAAAAAAAAAAAAAA'" autocomplete="off" formControlName="idNo"
+                            inputCapitalization />
+                          <nx-error nxFormfieldError>Please enter ID no. </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </nx-expansion-panel>
+
+              <!-- eHailingDriver-->
+              <nx-expansion-panel *ngIf="displayeHailingDriver()" formGroupName="ehailingDriver" [expanded]="true">
+                <nx-expansion-panel-header>
+                  <nx-expansion-panel-title class="nx-accordion__expansion-panel-title">
+                    <accordion-indicator [control]="geteHailingDriver">
+                    </accordion-indicator>
+                    e-Hailing drivers
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+
+                <div class="policyholder__accordion-content">
+                  <div class="policyholder__input-row">
+                    <div class="column">
+                      <nx-formfield label="Full name as per ID">
+                        <input nxInput formControlName="fullname" inputCapitalization />
+                        <nx-error nxFormfieldError>Please enter Full name. </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+
+                  <div class="policyholder__input-row">
+                    <div class="column">
+                      <nx-formfield label="ID type">
+                        <nx-dropdown formControlName="idType">
+                          <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                            {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                        <nx-error nxFormfieldError>ID type is required. </nx-error>
+                      </nx-formfield>
+                    </div>
+
+                    <div class="column">
+                      <nx-formfield label="ID no.">
+                        <input nxInput validateMask="false" [nxMask]="
+                        geteHailingDriver.get('idType')?.value === 'NRIC'
+                            ? '000000-00-0000'
+                            : 'AAAAAAAAAAAAAAAAAAAA'" autocomplete="off" formControlName="idNo" inputCapitalization />
+                        <nx-error nxFormfieldError>Please enter ID no. </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                </div>
+              </nx-expansion-panel>
+            </nx-accordion>
+          </div>
+
+          <quotation-summary-card *ngIf="!isSummariesLoading" class="policyholder__summary" [data]="summaries"
+            [purchaseNote]="summaries.purchaseNote" [purchaseNotePopoverMsg]="summaries.purchaseNotePopoverMsg"
+            [additionalPurchaseNote]="summaries.additionalPartnerPurchaseNote"></quotation-summary-card>
+        </div>
+
+        <div class="policyholder__buttons">
+          <button class="policyholder__button" nxButton="secondary" type="button" queryParamsHandling="preserve"
+            routerLink="/quotation">
+            Back
+          </button>
+
+          <button *ngIf="activePartner || flowSelectedType =='direct' " class="policyholder__button" nxButton="primary"
+            type="button" queryParamsHandling="preserve" [disabled]="!getPolicyholderForm.valid"
+            (click)="proceedNext()">
+            Next
+          </button>
+        </div>
+      </div>
+    </nx-step>
+    <nx-step label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription"
+  [buttonText]="'CLOSE'"></shared-dialog>
+
+<shared-dialog #leaveMyDetailsDialog [header]="leaveMyDetailsDialogHeader"
+  [description]="leaveMyDetailsDialogDescription" [routingPath]="'/leave-details'" [buttonText]="'LEAVE MY DETAILS'">
+</shared-dialog>
+
+<shared-dialog #serverTimeoutDialog [header]="serverTimeoutDialogHeader" [description]="serverTimeoutDialogDescription"
+  [buttonText]="'CLOSE'"></shared-dialog>
+
+  <shared-dialog #hsbcCardHolderDialog [header]="hsbcCardHolderHeader" [description]="hsbcCardHolderDescription"
+  [link]="'https://www.hsbc.com.my/credit-cards'" [buttonText]="'CLOSE'">
+</shared-dialog>

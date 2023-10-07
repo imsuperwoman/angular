@@ -1,0 +1,44 @@
+<nx-progress-stepper class="wide--" currentStepLabel="Step" #stepper>
+  <nx-step label="Get a Quote"></nx-step>
+  <nx-step label="Quotation"></nx-step>
+  <nx-step label="Policyholder Details"></nx-step>
+  <nx-step label="Policy Summary & Payment">
+    <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+    </product-stage>
+
+    <div class="fail wrapper">
+      <img class="fail__image" [src]="imageFolder + 'people/agent-required.png'"
+        alt="Textual description of agent-required.png" />
+      <h2 class="fail__header">We're sorry!</h2>
+      <p class="fail__subheader">Your payment was unsuccessful.</p>
+
+      <div class="fail__info">
+        <ng-container>
+          <h3 class="fail__info-header">Payment status</h3>
+          <p class="fail__info-body">{{(paymentResult?.QuotationProgress == 'PAYMENTFAIL') ? 'Payment failed' :
+            'Payment pending'}}</p>
+        </ng-container>
+        <ng-container>
+          <h3 class="fail__info-header">Payment reference no.</h3>
+          <p class="fail__info-body">{{paymentResult?.pymt?.SubmissionNumber}}</p>
+        </ng-container>
+        <ng-container>
+          <h3 class="fail__info-header">Error</h3>
+          <p class="fail__info-body">{{ payResParamDesc }}</p>
+        </ng-container>
+      </div>
+
+      <quotation-summary-card class="fail__summary with-border--" [data]="quotationSummaryData" [paymentEnded]="true"
+        [paymentStatus]="'fail'"></quotation-summary-card>
+
+      <div class="fail__buttons">
+        <button class="fail__button" nxButton="primary" routerLink="/get-info" queryParamsHandling="preserve">
+          RETRY
+        </button>
+      </div>
+    </div>
+
+    <hr class="fail__divider" />
+
+  </nx-step>
+</nx-progress-stepper>

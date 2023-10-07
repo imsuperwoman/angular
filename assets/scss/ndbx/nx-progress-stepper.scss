@@ -1,0 +1,49 @@
+/*--------------------
+ Nx Progress Stepper
+--------------------*/
+
+.nx-progress-stepper__mobile-label {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  display: block !important;
+  text-align: center !important;
+}
+
+@media only screen and (min-width: 800px) {
+  .nx-progress-stepper__mobile-label {
+    display: none !important;
+  }
+}
+
+.nx-subprogress__items {
+  max-width: 940px;
+  padding: 40px 32px;
+  display: none !important;
+}
+
+.wide-- {
+  .nx-subprogress__items {
+    max-width: 1120px;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .nx-subprogress__items {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .nx-subprogress__item {
+    flex: unset !important;
+  }
+
+  .nx-subprogress__item--selected {
+    flex: 1 1 10% !important;
+  }
+
+  .nx-subprogress__item:not(:first-child) {
+    margin-left: 0 !important;
+  }
+}

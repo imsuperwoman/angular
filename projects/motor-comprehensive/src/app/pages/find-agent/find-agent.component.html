@@ -1,0 +1,12 @@
+<form class="find-agent__form">
+    <nx-progress-stepper currentStepLabel="Step" #stepper>
+        <nx-step label="Get a Quote"></nx-step>
+        <nx-step label="Vehicle & Owner Details"></nx-step>
+        <nx-step label="Quotation"></nx-step>
+        <nx-step label="Find An Agent">
+            <shared-app-agent-locator (agentLocatorEvent)="receiveAgentLocator($event)" [header]='HEADER'
+                [subheader]='SUBHEADER' [logo]='LOGO'>
+            </shared-app-agent-locator>
+        </nx-step>
+    </nx-progress-stepper>
+</form>

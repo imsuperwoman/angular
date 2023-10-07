@@ -1,0 +1,447 @@
+<!-- Smart Home Cover Banner-->
+<div class="smart-home-cover__form-image-holder" *ngIf="success === false">
+  <h1 class="smart-home-cover__form-image-header">{{header}}</h1>
+  <p class="smart-home-cover__form-image-subheader">{{subheader}}</p>
+  <img [src]="imageFolder + logo" class="smart-home-cover__form-image-gfx" alt="Textual description of logo" />
+</div>
+
+<!-- Agent Locator block text-->
+<div class="agent-locator__block" *ngIf="success === false">
+  <h2 class="agent-locator__block-header">Need assistance?</h2>
+  <p class="agent-locator__block-paragraph">
+    Find an agent that's closest to you and provide us with your contact details. We'll reach out to
+    you as soon as possible.
+  </p>
+  <nx-tab-nav-bar>
+    <a nxTabLink *ngFor="let link of links" (click)="setActiveLink(link)"
+      [active]="currentLink.findAgent === link.findAgent" [disabled]="link.disabled">
+      {{link.label}}
+    </a>
+  </nx-tab-nav-bar>
+</div>
+
+<!-- Agent Locator -->
+<div [hidden]="!currentLink.findAgent">
+  <div class="agent-locator__locator" *ngIf="success === false">
+    <ng-template #searchForm>
+      <form class="agent-locator__search-form">
+        <button type="submit" class="agent-locator__search-submit">
+          <nx-icon name="search"></nx-icon>
+        </button>
+
+        <input type="text" placeholder="Search" class="agent-locator__search-input"
+          [class.filled--]="searchControl.value" [formControl]="searchControl" (focus)="onMobileSearchFocus()"
+          (blur)="onMobileSearchBlur()" #searchInput />
+
+        <button type="button" class="agent-locator__search-reset" *ngIf="searchControl.value"
+          (click)="showCard = false; onSearchResetClick();">
+          <nx-icon name="close"></nx-icon>
+        </button>
+      </form>
+    </ng-template>
+
+    <ng-template #autocomplete>
+      <ul class="agent-locator__search-autocomplete">
+        <li class="agent-locator__search-autocomplete-item" *ngFor="let item of searchAutocomplete">
+          <button type="button" class="agent-locator__search-autocomplete-item-toggle"
+            (click)="onAutocompleteItemClick(item)">
+            <div class="agent-locator__search-autocomplete-item-icon">
+              <nx-icon name="location" *ngIf="!item.Type"></nx-icon>
+              <img [src]="imageFolder + 'agent-locator/icon-agents.svg'" alt="" *ngIf="item.Type"
+                alt="Textual description of icon-agents.svg" />
+            </div>
+
+            <div class="agent-locator__search-autocomplete-item-heading" [innerHTML]="
+               item.Name
+            "></div>
+
+            <div class="agent-locator__search-autocomplete-item-address">
+              {{
+              item.formatted_address ? item.formatted_address : item.Address
+              }}
+            </div>
+          </button>
+        </li>
+      </ul>
+    </ng-template>
+
+    <!-- Mobile Header-->
+    <div class="agent-locator__mobile-anchor" #mobileHeaderAnchor></div>
+
+    <div class="agent-locator__mobile" #mobileHeader
+      [style.top]="siteHeaderHeight ? siteHeaderHeight + 'px' : undefined">
+      <div class="agent-locator__mobile-search-container">
+        <div class="agent-locator__mobile-search">
+          <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+          <div class="agent-locator__mobile-search-autocomplete" (mouseenter)="mouseIsInAutocomplete = true"
+            (mouseleave)="mouseIsInAutocomplete = false"
+            [style.maxHeight]="searchAutocompleteMaxHeight ? searchAutocompleteMaxHeight + 'px' : undefined" *ngIf="searchAutocompleteIsLoading || (searchControl.value && (searchIsFocused || mouseIsInAutocomplete))
+          ">
+            <div class="agent-locator__mobile-search-autocomplete-hr"></div>
+
+            <div *ngIf="searchAutocompleteIsLoading">
+              <nx-spinner size="large" style="margin: 0 auto"></nx-spinner>
+            </div>
+
+            <ng-container *ngIf="!searchAutocompleteIsLoading">
+              <ng-container *ngIf="searchAutocomplete.length">
+                <ng-container *ngTemplateOutlet="autocomplete"></ng-container>
+              </ng-container>
+
+              <div *ngIf="!searchAutocomplete.length" style="text-align: center">
+                No results found.
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-locator__disable-message mobile--" *ngIf="geoLocationMessage && !searchAutocomplete.length">
+        <nx-message context="info" closable="true" class="agent-locator__disable-message-text"
+          (close)="geoLocationMessage = false">
+          <span class="agent-locator__disable-message-header">Location is disabled</span><br />
+          Enable location or use the search.
+        </nx-message>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="agent-locator__main" #main>
+      <div class="agent-locator__disable-message desktop--" *ngIf="geoLocationMessage && !searchAutocomplete.length">
+        <nx-message context="info" closable="true" class="agent-locator__disable-message-text" closable="true"
+          (close)="geoLocationMessage = false">
+          <span class="agent-locator__disable-message-header">Location is disabled</span><br />
+          Enable location or use the search.
+        </nx-message>
+      </div>
+
+      <div class="agent-locator__search">
+        <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+
+        <div (mouseenter)="mouseIsInAutocomplete = true" (mouseleave)="mouseIsInAutocomplete = false"
+          class="agent-locator__search-autocomplete-desktop" *ngIf="
+          searchAutocompleteIsLoading ||
+          (searchControl.value && (searchIsFocused || mouseIsInAutocomplete))
+        ">
+          <div *ngIf="searchAutocompleteIsLoading">
+            <nx-spinner size="large" style="margin: 0 auto"></nx-spinner>
+          </div>
+
+          <ng-container *ngIf="!searchAutocompleteIsLoading">
+            <ng-container *ngIf="searchAutocomplete.length">
+              <ng-container *ngTemplateOutlet="autocomplete"></ng-container>
+            </ng-container>
+
+            <div *ngIf="!searchAutocomplete.length" style="text-align: center">No results found.</div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="agent-locator__selected-location"
+        *ngIf="selectedLocation && (showSelectedLocation || showNearbyMarkerLocation)" #selectedLocationHolder>
+        <div class="agent-locator__selected-location-spinner" *ngIf="serviceIsLoading">
+          <nx-spinner size="large" style="margin: 0 auto"></nx-spinner>
+        </div>
+
+        <ng-container *ngIf="selectedLocation && !serviceIsLoading">
+          <div class="agent-locator__selected-location-detail heading--" #selectedLocationDetail>
+            <div class="agent-locator__selected-location-detail-icon" [class.google--]="!selectedLocation.Type">
+              <nx-icon name="location" *ngIf="!selectedLocation.Type"></nx-icon>
+
+              <img [src]="imageFolder + 'agent-locator/icon-agents.svg'" alt="" width="24" *ngIf="selectedLocation.Type"
+                alt="Textual description of icon-agents.svg" />
+            </div>
+
+            <div class="agent-locator__selected-location-detail-heading">
+              {{ selectedLocation.name ? selectedLocation.name : selectedLocation.Name }}
+            </div>
+          </div>
+
+          <div class="agent-locator__selected-location-detail" #selectedLocationDetail>
+            <div class="agent-locator__selected-location-detail-icon">
+              <nx-icon name="location" size="s"></nx-icon>
+            </div>
+
+            <div class="agent-locator__selected-location-detail-text">
+              {{ selectedLocation.formatted_address
+              ? selectedLocation.formatted_address
+              : getAddressWithoutTags(selectedLocation.Address) + "\n"+ selectedLocation.City + "\n"+
+              selectedLocation.Postcode + "\n"+
+              selectedLocation.State
+              }}
+            </div>
+          </div>
+
+          <a [href]="'tel:' + getContactNumberFromLocation(selectedLocation)"
+            class="agent-locator__selected-location-detail"
+            *ngIf="selectedLocation.ContactNo && getContactNumberFromLocation(selectedLocation)"
+            #selectedLocationDetail>
+            <div class="agent-locator__selected-location-detail-icon">
+              <nx-icon name="phone" size="s"></nx-icon>
+            </div>
+
+            <div class="agent-locator__selected-location-detail-text">
+              {{ getContactNumberFromLocation(selectedLocation) }}
+            </div>
+          </a>
+
+          <div class="agent-locator__selected-location-detail" *ngIf="selectedLocation.OpeningHours"
+            #selectedLocationDetail>
+            <div class="agent-locator__selected-location-detail-icon">
+              <nx-icon name="clock" size="s"></nx-icon>
+            </div>
+
+            <div class="agent-locator__selected-location-detail-text" [innerHTML]="selectedLocation.OpeningHours">
+            </div>
+          </div>
+
+          <div class="agent-locator__selected-location-detail"
+            *ngIf="selectedLocation.Latitude && selectedLocation.Longitude" #selectedLocationDetail>
+            <div class="agent-locator__selected-location-detail-icon">
+              <nx-icon name="arrow-right" size="s"></nx-icon>
+            </div>
+
+            <div class="agent-locator__selected-location-detail-text">
+              <a [href]="
+                'https://maps.google.com/?daddr=' +
+                selectedLocation.Latitude +
+                ',' +
+                selectedLocation.Longitude
+              " class="agent-locator__selected-location-detail-text-toggle" target="_blank">
+                GET DIRECTIONS
+              </a>
+            </div>
+          </div>
+
+          <button nxButton="primary" nxStepperNext type="button" class="agent-locator__selected-location-button"
+            *ngIf="selectedLocation.Type === 'Allianz Agents' && agentSelected === false"
+            (click)="showCard = true; agentLocatorForm.get('agentSelected')?.setValue(true); agentSelected = true; scrollToForm()">
+            SELECT THIS AGENCY
+          </button>
+
+          <button nxButton="primary" nxStepperNext type="button" class="agent-locator__selected-location-button"
+            *ngIf="agentSelected"
+            (click)="agentSelected = false; showCard = false; agentLocatorForm.get('agentSelected')?.setValue(false)">
+            <nx-icon class="agent-locator__selected-location-button-icon" name="check-circle" size="s"></nx-icon>
+            Agent Selected
+          </button>
+        </ng-container>
+      </div>
+
+      <div class="agent-locator__nearby" *ngIf="
+        (nearbyLocations && nearbyLocations.length) || serviceIsLoading
+      ">
+        <ng-container *ngIf="serviceIsLoading">
+          <nx-spinner size="large" style="margin: 0 auto"></nx-spinner>
+        </ng-container>
+
+        <ng-container *ngIf="!serviceIsLoading">
+          <div class="agent-locator__nearby-heading">Nearby</div>
+
+          <ul class="agent-locator__address-list">
+            <ng-container *ngFor="let nearbyLocation of nearbyLocations; let i = index">
+              <li class="agent-locator__address-list-item" *ngIf="
+                viewMoreNearbyLocations ||
+                (!viewMoreNearbyLocations && i < viewLessNearbyLocationsCount)
+              ">
+                <button type="button" class="agent-locator__address" (click)="onNearbyLocationClick(nearbyLocation)">
+                  <div class="agent-locator__address-icon">
+                    <nx-icon name="location" *ngIf="!nearbyLocation.Type"></nx-icon>
+
+                    <img [src]="imageFolder + 'agent-locator/icon-agents.svg'" alt="" width="24"
+                      *ngIf="nearbyLocation.Type" alt="Textual description of icon-agents.svg" />
+                  </div>
+
+                  <div class="agent-locator__address-main">
+                    <div class="agent-locator__address-heading">
+                      {{ nearbyLocation.Name }}
+                    </div>
+
+                    <div class="agent-locator__address-body">
+                      {{ getAddressWithoutTags(nearbyLocation.Address) + "\n"+ nearbyLocation.City + "\n"+
+                      nearbyLocation.Postcode + "\n"+
+                      nearbyLocation.State
+                      }}
+                    </div>
+                  </div>
+                </button>
+              </li>
+            </ng-container>
+          </ul>
+
+          <div class="agent-locator__nearby-view-more"
+            *ngIf="!viewMoreNearbyLocations && nearbyLocations && nearbyLocations.length > 5">
+            <nx-link nxStyle="block">
+              <a (click)="viewMoreNearbyLocations = true">
+                <nx-icon name="arrow-right"></nx-icon>
+                View More
+              </a>
+            </nx-link>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="agent-locator__map" #mapHolder [style.height]="mapHeight ? mapHeight + 'px' : undefined">
+      <google-map width="100%" height="100%" #map [options]="mapOptions" [zoom]="15">
+        <map-marker *ngFor="let marker of markers; let i = index" [position]="marker.position"
+          [options]="marker.options" (mapClick)="onMarkerClick(i)"></map-marker>
+
+        <map-marker *ngIf="searchMarker && (!serviceIsLoading) && showSelectedLocation"
+          [position]="searchMarker.position" [options]="searchMarker.options" (mapClick)="onSearchMarkerClick()">
+        </map-marker>
+      </google-map>
+    </div>
+
+  </div>
+</div>
+
+<!-- Agent Locator Form -->
+<form class="agent-locator__form" [formGroup]="agentLocatorForm" *ngIf="success === false" id="form">
+  <div class="agent-locator__form-inner">
+    <p class="agent-locator__form-heading">
+      {{currentLink.header}}
+    </p>
+
+    <nx-card class="agent-locator__form-card" *ngIf="showCard">
+      <nx-card-header class="agent-locator__form-card-heading">
+        <h2 nxHeadline="subsection-small" class="nx-margin-bottom-2m">Selected Agent</h2>
+      </nx-card-header>
+
+      <div class="agent-locator__form-card-infos">
+        <div class="agent-locator__form-card-info">
+          <h3 class="agent-locator__form-card-info-heading">Agency Name</h3>
+
+          <p class="agent-locator__form-card-info-text">
+            {{ selectedLocation.name ? selectedLocation.name : selectedLocation.Name }}
+          </p>
+        </div>
+
+        <div class="agent-locator__form-card-info">
+          <h3 class="agent-locator__form-card-info-heading">Contact No.</h3>
+
+          <p class="agent-locator__form-card-info-text">
+            {{ getContactNumberFromLocation(selectedLocation) }}
+          </p>
+        </div>
+
+        <div class="agent-locator__form-card-info">
+          <h3 class="agent-locator__form-card-info-heading">Address</h3>
+
+          <p class="agent-locator__form-card-info-text">
+            {{ getAddressWithoutTags(selectedLocation.Address) + "\n"+ selectedLocation.City + "\n"+
+            selectedLocation.Postcode + "\n"+
+            selectedLocation.State
+            }}
+          </p>
+        </div>
+
+        <div class="agent-locator__form-card-info">
+          <h3 class="agent-locator__form-card-info-heading">Email address</h3>
+          <p class="agent-locator__form-card-info-text">{{selectedLocation.EmailAddress}}</p>
+        </div>
+      </div>
+    </nx-card>
+
+    <nx-formfield class="agent-locator__form-field" label="Full name as per ID">
+      <input nxInput required type="text" formControlName="name" autocomplete="off" inputCapitalization />
+      <nx-error nxFormfieldError> Please enter your full name. </nx-error>
+    </nx-formfield>
+
+    <div class="agent-locator__form-field  phone--">
+      <nx-formfield label="Mobile No." class="country">
+        <nx-dropdown formControlName="phoneCountryCode">
+          <nx-dropdown-item *ngFor="let mobilePrefix of (mobilePrefix$|async)" [value]="mobilePrefix.Description">
+          </nx-dropdown-item>
+        </nx-dropdown>
+      </nx-formfield>
+      <nx-formfield label="" class="number">
+        <input nxInput inputmode="numeric" required numberOnly formControlName="mobileNo" minlength="7" maxlength="8"
+          autocomplete="off" />
+        <nx-error nxFormfieldError> Please enter your phone no. </nx-error>
+      </nx-formfield>
+    </div>
+
+    <nx-formfield class="agent-locator__form-field" label="Email address">
+      <input nxInput type="email" formControlName="email" />
+      <nx-error nxFormfieldError> {{agentLocatorForm.get('email')?.errors?.message}} </nx-error>
+    </nx-formfield>
+
+    <nx-formfield class="agent-locator__form-field" label="Email confirmation">
+      <input nxInput type="email" formControlName="emailConfirm" />
+      <nx-error nxFormfieldError>{{agentLocatorForm.get('emailConfirm')?.errors?.message}} </nx-error>
+    </nx-formfield>
+
+    <nx-checkbox *ngIf='!currentLink.findAgent' class="nx-margin-bottom-s agent-locator__form-field"
+      formControlName="checkRecommend">
+      I would like an agent auto assigned to me without having to select an agent from the map.
+    </nx-checkbox>
+
+    <nx-checkbox class="nx-margin-bottom-s agent-locator__form-field" formControlName="check">
+      I have read
+
+      <nx-link class="agent-locator__form-link">
+        <a target="_blank" href="https://www.allianz.com.my/personal/privacy-statement.html"
+          class="agent-locator__form-link">Allianz
+          Malaysia's Privacy Statement</a>
+      </nx-link>
+
+      and agree to provide my personal contact details to enable you to contact me for the
+      purposes of this Quotation and to receive future marketing/promotions from Allianz. I
+      understand that I can choose to unsubscribe at any time if I no longer wish to receive any
+      marketing/promotions from Allianz by writing to
+
+      <nx-link class="agent-locator__form-link">
+        <a href="mailto:customer.service@allianz.com.my"
+          class="agent-locator__form-link">customer.service@allianz.com.my</a>.
+      </nx-link>
+    </nx-checkbox>
+
+    <div class="agent-locator__form-recaptcha" *ngIf="recaptchaEnabled$ != 'N'">
+      <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+    </div>
+
+    <div class="agent-locator__form-buttons">
+      <button nxButton="secondary" type="button" class="agent-locator__form-button"
+        (click)="navigation.goBack()">Back</button>
+      <button nxButton="primary" type="button" class="agent-locator__form-button" [disabled]="agentLocatorForm.invalid"
+        (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
+
+<!-- Agent Locator Form Success Page -->
+<div class="agent-locator__success" *ngIf="success">
+  <div class="agent-locator__success-heading">
+    <h1 class="agent-locator__success-heading-text">Thank you for reaching out to us</h1>
+  </div>
+
+  <div class="agent-locator__success-main">
+    <img class="agent-locator__success-gfx" [src]="imageFolder + 'agent-locator/success-image.png'"
+      alt="Textual description of success-image.svg" />
+
+    <h2 class="agent-locator__success-main-heading">
+      Our agent will get in touch with you as soon as possible
+    </h2>
+
+    <p class="agent-locator__success-main-paragraph">
+      If you have any further enquiries, you may call us during office hours at
+      <nx-link>
+        <a href="tel:1300225542">1 300 22 5542</a>
+      </nx-link>
+      or chat with us via
+
+      <nx-link>
+        <a href="https://www.facebook.com/AllianzMalaysia">Facebook</a>
+      </nx-link>
+
+      .
+    </p>
+  </div>
+</div>
+
+<shared-dialog #agentRequiredDialog [header]="agentRequiredDialogHeader"
+  [description]="agentRequiredDialogDescription"></shared-dialog>

@@ -1,0 +1,247 @@
+<form [formGroup]="travelCareForm" class="travel-care__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote">
+
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}></product-stage>
+<!-- *ngIf="!activePartner" -->
+      <div  class="get-info__info">
+        <p class="get-info__info-text">
+          Now includes COVID-19 coverage for worry-free travel!
+        </p>
+      </div>
+
+      <!-- <div class="get-info__banner" *ngIf="bannerData!== undefined">
+        <h2 class="get-info__banner-header">{{bannerData.header}}</h2>
+        <p class="get-info__banner-description">
+        </p>
+        <p class="get-info__banner-description" [innerHTML]="bannerData.subtext">
+        </p>
+      </div> -->
+
+      <div class="get-info" formGroupName="quoteForm">
+        <nx-natural-language-form class="get-info__natural-language-form" size="small">
+          I am <span *ngIf="quoteForm.get('tragerange')?.value === 'S' || quoteForm.get('tragerange')?.value === 'C'">a</span>
+          <span *ngIf="quoteForm.get('tragerange')?.value === 'A' || quoteForm.get('tragerange')?.value == ''"> an</span>
+          <nx-word label="Provide this required field" class="nx-formfield__input-dropdown size-medium-small fit--">
+            <nx-dropdown formControlName="tragerange" required>
+              <nx-dropdown-item [value]="tragerange.Code" *ngFor="let tragerange of (tragerange$|async)" (click)="tragerangeChange()">{{ tragerange.Description  | lowercase }}</nx-dropdown-item>
+            </nx-dropdown>
+            <div nxError>This field is required.</div>
+          </nx-word>
+          <button nxPlainButton type="button" (click)="openDialog(tragerangeDialog)" class="nx-margin-x-xs">
+            <nx-icon name="info-circle-o"></nx-icon>
+          </button> . I will need
+          <nx-word label="Provide this required field" *ngIf="quoteForm.get('tragerange')?.value !== 'S'" class="nx-formfield__input-dropdown size-medium">
+            <nx-dropdown formControlName="coveragetype" required>
+              <nx-dropdown-item [value]="coveragetype.Code" *ngFor="let coveragetype of COVERAGETYPE_DROPDOWN" (click)="coveragetypeChange()">{{ coveragetype.Description }}</nx-dropdown-item>
+            </nx-dropdown>
+            <div nxError>This field is required.</div>
+          </nx-word>
+          <nx-word label="Provide this required field" *ngIf="quoteForm.get('tragerange')?.value === 'S'">
+            <nx-dropdown formControlName="coveragetype" required>
+              <nx-dropdown-item [value]="coveragetype.Code" *ngFor="let coveragetype of SENIOR_COVERAGETYPE_DROPDOWN" (click)="coveragetypeChange()">{{ coveragetype.Description }}</nx-dropdown-item>
+            </nx-dropdown>
+            <div nxError>This field is required.</div>
+          </nx-word>
+          <button nxPlainButton type="button" (click)="openDialog(coveragetypeDialog)" class="nx-margin-x-xs">
+            <nx-icon name="info-circle-o"></nx-icon>
+          </button> coverage for
+          <nx-word label="Provide this required field" *ngIf="quoteForm.get('coveragetype')?.value !== 'AN'">
+            <nx-dropdown formControlName="trdestination" required>
+              <nx-dropdown-item [value]="trdestination.Code" *ngFor="let trdestination of TRDESTINATION_DROPDOWN" (click)="trdestinationChange()">{{ trdestination.Description }}</nx-dropdown-item>
+            </nx-dropdown>
+            <div nxError>This field is required.</div>
+          </nx-word>
+          <nx-word label="Provide this required field" *ngIf="quoteForm.get('coveragetype')?.value === 'AN'">
+            <nx-dropdown formControlName="trdestination" required>
+              <nx-dropdown-item [value]="trdestination.Code" *ngFor="let trdestination of AN_TRDESTINATION_DROPDOWN" (click)="trdestinationChange()">{{ trdestination.Description }}</nx-dropdown-item>
+            </nx-dropdown>
+            <div nxError>This field is required.</div>
+          </nx-word>
+
+
+          <button nxPlainButton type="button" (click)="openDialog(trdestinationDialog)" class="nx-margin-x-xs">
+            <nx-icon name="info-circle-o"></nx-icon>
+          </button>  <span  *ngIf="quoteForm.get('tragerange')?.value === '' || quoteForm.get('coveragetype')?.value === ''">. And</span> <span *ngIf="quoteForm.get('tragerange')?.value != '' && quoteForm.get('coveragetype')?.value != ''">travel and</span> I will be travelling <span *ngIf="quoteForm.get('trgrpcode')?.value === 'FM' || quoteForm.get('trgrpcode')?.value === 'MT'">with</span>          <span *ngIf="quoteForm.get('trgrpcode')?.value === 'MS' || quoteForm.get('trgrpcode')?.value === ''">by</span>
+          <ng-container class="get-info__natural-language-form" size="small" *ngIf="(quoteForm.get('tragerange')?.value === 'A'&& quoteForm.get('coveragetype')?.value !== 'AN'); else elseTrgrpcode">
+            <nx-word label="Provide this required field" class="nx-formfield__input-dropdown size-medium-small fit--">
+              <nx-dropdown formControlName="trgrpcode" required>
+                <nx-dropdown-item [value]="trgrpcode.Code" *ngFor="let trgrpcode of A_NONAN_TRGYPCODE_DROPDOWN" (click)="trgrpcodeChange()">{{ trgrpcode.Description }}</nx-dropdown-item>
+              </nx-dropdown>
+              <div nxError>This field is required.</div>
+            </nx-word>
+          </ng-container>
+
+          <ng-template #elseTrgrpcode>
+            <nx-word label="Provide this required field" class="azol-nx-word__dropdown">
+              <nx-dropdown formControlName="trgrpcode" required>
+                <nx-dropdown-item [value]="trgrpcode.Code" *ngFor="let trgrpcode of TRGYPCODE_DROPDOWN" (click)="trgrpcodeChange()">{{ trgrpcode.Description }}</nx-dropdown-item>
+              </nx-dropdown>
+              <div nxError>This field is required.</div>
+            </nx-word>
+          </ng-template>
+          <button nxPlainButton type="button" (click)="openDialog(trgrpcodeDialog)" class="nx-margin-x-xs" *ngIf="quoteForm.get('trgrpcode')?.value === 'MT'">
+            <nx-icon name="info-circle-o"></nx-icon>
+          </button>
+          <span class="d-inline" *ngIf="quoteForm.get('trgrpcode')?.value === 'MT'">
+            Child/student (age: 0-17)
+            <nx-word label="Provide this required field">
+              <nx-dropdown formControlName="NoOfChildren">
+                <nx-dropdown-item [value]="child.Code" *ngFor="let child of CHILD_PAXNO_DROPDOWN"
+                  [disabled]="child.Disabled" (click)="updateNoOfChildren()"> {{
+                  child.Code }}</nx-dropdown-item>
+              </nx-dropdown>
+              <!-- <div nxError>{{quoteForm.get('NoOfChildren')?.errors?.message}} </div> -->
+            </nx-word>
+          </span>
+          <span  class="d-inline" *ngIf=" quoteForm.get('trgrpcode')?.value === 'FM'">
+            Child/student (age: 0-24)
+            <nx-word label="Provide this required field">
+              <nx-dropdown formControlName="NoOfChildren">
+                <nx-dropdown-item [value]="child.Code" *ngFor="let child of CHILD_PAXNO_DROPDOWN"
+                  [disabled]="child.Disabled" (click)="updateNoOfChildren()"> {{
+                  child.Code }}</nx-dropdown-item>
+              </nx-dropdown>
+              <!-- <div nxError>{{quoteForm.get('NoOfChildren')?.errors?.message}} </div> -->
+            </nx-word>
+          </span>
+          <span *ngIf="quoteForm.get('trgrpcode')?.value === 'MT'">
+            Adult (age:18-70)
+            <nx-word label="Provide this required field">
+              <nx-dropdown formControlName="NoOfAdults" required>
+                <nx-dropdown-item [value]="paxno.Code" *ngFor="let paxno of ADULT_PAXNO_DROPDOWN"
+                  [disabled]="paxno.Disabled" (click)="updateNoOfChildren()"> {{
+                  paxno.Code }}</nx-dropdown-item>
+              </nx-dropdown>
+              <!-- <div nxError>{{quoteForm.get('NoOfAdults')?.errors?.message}} </div> -->
+            </nx-word>
+          </span>
+          <span *ngIf="quoteForm.get('trgrpcode')?.value === 'MT' && quoteForm.get('coveragetype')?.value !== 'AN'">
+            Senior Citizen (age:71-80)
+            <nx-word label="Provide this required field">
+              <nx-dropdown formControlName="NoOfSeniors" required>
+                <nx-dropdown-item [value]="paxno.Code" *ngFor="let paxno of SENIOR_PAXNO_DROPDOWN"
+                  [disabled]="paxno.Disabled" (click)="updateNoOfChildren()">{{
+                  paxno.Code }}</nx-dropdown-item>
+              </nx-dropdown>
+              <!-- <div nxError>{{quoteForm.get('NoOfSeniors')?.errors?.message}} </div> -->
+            </nx-word>
+          </span>
+          <span *ngIf="quoteForm.get('trgrpcode')?.value === 'FM'">
+            Spouse (age:18-70)
+            <nx-word label="Provide this required field">
+              <nx-dropdown formControlName="NoOfAdults" required>
+                <nx-dropdown-item [value]="paxno.Code" *ngFor="let paxno of PAXNO_ONLYONE_DROPDOWN"
+                  [disabled]="paxno.Disabled" (click)="updateNoOfAdultsFM()">
+                  {{ paxno.Code }}</nx-dropdown-item>
+              </nx-dropdown>
+              <!-- <div nxError>{{quoteForm.get('NoOfAdults')?.errors?.message}} </div> -->
+            </nx-word>
+          </span>  <span *ngIf="(quoteForm.get('tragerange')?.value === '' && quoteForm.get('trgrpcode')?.value === '') ">. Effective from</span>  
+           <!-- && quoteForm.get('coveragetype')?.value !== 'OW' -->
+          <span
+            *ngIf="(quoteForm.get('tragerange')?.value !== '' || quoteForm.get('trgrpcode')?.value !== '')">starting from</span>
+            <date-field label=" Policy start date" class="get-info__natural-language-form-date" [control]="quoteForm.get('startDate')"
+              [minDate]="minDate" [maxDate]="maxDate"></date-field>
+
+            <span *ngIf="quoteForm.get('coveragetype')?.value !== ''">
+            <span *ngIf="quoteForm.get('coveragetype')?.value === 'TW' "> till</span>
+            <span  *ngIf="quoteForm.get('coveragetype')?.value === 'OW'"> and arriving at final destination on</span>
+           
+            <date-field label="Policy end date" *ngIf="quoteForm.get('coveragetype')?.value!== 'AN'" class="get-info__natural-language-form-date"
+              [control]="quoteForm.get('endDate')" [minDate]="minEndDate" [maxDate]="maxEndDate" (focusout)="openAlertCoverage()"></date-field>
+            </span>
+        </nx-natural-language-form>
+      </div>
+      <div class="get-info__buttons">
+        <button nxButton="primary" [disabled]="quoteForm.invalid" type="button" class="get-info__button" nxButton="primary" (click)="nextQuestion()">
+          NEXT
+        </button>
+      </div>
+
+      <disclosure-message [control]="quoteForm"></disclosure-message>
+
+      <!-- Documents -->
+      <div class="get-info__documents">
+        <h2 class="get-info__documents-header">Documents</h2>
+        <p class="get-info__documents-description" *ngIf="(sourceSystem$|async) != 'HSBCBN'">
+          To learn more about our product, please read our Product Disclosure Sheet here.
+        </p>
+        <p class="get-info__documents-description" *ngIf="(sourceSystem$|async) == 'HSBCBN'">
+          To learn more about our product, please read coverage details below before signing up
+        </p>
+        <ng-container *ngFor="let item of (documentData$| async)">
+          <button class="nx-button get-info__documents-download-cta" nxPlainButton type="button">
+            <nx-icon name="pdf"></nx-icon> <a [href]="item.queryParams" target='_blank'>{{ item.label }}</a>
+          </button>
+        </ng-container>
+      </div>
+    </nx-step>
+    <nx-step label="Quotation"></nx-step>
+    <nx-step label="Policyholder Details"></nx-step>
+    <nx-step label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>
+<ng-template #tragerangeDialog>
+  <div class="modal-dialog__Info-content" nxModalContent>
+    <p nxCopytext>
+      All Malaysian citizens, Malaysian permanent residents, valid work permit holders, valid student pass holders or individuals
+      otherwise legally employed in Malaysia, and his/her spouse and child/children who are legally residing in the Malaysia
+      are eligible to be covered.</p>
+  </div>
+</ng-template>
+
+<ng-template #coveragetypeDialog>
+  <div class="modal-dialog__Info-content" nxModalContent>
+    Please note that our travel plan for one-way and two-way basis are define as below:
+    <br />
+    <br />
+    <ul class="modal-dialog__Info-listed-items">
+      <li class="modal-dialog__Info-listed-item">
+        <strong>One-way</strong>&nbsp;is a trip that departs from Malaysia to final destination abroad.
+      </li>
+      <li class="modal-dialog__Info-listed-item">
+        <strong>Two-way&nbsp;</strong>is a trip that departs from Malaysia and return back to Malaysia.
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #trgrpcodeDialog>
+  <div class="modal-dialog__Info-content" nxModalContent>
+    <p nxCopytext>
+      Maximum number of people is 10.</p>
+  </div>
+</ng-template>
+
+<ng-template #trdestinationDialog>
+  <div class="modal-dialog__Info-content" nxModalContent>
+    <p nxCopytext><span class="nx-font-weight-bold">Asia</span> is defined as Singapore, Thailand, Indonesia, Philippines, Brunei, Taiwan,
+      Korea, China, including Hong Kong and Macau, Laos, Vietnam, Myanmar, Cambodia, India, Sri Lanka, Maldives, Bangladesh,
+      Nepal, Australia, New Zealand and Japan (excludes Malaysia).</p>
+    <p nxCopytext class="nx-margin-top-s"><span class="nx-font-weight-bold">Worldwide</span> includes United States of America and Canada but excludes Malaysia.</p>
+    <p nxCopytext class="nx-margin-top-s"><span class="nx-font-weight-bold">Domestic</span> refers to Malaysia only.
+    </p>
+    <p nxCopytext class="nx-margin-top-s"><span class="nx-font-weight-bold">Excluded Countries</span> includes Israel, Iran, Syria, Belarus, Cuba, Democratic Republic
+      of Congo, North Korea, Somalia, Sudan, South Sudan, Zimbabwe and all other war declared countries.</p>
+  </div>
+</ng-template>
+
+<ng-template #coverageDateDialog>
+  <div class="modal-dialog">
+    <img class="modal-dialog__image" [src]="imageFolder + 'people/successful.png'" alt="Textual description of agent-required.png"
+    />
+    <div class="modal-dialog__Info-content" nxModalContent>
+      <!-- Please note that our travel plan for one-way and two-way basis are define as below: -->
+      It looks like you'll be paying more than you need for your upcoming trip. Would you like to switch to <strong>Worldwide Annual</strong> plan?
+    </div>
+    <div class="modal-dialog__buttons">
+      <button class="modal-dialog__button" nxButton="primary" type="button" (click)="endDateYes()">
+        Yes
+      </button>
+      <button class="modal-dialog__button" nxButton="secondary" type="button" (click)="endDateclose()">
+        No
+      </button>      
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,67 @@
+@import 'globals';
+
+.leave-page-dialog {
+  &__image {
+    width: 100%;
+    max-width: 150px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
+
+  &__header {
+    margin-top: 24px;
+    font-size: 26px;
+    font-weight: $fw-light;
+    line-height: 32px;
+    letter-spacing: 0.3px;
+    text-align: center;
+  }
+
+  &__description {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__buttons {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 24px;
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  @media ($bp-mds) {
+    &__image {
+      max-width: 200px;
+    }
+
+    &__header {
+      margin-top: 32px;
+    }
+
+    &__description {
+      max-width: 600px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__buttons {
+      column-gap: 16px;
+      justify-content: center;
+      flex-direction: row;
+    }
+
+    &__button {
+      max-width: 320px;
+      margin: 0;
+    }
+  }
+}

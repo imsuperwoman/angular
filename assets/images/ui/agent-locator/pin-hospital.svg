@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="69px" viewBox="0 0 40 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>070EAF8D-A772-4664-85DA-50DB98A13348</title>
+    <defs>
+        <path d="M16.5,7.9998 C16.2,7.9998 16.0002,7.8 16.0002,7.5 L16.0002,0.9996 L7.9998,0.9996 L7.9998,7.5 C7.9998,7.8 7.8,7.9998 7.5,7.9998 L1.0002,7.9998 L1.0002,16.0002 L7.5,16.0002 C7.8,16.0002 7.9998,16.2 7.9998,16.5 L7.9998,22.9998 L16.0002,22.9998 L16.0002,16.5 C16.0002,16.2 16.2,16.0002 16.5,16.0002 L22.9998,16.0002 L22.9998,7.9998 L16.5,7.9998 Z M23.5002,6.9996 C23.8002,6.9996 24,7.2 24,7.5 L24,16.5 C24,16.8 23.8002,16.9998 23.5002,16.9998 L16.9998,16.9998 L16.9998,23.5002 C16.9998,23.8002 16.8,24 16.5,24 L7.5,24 C7.2,24 7.0002,23.8002 7.0002,23.5002 L7.0002,16.9998 L0.4998,16.9998 C0.1998,16.9998 0,16.8 0,16.5 L0,7.5 C0,7.2 0.1998,6.9996 0.4998,6.9996 L7.0002,6.9996 L7.0002,0.4998 C7.0002,0.1998 7.2,0 7.5,0 L16.5,0 C16.8,0 16.9998,0.1998 16.9998,0.4998 L16.9998,6.9996 L23.5002,6.9996 Z" id="path-1"></path>
+    </defs>
+    <g id="Live-Chat-/-Locator-/-VoC" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Locator---Place-4" transform="translate(-609.000000, -781.000000)">
+            <g id="Group-3-Copy-2" transform="translate(609.000000, 781.000000)">
+                <g id="01_Core/🌐-Design-Tokens/Shape/Circle/Plain">
+                    <g id="Circle-plain" fill="#B71E3F">
+                        <circle id="Color" cx="20" cy="20" r="20"></circle>
+                    </g>
+                    <g id="Product-Icon" transform="translate(8.000000, 8.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Icon-Color" fill="#FFFFFF" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+                <polygon id="Triangle" fill="#B71E3F" transform="translate(20.000000, 52.000000) scale(-1, 1) rotate(180.000000) translate(-20.000000, -52.000000) " points="20 35 29 69 11 69"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

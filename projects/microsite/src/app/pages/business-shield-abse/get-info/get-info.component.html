@@ -1,0 +1,60 @@
+<form class="get-info__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote">
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}>
+      </product-stage>
+
+      <div class="container_for_content">
+        <div nxLayout="grid" class="align-center wrapper">
+          <div nxRow>
+            <div nxCol="12" class="nx-margin-y-2m nx-margin-bottom-m">
+              <p nxCopytext="large" class="nx-margin-bottom-3m">
+                This coverage is available for Micro SME whose trade is General Merchandise; Coffee Shops and
+                Restaurants;
+                Cyber Café (with or without food being served); Market/ Wholesale market (Wet); Bakeries, biscuit,
+                confectionery and candy manufacture; Hair Dressing Salon/Beauty Salon.
+              </p>
+
+              <p nxCopytext="large" class="nx-margin-bottom-m">
+                This policy cover is only available for businesses located in non-flood prone areas.
+              </p>
+              <p nxCopytext="large" class="nx-margin-bottom-m">
+                For more information, please refer
+
+                <nx-link class="nxlink_medium_size"><a href="{{DOCUMENT_DATA[0].queryParams}}"
+                    target="_blank">{{DOCUMENT_DATA[0].label}}</a></nx-link>
+                and <nx-link class="nxlink_medium_size"><a href="{{DOCUMENT_DATA[1].queryParams}}"
+                    target="_blank">{{DOCUMENT_DATA[1].label}}</a></nx-link>.
+              </p>
+            </div>
+
+            <div nxCol="12">
+              <button nxButton="primary" type="button" (click)="nextQuestion()" class="button_center">
+                NEXT
+              </button>
+            </div>
+            <div nxCol="12" class="nx-margin-y-3m">
+              <p nxCopytext="medium" class="nx-margin-bottom-s nx-font-weight-semibold">
+                By clicking on "Next", I confirm that I have read and agreed to the terms laid down in the <nx-link
+                  class="nxlink_small_size"><a
+                    href="https://www.allianz.com.my/personal/legal-notes/duty-of-disclosure.html" target="_blank">Duty
+                    of
+                    Disclosure</a></nx-link>.
+              </p>
+
+              <p nxCopytext="medium" class="nx-font-weight-semibold">
+                You may also find out more about our coverage by visiting your nearest Allianz branch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </nx-step>
+    <nx-step label="Coverage Details"></nx-step>
+    <nx-step label="Policyholder Details"></nx-step>
+    <nx-step label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>
+<hr style="border: 0; border-bottom: 1px solid #d9d9d9; margin: 0;">

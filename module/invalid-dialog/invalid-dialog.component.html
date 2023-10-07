@@ -1,0 +1,12 @@
+<div class="invalid-dialog">
+  <img class="invalid-dialog__image" [src]="imageFolder + 'people/agent-required.png'"
+    alt="Textual description of agent-required.png" />
+  <h3 class="invalid-dialog__header">{{data.header}}</h3>
+  <p class="invalid-dialog__description">
+    {{data.desc}}
+    <a href="{{data.link}}" target='_blank' class="invalid-dialog__link" *ngIf="data.link != undefined">Click
+      Here.</a>
+
+  </p>
+  <button class="invalid-dialog__button" nxButton (click)="close()">Close</button>
+</div>

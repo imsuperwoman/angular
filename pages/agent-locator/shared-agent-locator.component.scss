@@ -1,0 +1,956 @@
+@import 'globals';
+
+@mixin scrollbar {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.smart-home-cover {
+
+  /*-- Start of Form --*/
+  &__form {
+    padding-bottom: 60px;
+
+    /*-- Start of Image Banner --*/
+    &-image {
+      &-holder {
+        background-color: $beige;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+
+      &-header {
+        margin-top: 32px;
+        font-weight: $fw-light;
+        font-size: 40px;
+        line-height: 48px;
+        letter-spacing: 0.3px;
+      }
+
+      &-subheader {
+        margin-top: 16px;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+      }
+
+      &-gfx {
+        width: 253px;
+        margin: 24px auto 0;
+        position: relative;
+        top: 15px;
+      }
+
+      @media ($bp-mds) {
+        &-header {
+          margin-top: 64px;
+          font-size: 54px;
+          line-height: 60px;
+        }
+
+        &-subheader {
+          margin-top: 26px;
+        }
+      }
+    }
+
+    /*-- Start of Image Banner --*/
+  }
+}
+
+.agent-locator {
+
+  /*-- Start of Agent Locator block text--*/
+  &__block {
+    background-color: #f1f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding-top: 70px;
+    padding-left: 7px;
+    color: #414141;
+    gap: 15px;
+
+    &-header {
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: $fw-light;
+    }
+
+    &-paragraph {
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: $fw-regular;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+
+      @media ($bp-sm) {
+        width: 610px;
+      }
+    }
+
+    @media ($bp-md) {
+      &-paragraph {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__locator {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #d9d9d9;
+
+    &-menu {
+      padding: 30px 40px;
+      width: 30%;
+    }
+
+    @media ($bp-md) {
+      flex-direction: row;
+    }
+  }
+
+  /*-- Start of Agent Locator Mobile Header--*/
+  &__mobile {
+    padding: 20px 20px 0;
+
+    position: sticky;
+    top: 0;
+    z-index: 14;
+    background-color: $white;
+    box-shadow: 0 6px 10px -3px rgba(0, 0, 0, 0.25);
+    flex-wrap: wrap;
+
+    &-search {
+      width: calc(100% - 24px);
+      padding-right: 20px;
+
+      &:last-child {
+        width: 100%;
+        padding-right: 0;
+      }
+
+      &-container {
+        display: flex;
+        padding-bottom: 20px;
+        position: relative;
+
+        &::after {
+          content: '';
+          width: calc(100% + 40px);
+          height: 1px;
+          position: absolute;
+          bottom: 0;
+          left: -20px;
+          background-color: #dddddd;
+        }
+      }
+
+      &-autocomplete {
+        width: calc(100% + 40px);
+        padding: 20px;
+        margin-left: -20px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #ffffff;
+        @include scrollbar;
+
+        &-hr {
+          height: 1px;
+          margin: 10px 0;
+          background-color: #d9d9d9;
+        }
+      }
+    }
+
+    &-filters {
+      width: 24px;
+
+      &-toggle {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: none;
+        color: #006192;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+
+        &-count {
+          width: 16px;
+          height: 16px;
+          border: 1px solid $white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: -1px;
+          right: -3px;
+          background-color: #006192;
+          color: $white;
+          font-size: 11px;
+          line-height: 1;
+        }
+      }
+    }
+
+    @media ($bp-md) {
+      display: none;
+    }
+  }
+
+  &__legends {
+    display: none;
+
+    &-layout {
+      display: flex;
+    }
+
+    &-icon {
+      width: 24px;
+      color: $blue;
+      font-size: 24px;
+    }
+
+    &-main {
+      width: calc(100% - 24px);
+      padding-left: 10px;
+      font-size: 16px;
+    }
+
+    &-table {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    &-td {
+      padding-left: 5px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &.icons-- {
+        color: $blue;
+        font-size: 20px;
+        text-align: right;
+      }
+
+      &-icon {
+        margin-left: 4px;
+        position: relative;
+        top: 2px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    @media ($bp-md) {
+      display: block;
+
+      &.hidden-- {
+        display: none;
+      }
+    }
+  }
+
+  /*-- End of Agent Locator Mobile Header--*/
+
+  &__main {
+    order: 2;
+
+    @media ($bp-md) {
+      width: 500px;
+      order: 0;
+      padding: 30px;
+      @include scrollbar;
+    }
+  }
+
+  &__selected-location {
+    padding: 25px 15px;
+    position: relative;
+
+    &-spinner {
+      margin-top: 25px;
+    }
+
+    &-detail {
+      margin-top: 15px;
+      display: flex;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &-icon {
+        width: 1em;
+        color: #006192;
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      &-heading {
+        padding-left: 10px;
+        font-size: 20px;
+        font-weight: $fw-light;
+        line-height: 28px;
+        width: 100%;
+      }
+
+      &-text {
+        padding-left: 10px;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: $fw-regular;
+
+        &-toggle {
+          padding: 0;
+          border: 0;
+          outline: 0;
+          background: none;
+          color: #006192;
+          font-family: inherit;
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: $fw-semibold;
+          cursor: pointer;
+        }
+      }
+
+      &.heading-- {
+        font-size: 20px;
+        font-weight: $fw-light;
+        line-height: 28px;
+      }
+
+      &-icon.google-- {
+        display: none;
+      }
+
+      &-icon.google--+&-text {
+        padding-left: 0;
+      }
+    }
+
+    &-button {
+      margin-top: 32px;
+      width: 187px;
+      height: 32px;
+      padding: 0 !important;
+      min-height: 32px !important;
+      font-size: 14px !important;
+      line-height: 16px !important;
+
+      &-icon {
+        font-size: 14px !important;
+        margin-right: 5px;
+      }
+    }
+
+    @media ($bp-md) {
+      padding: 30px 0 32px;
+    }
+  }
+
+  &__nearby {
+    padding: 25px 0;
+    margin: 0 15px;
+    border-top: 1px solid #d9d9d9;
+
+    &-heading {
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 300;
+    }
+
+    &-view-more {
+      margin-top: 25px;
+      text-transform: uppercase;
+    }
+
+    @media ($bp-md) {
+      padding: 30px 0 0;
+      margin: 0;
+    }
+  }
+
+  &__disable-message {
+    min-width: calc(100% + 24px);
+    margin: 8px 0 8px -12px;
+
+    &-text {
+      color: #414141;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    &-header {
+      font-weight: 700;
+    }
+
+    &.mobile-- {
+      @media only screen and (min-width: 1024px) {
+        display: none;
+      }
+    }
+
+    &.desktop-- {
+      margin-bottom: 36px;
+
+      @media only screen and (max-width: 1023.98px) {
+        display: none;
+      }
+    }
+  }
+
+  &__address-list {
+    list-style: none;
+
+    &-item {
+      margin-top: 15px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__address {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    display: flex;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+
+    &-icon {
+      width: 1em;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    &-main {
+      width: calc(100% - 24px);
+      padding-left: 10px;
+    }
+
+    &-heading {
+      color: #006192;
+      font-weight: $fw-semibold;
+      letter-spacing: 1px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    &-body {
+      color: #999;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: $fw-regular;
+    }
+  }
+
+  /** Start of Agent Locator Search */
+  &__search {
+    display: none;
+
+    &-form {
+      padding-left: 30px;
+      position: relative;
+    }
+
+    &-spinner,
+    &-submit,
+    &-reset {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      position: absolute;
+      top: 0;
+      background: none;
+      color: #006192;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    &-spinner,
+    &-submit {
+      left: 0;
+    }
+
+    &-reset {
+      right: 0;
+    }
+
+    &-input {
+      width: 100%;
+      height: 25px;
+      padding-right: 30px;
+      padding-left: 8px;
+      border: 0;
+      border-bottom: 1px solid transparent;
+      outline: 0;
+      background: none;
+      color: #006192;
+      font-weight: $fw-semibold;
+      font-size: 16px;
+      line-height: 24px;
+
+      &::placeholder {
+        color: inherit;
+      }
+
+      &.filled--,
+      &:focus {
+        border-bottom-color: #808080;
+      }
+    }
+
+    &-autocomplete {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      &-item {
+        margin-top: 15px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &-toggle {
+          width: 100%;
+          padding-left: 30px;
+          border: 0;
+          display: block;
+          position: relative;
+          background: none;
+          text-align: left;
+          text-transform: none;
+          cursor: pointer;
+        }
+
+        &-icon {
+          width: 1em;
+          position: absolute;
+          top: 0;
+          left: 0;
+          color: $blue;
+          font-size: 24px;
+          line-height: 1;
+          text-align: center;
+        }
+
+        &-heading,
+        &-address {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: $fw-regular;
+        }
+
+        &-heading {
+          color: #006192;
+        }
+      }
+
+      @media ($bp-md) {
+        max-height: 350px;
+        @include scrollbar;
+
+        &-desktop {
+          width: 100%;
+          padding: 15px 30px;
+          border-radius: 4px;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          z-index: 1;
+          background-color: $white;
+          box-shadow: 0 3px 2px 1px rgba(0, 0, 0, 0.25);
+        }
+      }
+    }
+
+    @media ($bp-md) {
+      margin-top: 25px;
+      display: block;
+      position: relative;
+    }
+  }
+
+  &__filters {
+    &-holder {
+      margin: 0 -5px;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (max-width: 1023.92px) {
+      width: 100%;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 16;
+      background-color: $white;
+      transform: translateY(100%);
+      transition: none 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-property: visibility, transform;
+      visibility: hidden;
+
+      &.mobile-active-- {
+        transform: translateY(0%);
+        visibility: visible;
+      }
+
+      &-close {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: 0;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        color: $blue;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      &-heading {
+        font-size: 24px;
+        font-weight: 300;
+        text-align: center;
+      }
+
+      &-holder {
+        margin-top: 24px;
+      }
+
+      &-overlay {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 15;
+        background-color: rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        transition: none $transition-duration $transition-easing;
+        transition-property: visibility, opacity;
+        visibility: hidden;
+
+        &:not(.mobile-active--) {
+          pointer-events: none;
+        }
+
+        &.mobile-active-- {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    @media ($bp-md) {
+      padding-top: 30px;
+      margin-top: 30px;
+
+      &-heading,
+      &-close,
+      &-overlay {
+        display: none;
+      }
+    }
+  }
+
+  &__filter {
+    width: 60px;
+    margin: 0 5px;
+    font-size: 10px;
+    text-align: center;
+    cursor: pointer;
+
+    &-control {
+      width: 0;
+      height: 0;
+      position: absolute;
+      opacity: 0;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    &-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #006192;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      color: #006192;
+      font-size: 24px;
+      transition: none 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-property: background-color, color;
+    }
+
+    &-control:checked+&-main &-icon {
+      background-color: #006192;
+      color: $white;
+    }
+
+    @media ($bp-md) {
+      margin: 0 12px;
+      font-size: 12px;
+
+      &-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 40px;
+      }
+    }
+  }
+
+  /** End of Agent Locator Search */
+
+  &__main {
+    &-layout {
+      background-color: #006192;
+      width: 100%;
+    }
+  }
+
+  &__map {
+    height: 600px;
+    width: 100%;
+    background-color: #eee;
+    order: 1;
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /** Start of Agent Locator Form */
+  &__form {
+    border-bottom: 1px solid $dark-white2;
+
+    &-inner {
+      padding: clamp(32px, 10vw, 60px) 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 576px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &-heading {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: $fw-regular;
+      color: #414141;
+      margin-bottom: clamp(48px, 13.333vw, 56px);
+      width: 100%;
+
+      @media ($bp-md) {
+        width: 490px;
+      }
+    }
+
+    &-card {
+      width: 100%;
+      text-align: left;
+      margin-bottom: clamp(40px, 11.111vw, 50px);
+
+      &-heading {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      &-infos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        justify-content: space-between;
+        row-gap: 23px;
+      }
+
+      &-info {
+        font-size: 16px;
+        line-height: 24px;
+        width: 100%;
+
+        @media ($bp-sm) {
+          width: 46%;
+        }
+      }
+    }
+
+    &-field {
+      width: 100%;
+      text-align: left;
+
+      &.phone-- {
+        width: 100%;
+        display: flex;
+
+        .country {
+          width: 150px;
+        }
+
+        .number {
+          width: calc(100% - 100px);
+
+          input {
+            padding-left: 15px;
+          }
+        }
+      }
+    }
+
+    &-link {
+      display: inline;
+      letter-spacing: 0 !important;
+    }
+
+    &-recaptcha {
+      margin-top: 30px;
+      margin-bottom: 40px;
+      transform: scale(0.95);
+
+      @media ($bp-sm) {
+        transform: unset;
+      }
+    }
+
+    &-buttons {
+      margin-top: clamp(32px, 10vw, 40px);
+      margin-bottom: clamp(60px, 18.750vw, 60px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(18px, 5.625vw, 32px);
+
+      @media ($bp-sm) {
+        flex-direction: row;
+      }
+    }
+
+    &-agentbuttons {
+      margin-top: clamp(32px, 10vw, 40px);
+      display: flex;
+      flex-direction: column;
+
+      @media ($bp-sm) {
+        flex-direction: row;
+      }
+    }
+
+    &-button {
+      min-width: 256px;
+    }
+  }
+
+  /** End of Agent Locator Form */
+
+  /** Start of Agent success */
+  &__success {
+    text-align: center;
+
+    &-heading {
+      background-color: #f1f9fa;
+
+      &-text {
+        font-size: clamp(40px, 11.111vw, 54px);
+        line-height: clamp(48px, 13.333vw, 60px);
+        font-weight: $fw-light;
+        padding: clamp(64px, 17.778vw, 77px) 52px;
+
+        @media ($bp-md) {
+          padding: clamp(64px, 17.778vw, 77px) 0;
+        }
+      }
+    }
+
+    &-main {
+      padding: 50px 20px 82px;
+      border-bottom: 1px solid $dark-white2;
+
+      &-heading {
+        margin-top: 31px;
+        font-size: clamp(35px, 9.722vw, 40px);
+        line-height: clamp(40px, 11.111vw, 48px);
+        font-weight: $fw-light;
+        padding: 0 30px;
+
+        @media ($bp-md) {
+          margin-top: 70px;
+          padding: 0;
+        }
+      }
+
+      &-paragraph {
+        margin-top: 42px;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: $fw-regular;
+        max-width: 626px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 30px;
+
+        @media ($bp-md) {
+          margin-top: 22px;
+          padding: 0;
+        }
+      }
+
+      &-button {
+        max-width: 288px;
+        margin-top: 40px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media ($bp-md) {
+        padding-top: 80px;
+      }
+    }
+
+    &-gfx {
+      max-width: 150px;
+    }
+  }
+
+  /** End of Agent Locator Form */
+}
+
+.location {
+  margin-left: 4px;
+}
+
+.icon-info {
+  font-size: 22px !important;
+}

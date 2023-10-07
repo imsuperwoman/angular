@@ -1,0 +1,507 @@
+<form [formGroup]="customerDetailsForm" class="customer-details__form">
+  <nx-progress-stepper currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote"></nx-step>
+
+    <nx-step label="Quotation"></nx-step>
+    <nx-step label="Policyholder Details">
+      <product-stage productImage={{LOGO}} header={{HEADER}} description={{SUBHEADER}}></product-stage>
+
+      <div class="customer-details">
+        <div class="customer-details__wrapper">
+          <div class="customer-details__title">
+            Please fill in all mandatory fields. </div>
+          <br><br>
+          <div class="customer-details__note">
+            <strong> Note:</strong>
+            <br><br>
+            <div class="customer-details__note-ol" [innerHTML]="NOTE"></div>
+            <br><br>
+          </div>
+
+          <!-- ====================== hsbcCardChecking ============================-->
+          <div class="customer-details__content" *ngIf="hsbcCardChecking?.enabled">
+            <div class="customer-details__content-box" formGroupName="hsbcCardChecking">
+              <div class="customer-details__content-section">
+                <nx-label class="nx-margin-bottom-m">Are you an HSBC Malaysia Debit / Credit Cardholder and currently in Malaysia only?
+                  <icon-popover popoverMessage="This is an exclusive offer for HSBC Malaysia Debit / Credit Cardholder who is currently in Malaysia only.">
+                  </icon-popover>
+                </nx-label>
+
+                <ng-container>
+                  <nx-radio-group formControlName="hsbcCardHolder" name="myGroup">
+                    <div class="customer-details__horizontal-buttons">
+                      <nx-radio value="true" class="nx-margin-bottom-m">Yes</nx-radio>
+                      <nx-radio value="false" class="nx-margin-bottom-m" (valueChange)="hsbcCardHolderError()">No</nx-radio>
+                    </div>
+                  </nx-radio-group>
+                </ng-container>
+              </div>
+              <div class="customer-details__content-section">
+                <nx-label class="nx-margin-bottom-m">Please key in the <strong>first 6 digits</strong> of your HSBC Debit / Credit Card
+                  <icon-popover popoverMessage="This is an exclusive offer for HSBC Malaysia Debit/Credit Cardholder only. This verification process is important to help us authenticate the applicant of this plan. Premium payment shall be made via HSBC Malaysia Debit/Credit Card only.">
+                  </icon-popover>
+                </nx-label>
+
+                <ng-container>
+                  <nx-formfield label="First 6 digits">
+                    <input nxInput inputmode="numeric" formControlName="hsbcCardHolderNumber" autocomplete="off" numberOnly maxlength="6" minlength="6"
+                      (focusout)="checkHsbcCardHolderNumber()" />
+                  </nx-formfield>
+                </ng-container>
+                <nx-message context="success" *ngIf="validhsbcCard">
+                  Thank you for your verification
+                </nx-message>
+              </div>
+            </div>
+            <br>
+            <br>
+          </div>
+          <!-- ====================== hsbcCardChecking ============================-->
+
+          <nx-accordion variant="light" [multi]="true">
+            <nx-expansion-panel [expanded]="false" *ngIf="mountaineeringForm">
+              <nx-expansion-panel-header>
+                <nx-expansion-panel-title *ngIf="mountaineeringForm">
+                  <span class="customer-details__tick" *ngIf="mountaineeringForm.status !=='DISABLED'" [class.active--]="mountaineeringForm.touched || mountaineeringForm.valid">
+                    <nx-icon class="checked--" name="check-circle" size="s" *ngIf="mountaineeringForm.valid"></nx-icon>
+                    <nx-icon class="warning--" name="exclamation-triangle"
+                      *ngIf="mountaineeringForm.invalid && mountaineeringForm.touched"></nx-icon>
+                  </span>
+                  <span class="customer-details__tick" *ngIf="mountaineeringForm.status ==='DISABLED' ">
+                    <nx-icon class="checked--" name="check-circle" size="s"></nx-icon>
+                  </span> High Altitude Mountaineering details
+                </nx-expansion-panel-title>
+              </nx-expansion-panel-header>
+              <div class="customer-details__accordion-content" formGroupName="mountaineeringForm">
+                <p class="customer-details__accordion-content-info">
+                  The High Altitude Mountaineering coverage is valid for 30 days per activity.
+                </p>
+                <div nxLayout="grid ">
+                  <div nxRow>
+                    <div nxCol="12,12,5">
+                      <date-field label="Mountaineering start date" [control]="mountaineeringForm.get('startDate')" [minDate]="minDate" [maxDate]="maxDate"></date-field>
+                    </div>
+                    <!-- <div nxCol="12,12,1">
+                      <icon-popover popoverMessage="This coverage is valid for 30 days per activity.">
+                      </icon-popover>
+                    </div> -->
+                    <div nxCol="12,12,6">
+                      <date-field label="Mountaineering end date" [control]="mountaineeringForm.get('endDate')" [minDate]="endDateMinDate" [maxDate]="endDateMaxDate"></date-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nx-expansion-panel>
+            <nx-expansion-panel [expanded]="true" *ngIf="mainPolicyHolder">
+              <nx-expansion-panel-header>
+                <nx-expansion-panel-title>
+                  <table>
+                    <tr>
+                      <td class="table_tick_top">
+                        <span class="customer-details__tick" [class.active--]="mainPolicyHolder.touched || mainPolicyHolder.valid">
+                    <nx-icon class="checked--" name="check-circle" size="s" *ngIf="mainPolicyHolder.valid"></nx-icon>
+                    <nx-icon class="warning--" name="exclamation-triangle"
+                      *ngIf="mainPolicyHolder.invalid && mainPolicyHolder.touched"></nx-icon>
+                  </span>
+                      </td>
+                      <td>
+                        Traveller 1 details - Main policyholder ({{mainPolicyHolder.get('mainPolicyholderLabel')?.value}})
+                      </td>
+                    </tr>
+                  </table>
+                </nx-expansion-panel-title>
+              </nx-expansion-panel-header>
+              <div class="customer-details__accordion-content" formGroupName="mainPolicyHolder">
+                <div nxLayout="grid">
+                  <div nxRow>
+                    <div nxCol="12,12,6" *ngIf="mainPolicyHolder.get('mainPolicyholderSport')?.value">
+                      <nx-checkbox class="nx-margin-bottom-s" [checked]="true" [disabled]="true">
+                        Additional Sports coverage
+                      </nx-checkbox>
+                    </div>
+                    <div nxCol="12,12,6" *ngIf="mainPolicyHolder.get('mainPolicyholderMount')?.value">
+                      <nx-checkbox class="nx-margin-bottom-s" [checked]="true" [disabled]="true">
+                        Additional High Altitude Mountaineering coverage
+                      </nx-checkbox>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12">
+                      <nx-formfield label="Full name as per ID">
+                        <input nxInput formControlName="fullname" inputCapitalization />
+                        <nx-error nxFormfieldError>
+                          Please enter the full name.
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="ID type">
+                        <nx-dropdown required (selectionChange)="idTypeChange($event)" formControlName="idType">
+                          <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                            {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                        <nx-error nxFormfieldError> Please choose ID type. </nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="ID no.">
+                        <input nxInput validateMask="false" [nxMask]="
+                          mainPolicyHolder.get('idType')?.value ===
+                              'NRIC'
+                                ? '000000-00-0000'
+                                : 'AAAAAAAAAAAAAAAAAAAA'
+                            " formControlName="idNo" autocomplete="off" required />
+                        <nx-error nxFormfieldError>{{ getIdNo.errors?.message }}
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12,12,6">
+                      <date-field label="Date of birth" [control]="mainPolicyHolder.get('dob')" [minDate]="minDateDOB" [maxDate]="maxDateDOB"></date-field>
+                    </div>
+                    <div nxCol="12,12,6" class="nx-margin-bottom-m">
+                      <p nxCopytext="medium">Gender</p>
+                      <nx-radio-toggle formControlName="gender" nxStyle="statistics-toggle">
+                        <nx-radio-toggle-button [value]="'F'" class=" toggle">FEMALE</nx-radio-toggle-button>
+                        <nx-radio-toggle-button [value]="'M'" class=" toggle">MALE</nx-radio-toggle-button>
+                      </nx-radio-toggle>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12">
+                      <nx-formfield label="Nationality">
+                        <nx-dropdown formControlName="nationality">
+                          <nx-dropdown-item *ngFor="let nation of (nationality$ | async)" [value]="nation.Code">
+                            {{nation.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12">
+                      <nx-formfield label="Parent/Guardian name as per ID" *ngIf="mainPolicyHolder.get('guardianName')?.enabled">
+                        <input nxInput formControlName="guardianName" required inputCapitalization />
+                        <nx-error nxFormfieldError>
+                          Please enter the full name.
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="Parent/Guardian ID type" *ngIf="mainPolicyHolder.get('guardianName')?.enabled">
+                        <nx-dropdown required (selectionChange)="idTypeChange($event)" formControlName="guardianIdType">
+                          <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                            {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                        <nx-error nxFormfieldError> Please choose ID type. </nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="Parent/Guardian ID no." *ngIf="mainPolicyHolder.get('guardianName')?.enabled">
+                        <input nxInput validateMask="false" [nxMask]="
+                          mainPolicyHolder.get('guardianIdType')?.value ===
+                              'NRIC'
+                                ? '000000-00-0000'
+                                : 'AAAAAAAAAAAAAAAAAAAA'
+                            " formControlName="guardianIdNo" autocomplete="off" required />
+                        <nx-error nxFormfieldError>{{ getGuardianIdNo.errors?.message }}
+                        </nx-error>
+                      </nx-formfield>
+
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12">
+                      <div nxLayout="grid nogutters">
+                        <div class="customer-details__content-input phone--">
+                          <nx-formfield label="Mobile No." class="country">
+                            <nx-dropdown formControlName="phonePrefix">
+                              <nx-dropdown-item *ngFor="let mobilePrefix of (mobilePrefix$|async)" [value]="mobilePrefix.Description"></nx-dropdown-item>
+                            </nx-dropdown>
+                          </nx-formfield>
+                          <nx-formfield label="" class="number">
+                            <input nxInput inputmode="numeric" required numberOnly formControlName="phoneNo" minlength="7" maxlength="8" autocomplete="off"
+                              (focusout)="checkUserInfo('mobile');" />
+                            <nx-error nxFormfieldError> Please enter your phone no. </nx-error>
+                          </nx-formfield>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12" *ngIf="!hasStaffEmail">
+                      <nx-formfield label="Email address">
+                        <input nxInput required type="email" formControlName="email" autocomplete="off" (focusout)="checkUserInfo('email');" />
+                        <nx-error nxFormfieldError> {{mainPolicyHolder.get('email')?.errors?.message}} </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxLayout="grid nogutters" class="nopadding" *ngIf="hasStaffEmail">
+                    <div nxRow rowAlignItems="center">
+                      <div nxCol="6,6,6,5">
+                        <nx-formfield label="Email address">
+                          <input nxInput required type="email" formControlName="email" (focusout)="checkUserInfo('staffEmail');" />
+                          <nx-error nxFormfieldError> {{mainPolicyHolder.get('email')?.errors?.message}} </nx-error>
+                        </nx-formfield>
+                      </div>
+                      <div nxCol="6,6,6,7">
+                        <p>{{productConfig$?.voucherEmailDomain}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container formGroupName="address">
+                    <div nxRow>
+                      <div nxCol="12">
+                        <nx-formfield label="Address line 1">
+                          <input nxInput formControlName="line1" oninput="this.value = this.value.toUpperCase()" />
+                          <nx-error nxFormfieldError>
+                            Please enter Address line 1.
+                          </nx-error>
+                        </nx-formfield>
+                      </div>
+                    </div>
+                    <div nxRow>
+                      <div nxCol="12">
+                        <nx-formfield label="Address line 2 (optional)">
+                          <input nxInput formControlName="line2" oninput="this.value = this.value.toUpperCase()" />
+                        </nx-formfield>
+                      </div>
+                    </div>
+                    <div nxRow>
+                      <div nxCol="12">
+                        <nx-formfield label="Address line 3 (optional)">
+                          <input nxInput formControlName="line3" oninput="this.value = this.value.toUpperCase()" />
+                        </nx-formfield>
+                      </div>
+                    </div>
+                    <div nxRow>
+                      <div nxCol="12,12,4">
+                        <nx-formfield label="Postcode">
+                          <input nxInput inputmode="numeric" type="text" formControlName="postcode" autocomplete="off" numberOnly maxlength="5" minlength="5"
+                            (change)="getPostCodeDetails()" />
+                          <nx-error nxFormfieldError>{{ mainPolicyHolder.get('address')?.get('postcode')?.errors?.message }}
+                          </nx-error>
+                        </nx-formfield>
+                      </div>
+                      <div nxCol="12,12,4">
+                        <nx-formfield label="City">
+                          <input nxInput formControlName="city" />
+                        </nx-formfield>
+                      </div>
+                      <div nxCol="12,12,4">
+                        <nx-formfield label="State">
+                          <input nxInput formControlName="state" />
+                        </nx-formfield>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <div class="customer-details__input-row" *ngFor="let field of fields">
+                    <div class="column">
+                      <nx-formfield [label]="field.name">
+                        <div *ngIf="field.type ==='numeric'">
+                          <input nxInput [formControlName]="field.id" inputmode="numeric" numberOnly autocomplete="off" [maxlength]="field.maxlength"
+                          />
+                        </div>
+                        <div *ngIf="field.type !=='numeric'">
+                          <input nxInput [formControlName]="field.id" autocomplete="off" [maxlength]="field.maxlength" />
+                        </div>
+                        <nx-error nxFormfieldError *ngIf="field.iButtonMssge !== ''">{{field.iButtonMssge}}
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div class="column formfield gender--">
+                      <icon-popover popoverMessage={{field.additionalInfo}} *ngIf="field.additionalInfo !== '' ">
+                      </icon-popover>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div nxRow>
+                <div nxCol="12 nx-margin-b-ne-m">
+                  <hr class="nx-margin-y-m">
+                </div>
+              </div> -->
+            </nx-expansion-panel>
+
+            <div formArrayName="travellerArrayForm" *ngFor="let traveller of travellerArrayLength; let i = index">
+              <nx-expansion-panel [expanded]="false" *ngIf="travellerArrayForm.at(i)">
+                <nx-expansion-panel-header>
+                  <nx-expansion-panel-title>
+                    <table>
+                      <tr>
+                        <td class="table_tick_top">
+                          <span class="customer-details__tick" [class.active--]="travellerArrayForm.at(i).touched ||travellerArrayForm.at(i).valid">
+                      <nx-icon class="checked--" name="check-circle" size="s"
+                        *ngIf="travellerArrayForm.at(i).valid"></nx-icon>
+                      <nx-icon class="warning--" name="exclamation-triangle"
+                        *ngIf="travellerArrayForm.at(i).invalid && travellerArrayForm.at(i).touched"></nx-icon>
+                    </span>
+                        </td>
+                        <td>
+                          Traveller {{i +2}} details - {{travellerArrayForm.at(i).get('travellerLabel')?.value}}                          
+                        </td>
+                      </tr>
+                    </table>
+                  </nx-expansion-panel-title>
+                </nx-expansion-panel-header>
+                <div nxLayout="grid" [formGroupName]="i">
+                  <div nxRow>
+                    <div nxCol="12,12,6" *ngIf="travellerArrayForm.at(i).get('travellerSport')?.value">
+                      <nx-checkbox class="nx-margin-bottom-s" [checked]="true" [disabled]="true">
+                        Additional Sports coverage
+                      </nx-checkbox>
+                    </div>
+                    <div nxCol="12,12,6" *ngIf="travellerArrayForm.at(i).get('travellerMount')?.value">
+                      <nx-checkbox class="nx-margin-bottom-s" [checked]="true" [disabled]="true">
+                        Additional High Altitude Mountaineering coverage
+                      </nx-checkbox>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12">
+                      <nx-formfield label="Full name as per ID">
+                        <input nxInput formControlName="fullname" inputCapitalization />
+                        <nx-error nxFormfieldError>
+                          Please enter the full name.
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="ID type">
+                        <nx-dropdown required (selectionChange)="idTypeChange($event)" formControlName="idType" (selectionChange)="idTypeTravellerArrayChange($event ,i)">
+                          <nx-dropdown-item *ngFor="let custIDType of (custIDType$|async)" [value]="custIDType.Code">
+                            {{custIDType.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                        <nx-error nxFormfieldError> Please choose ID type. </nx-error>
+                      </nx-formfield>
+                    </div>
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="ID no.">
+                        <input nxInput validateMask="false" [nxMask]="
+                        travellerArrayForm.at(i).get('idType')?.value ===
+                              'NRIC'
+                                ? '000000-00-0000'
+                                : 'AAAAAAAAAAAAAAAAAAAA'
+                            " formControlName="idNo" autocomplete="off" required />
+                        <nx-error nxFormfieldError>{{ travellerArrayForm.at(i).get('idNo')?.errors?.message }}
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <div nxRow>
+                    <div nxCol="12,12,6">
+                      <date-field label="Date of birth" [control]="travellerArrayForm.at(i).get('dob')" [minDate]="travellerArrayForm.at(i).get('ageMinTrPass')?.value"
+                        [maxDate]="travellerArrayForm.at(i).get('ageMaxTrPass')?.value"></date-field>
+                    </div>
+                    <div nxCol="12,12,6">
+                      <p nxCopytext="medium">Gender</p>
+                      <nx-radio-toggle formControlName="gender" nxStyle="statistics-toggle">
+                        <nx-radio-toggle-button [value]="'F'" class=" toggle">FEMALE</nx-radio-toggle-button>
+                        <nx-radio-toggle-button [value]="'M'" class=" toggle">MALE</nx-radio-toggle-button>
+                      </nx-radio-toggle>
+                    </div>
+                  </div>
+                  <div nxRow *ngIf="trgrpcode == 'fm'; else multiTravellerblock">
+                    <div nxCol="12,12,6">
+                      <nx-formfield label="Nationality">
+                        <nx-dropdown formControlName="nationality" nxValue="my">
+                          <nx-dropdown-item *ngFor="let nation of (nationality$ | async)" [value]="nation.Code">
+                            {{nation.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+                    </div>
+                    <div nxCol="12,12,6" *ngIf="travellerArrayForm.at(i).get('ageRange')?.value === 'A'">
+                      <nx-formfield label="Relationship">
+                        <nx-dropdown formControlName="relationship">
+                          <nx-dropdown-item *ngFor="let relationship of ADULT_RELATIONSHIP" [value]="relationship.Code">
+                            {{relationship.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+                    </div>
+                    <div nxCol="12,12,6" *ngIf="travellerArrayForm.at(i).get('ageRange')?.value === 'C'">
+                      <nx-formfield label="Relationship">
+                        <nx-dropdown formControlName="relationship">
+                          <nx-dropdown-item *ngFor="let relationship of CHILD_RELATIONSHIP" [value]="relationship.Code">
+                            {{relationship.Description}}</nx-dropdown-item>
+                        </nx-dropdown>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                  <ng-template #multiTravellerblock>
+                    <div nxRow>
+                      <div nxCol="12">
+                        <nx-formfield label="Nationality">
+                          <nx-dropdown formControlName="nationality" nxValue="my">
+                            <nx-dropdown-item *ngFor="let nation of (nationality$ | async)" [value]="nation.Code">
+                              {{nation.Description}}</nx-dropdown-item>
+                          </nx-dropdown>
+                        </nx-formfield>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <div nxRow>
+                    <div nxCol="12,12,6">
+                      <p nxCopytext="normal">Mobile No. (optional)</p>
+                      <div nxLayout="grid nogutters" class="nopadding">
+                        <div nxRow>
+                          <div nxCol="4">
+                            <nx-formfield class="country">
+                              <nx-dropdown formControlName="phonePrefix">
+                                <nx-dropdown-item *ngFor="let mobilePrefix of (mobilePrefix$|async)" [value]="mobilePrefix.Description"></nx-dropdown-item>
+                              </nx-dropdown>
+                            </nx-formfield>
+                          </div>
+                          <div nxCol="8">
+                            <nx-formfield class="number">
+                              <input nxInput inputmode="numeric" numberOnly formControlName="phoneNo" minlength="7" maxlength="8" autocomplete="off" />
+                              <nx-error nxFormfieldError> Please enter your phone no. </nx-error>
+                            </nx-formfield>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div nxCol="12,12,6">
+                      <br>
+                      <nx-formfield label="Email address (optional)">
+                        <input nxInput type="email" formControlName="email" autocomplete="off" />
+                        <nx-error nxFormfieldError> {{travellerArrayForm.at(i).get('email')?.errors?.message}}
+                        </nx-error>
+                      </nx-formfield>
+                    </div>
+                  </div>
+                </div>
+              </nx-expansion-panel>
+            </div>
+            <nx-expansion-panel-nomi [customerDetailsForm]="customerDetailsForm"></nx-expansion-panel-nomi>
+
+          </nx-accordion>
+        </div>
+      </div>
+      <div class="customer-details__buttons ">
+        <button class="customer-details__button" nxButton="secondary" routerLink="/quotation" type="button" queryParamsHandling="preserve">
+          BACK
+        </button>
+        <button class="customer-details__button" nxButton="primary" type="button" [disabled]="customerDetailsForm.invalid" (click)="proceedNext();spinnerOverlayService.showLoadOverlay()">Next
+        </button>
+      </div>
+    </nx-step>
+    <nx-step label="Policy Summary & Payment"></nx-step>
+  </nx-progress-stepper>
+</form>
+
+<shared-dialog #commonErrorDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription" [buttonText]="'CLOSE'"></shared-dialog>
+
+<shared-dialog #hsbcCardHolderDialog [header]="hsbcCardHolderHeader" [description]="hsbcCardHolderDescription" [link]="'https://www.hsbc.com.my/credit-cards'"
+  [buttonText]="'CLOSE'">
+</shared-dialog>
+
+<shared-dialog #leaveMyDetailsDialog [header]="commonErrorDialogHeader" [description]="commonErrorDescription" [routingPath]="'/leave-details'"
+  [buttonText]="'LEAVE MY DETAILS'">
+</shared-dialog>

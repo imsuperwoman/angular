@@ -1,0 +1,12 @@
+<nx-progress-stepper class="wide--" currentStepLabel="Step" #stepper>
+    <nx-step label="Get a Quote">
+        <shared-app-leave-details (leaveDetailsEvent)="receiveLeaveDetails($event)" [header]='HEADER'
+            [subheader]='SUBHEADER' [logo]='LOGO'></shared-app-leave-details>
+
+        <hr class="leave-my-details__divider">
+    </nx-step>
+    <nx-step label="Quotation"></nx-step>
+    <nx-step *ngIf="!activePartner" label="Find An Agent"></nx-step>
+    <nx-step *ngIf="activePartner" label="Policyholder Details"></nx-step>
+    <nx-step *ngIf="activePartner" label="Policy Summary & Payment"></nx-step>
+</nx-progress-stepper>

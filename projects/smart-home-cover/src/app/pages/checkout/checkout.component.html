@@ -1,0 +1,210 @@
+<ng-template #spinner>
+  <div class="spinner">
+    <nx-spinner nxSize="medium"></nx-spinner>
+  </div>
+</ng-template>
+
+<nx-progress-stepper class="checkout__stepper" currentStepLabel="Step" #stepper>
+  <nx-step label="Get A Quote" *ngIf="!renewal$"></nx-step>
+  <nx-step label="Policy Details" *ngIf="renewal$"></nx-step>
+  <nx-step label="Coverage Details"></nx-step>
+  <nx-step label="Policyholder Details"></nx-step>
+  <nx-step label="Policy Summary & Payment">
+    <product-stage productImage="smart-home-cover-logo.png" header="Smart Home Cover"
+      description="A new kind of home insurance">
+    </product-stage>
+
+    <div class="checkout">
+      <div class="checkout__review" *ngIf="paymentStatus == undefined" [formGroup]="policySummaryPaymentForm">
+        <h2 class="checkout__review-header">Review and pay</h2>
+        <p class="checkout__review-instruction">
+          Please review your coverage details and ensure they're correct before proceeding to
+          payment.
+        </p>
+        <div class="checkout__review-grid">
+          <div class="checkout__review-grid-left">
+            <!-- Property details-->
+            <div class="checkout__review-grid-left-section">
+              <h3 class="checkout__review-grid-left-section-header">Property Details</h3>
+              <hr />
+
+              <div class="checkout__review-grid-left-section-subsection">
+                <div class="checkout__review-grid-left-section-body" *ngFor="let section of propertyDetails">
+                  <p class="checkout__review-grid-left-section-body-left">{{ section.label }}</p>
+                  <p class="checkout__review-grid-left-section-body-right" [innerHTML]="section.value"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer details-->
+            <div class="checkout__review-grid-left-section">
+              <h3 class="checkout__review-grid-left-section-header">Customer Details</h3>
+              <hr />
+
+              <div class="checkout__review-grid-left-section-subsection">
+                <div class="checkout__review-grid-left-section-body" *ngFor="let section of customerDetails">
+                  <p class="checkout__review-grid-left-section-body-left">{{ section.label }}</p>
+                  <p class="checkout__review-grid-left-section-body-right"
+                    [class.lowercase--]="section.label === 'Email address'" [innerHTML]="section.value"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Financial interest details-->
+            <div class="checkout__review-grid-left-section" *ngIf="step3Data$?.mortgage !== undefined">
+              <h3 class="checkout__review-grid-left-section-header">Financial Interest Details</h3>
+              <hr />
+
+              <div class="checkout__review-grid-left-section-subsection">
+                <div>
+                  <p class="checkout__review-grid-left-section-subheader">
+                    Financial Interest
+                  </p>
+                </div>
+
+                <div class="checkout__review-grid-left-section-body"
+                  *ngFor="let detail of financialInterestDetails, let j = index">
+                  <p class="checkout__review-grid-left-section-body-left" *ngIf="detail.value!=''">{{ detail.label }}
+                  </p>
+                  <p *ngIf="detail.label != 'Bank\'s email'" class="checkout__review-grid-left-section-body-right value"
+                    [innerHTML]="detail.value"></p>
+                  <p *ngIf="detail.label == 'Bank\'s email'" style="text-transform:lowercase;"
+                    class="checkout__review-grid-left-section-body-right value" [innerHTML]="detail.value"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Combine names-->
+            <div class="checkout__review-grid-left-section" *ngIf="combineNamesDetails.length > 0 ">
+              <h3 class="checkout__review-grid-left-section-header">Combine Names</h3>
+              <hr />
+
+              <div class="checkout__review-grid-left-section-subsection"
+                *ngFor="let details of combineNamesDetails; let i = index">
+                <div>
+                  <p class="checkout__review-grid-left-section-subheader">Joint name {{ i + 1 }}</p>
+                </div>
+
+                <div class="checkout__review-grid-left-section-body" *ngFor="let detail of details">
+                  <p class="checkout__review-grid-left-section-body-left">{{ detail.label }}</p>
+                  <p class="checkout__review-grid-left-section-body-right value" [innerHTML]="detail.value"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="checkout__review-grid-right">
+            <div class="checkout__review-grid-right-header">Quotation Summary</div>
+            <div class="checkout__review-grid-right-upper">
+              <div class="checkout__review-grid-right-body upper--">
+                <p class="checkout__review-grid-right-body-left">Reference no.</p>
+                <p class="checkout__review-grid-right-body-right">
+                  {{ quoteNumber$ | async }}
+                </p>
+              </div>
+              <div class="checkout__review-grid-right-body upper--">
+                <p class="checkout__review-grid-right-body-left">Product</p>
+                <p class="checkout__review-grid-right-body-right">
+                  {{ productName }}
+                </p>
+              </div>
+              <div class="checkout__review-grid-right-body upper--">
+                <p class="checkout__review-grid-right-body-left">Period of insurance</p>
+                <p class="checkout__review-grid-right-body-right" *ngIf="(coverageType$ | async) == 'AN'">
+                  1 year
+                </p>
+                <p class="checkout__review-grid-right-body-right" *ngIf="(coverageType$ | async) == 'MY'">
+                  3 years
+                </p>
+              </div>
+            </div>
+            <div class="checkout__review-grid-right-plans">
+              <ng-container *ngFor="let product of planRecommendation$ | async">
+                <div class="checkout__review-grid-right-body plans--" *ngIf="product.selectedIndicator">
+                  <p class="checkout__review-grid-right-body-left">
+                    {{ product.description }}
+                  </p>
+                  <p class="checkout__review-grid-right-body-right">
+                    {{ product.displayPremium | currency: 'RM ' }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+            <div class="checkout__review-grid-right-summary">
+              <div class="checkout__review-grid-right-body summary--">
+                <p class="checkout__review-grid-right-body-left" *ngIf="(premium$ | async)?.minPremiumInd === false">
+                  Premium due</p>
+                <p class="checkout__review-grid-right-body-left" *ngIf="(premium$ | async)?.minPremiumInd === true">
+                  Minimum premium due</p>
+                <p class="checkout__review-grid-right-body-right">
+                  {{ (premium$ | async)?.grossPremium| currency: 'RM ' }}
+                </p>
+              </div>
+              <div class="checkout__review-grid-right-body summary--">
+                <p class="checkout__review-grid-right-body-left">
+                  Service tax ({{ (premium$ | async)?.serviceTaxPercentage }}%)
+                </p>
+                <p class="checkout__review-grid-right-body-right">
+                  {{ (premium$ | async)?.serviceTaxAmount | currency: 'RM ' }}
+                </p>
+              </div>
+              <div class="checkout__review-grid-right-body summary--" *ngIf="(premium$ | async)?.rebateAmt">
+                <p class="checkout__review-grid-right-body-left">[Rebate]</p>
+                <p class="checkout__review-grid-right-body-right">
+                  [ {{ (premium$ | async)?.rebateAmt | currency: 'RM ' }} ]
+                </p>
+              </div>
+              <div class="checkout__review-grid-right-body summary--">
+                <p class="checkout__review-grid-right-body-left">Stamp duty</p>
+                <p class="checkout__review-grid-right-body-right">
+                  {{ (premium$ | async)?.stampDuty | currency: 'RM ' }}
+                </p>
+              </div>
+            </div>
+
+            <p class="checkout__review-grid-right-total">
+              Premium payable:
+              {{ (premium$ | async)?.premiumDueRounded | currency: 'RM ' }}
+            </p>
+            <p class="checkout__review-grid-right-note">
+              Note: Upon your successful purchase,<br />you will receive your policy via e-mail.
+            </p>
+          </div>
+        </div>
+        <nx-checkbox class="checkout__review-readPrivacy" formControlName="policyAgreed" required>
+          <p class="checkout__review-readPrivacy-body">
+            I have read
+            <a target="_blank" [href]="privacylink">Allianz Malaysia's Privacy Statement</a>
+            and agree to provide my personal contact details to enable you to contact me for the
+            purposes of this Quotation and to receive future marketing/promotions from Allianz. I
+            understand that I can choose to unsubscribe at any time if I no longer wish to receive
+            any marketing/promotions from Allianz by writing to
+            <a href="mailto:customer.service@allianz.com.my">customer.service@allianz.com.my</a>.
+          </p>
+        </nx-checkbox>
+
+        <div class="checkout__review-recaptcha" *ngIf="recaptchaEnabled$ === 'Y'">
+          <div nbRecaptcha [key]="recaptchaKey" formControlName="recaptcha"></div>
+        </div>
+      </div>
+
+      <div class="checkout__buttons renewal">
+        <button class="checkout__button" nxButton="secondary" type="button" queryParamsHandling="preserve"
+          routerLink="/customer-details">
+          BACK
+        </button>
+        <button class="checkout__button" nxButton="primary" type="button" (click)="openPaymentDialog('mobile-full')"
+          [disabled]="policySummaryPaymentForm.invalid">
+          PAY NOW
+        </button>
+      </div>
+    </div>
+  </nx-step>
+</nx-progress-stepper>
+
+<payment-dialog #paymentDialogModal returnUrl="customer-details" alignType="2">
+</payment-dialog>
+
+
+<!-- <payment-razer-dialog #paymentRazerDialogModal returnUrl="customer-details" alignType="2">
+</payment-razer-dialog> -->
